@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Il Fisioterapista – San Marino</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #FEFCF9;
+      --bg2:        #FBF7F2;
+      --bg3:        #F5EFE6;
+      --warm:       #EDE4D8;
+      --line:       #E2D8CC;
+      --accent:     #B07D55;
+      --accent-soft:#C9A07A;
+      --text:       #2C2420;
+      --text-mid:   #6B5E55;
+      --text-light: #A8998F;
+      --green-soft: #7A9E87;
+
+      --font-serif: 'Lora', Georgia, serif;
+      --font-sans:  'Nunito', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; object-fit: cover; }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(254,252,249,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      transition: padding 0.3s;
+    }
+
+    .nav-logo {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    .nav-logo span { color: var(--accent); font-style: italic; }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent) !important;
+      color: #fff !important;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 0.85rem !important;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--accent-soft) !important; }
+
+    /* ── HERO ────────────────────────────────────────────────── */
+    #home {
+      min-height: 100vh;
+      padding-top: 80px;
+      display: flex;
+      align-items: center;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-blob {
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #EDE4D8 0%, transparent 70%);
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .hero-blob2 {
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #E8EFE2 0%, transparent 70%);
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 48px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #EFF5EC;
+      border-radius: 50px;
+      padding: 6px 16px 6px 10px;
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green-soft);
+    }
+
+    .hero-eyebrow span {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--green-soft);
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .hero-title em { font-style: italic; color: var(--accent); }
+
+    .hero-body {
+      font-size: 1.08rem;
+      font-weight: 300;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-warm {
+      background: var(--accent);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-warm:hover { background: var(--accent-soft); transform: translateY(-1px); }
+
+    .btn-ghost {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+
+    .btn-ghost:hover { gap: 10px; }
+
+    .hero-img-col { position: relative; }
+
+    .hero-photo-wrap {
+      border-radius: 40% 60% 55% 45% / 45% 40% 60% 55%;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      background: var(--warm);
+      position: relative;
+    }
+
+    .hero-photo-wrap .ph {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #F5EFE6 0%, #E2D8CC 50%, #D2B48C 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+    }
+
+    .ph-label {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      opacity: 0.6;
+    }
+
+    .hero-float-card {
+      position: absolute;
+      bottom: 30px;
+      left: -40px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 18px 24px;
+      box-shadow: 0 8px 40px rgba(44,36,32,0.10);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      animation: float 6s ease-in-out infinite 0.8s;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.4s ease;
+    }
+
+    .float-icon {
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      background: #EFF5EC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .float-text-top { font-size: 0.78rem; font-weight: 400; color: var(--text-light); }
+    .float-text-main { font-family: var(--font-serif); font-size: 1rem; font-weight: 500; color: var(--text); }
+
+    .hero-float-card2 {
+      position: absolute;
+      top: 40px; right: -30px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px 20px;
+      box-shadow: 0 6px 30px rgba(44,36,32,0.09);
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.4s ease;
+    }
+
+    .float2-stars { color: #D4A843; font-size: 0.9rem; letter-spacing: 2px; }
+    .float2-text { font-size: 0.78rem; color: var(--text-mid); margin-top: 4px; font-weight: 400; }
+
+    .hero-float-card,
+    .hero-float-card2 {
+      cursor: default;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .hero-photo-wrap {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-float-card {
+      animation: float 6s ease-in-out infinite 0.8s;
+    }
+
+    .hero-float-card2 {
+      animation: float 6s ease-in-out infinite 1.6s;
+    }
+
+    /* ── PONTE ───────────────────────────────────────────────── */
+    .ponte {
+      background: var(--bg2);
+      padding: 80px 48px;
+      text-align: center;
+    }
+
+    .ponte-inner { max-width: 720px; margin: 0 auto; }
+
+    .ponte-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .ponte-sub {
+      line-height: 1.8;
+    }
+
+    .char {
+      display: inline-block;
+      opacity: 0;
+    }
+    .char.visible {
+      opacity: 1;
+    }
+
+    /* ── SECTION SHARED ──────────────────────────────────────── */
+    .section { padding: 100px 48px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .pill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg3);
+      border-radius: 50px;
+      padding: 5px 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .s-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .s-title em { font-style: italic; color: var(--accent); }
+
+    .s-body {
+      font-size: 1.02rem;
+      color: var(--text-mid);
+      font-weight: 300;
+      line-height: 1.85;
+    }
+
+    /* ── APPROCCIO ──────────────────────────────────────────── */
+    #approccio { background: var(--bg); }
+
+    .approccio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .approccio-text .s-body { margin-bottom: 20px; }
+
+    .pullquote {
+      margin: 32px 0;
+      padding: 28px 32px;
+      background: var(--bg3);
+      border-radius: 20px;
+      border-left: 4px solid var(--accent-soft);
+    }
+
+    .pullquote p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.18rem;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .approccio-photo {
+      border-radius: 30px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      background: var(--warm);
+      position: relative;
+    }
+
+    .approccio-photo .ph {
+      width: 100%; height: 100%;
+      background: linear-gradient(145deg, #EBE2D6 0%, #D4C4B0 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 28px;
+    }
+
+    .approccio-img-wrap { position: relative; }
+
+    .mini-card {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 20px 24px;
+      box-shadow: 0 8px 32px rgba(44,36,32,0.10);
+      text-align: center;
+    }
+
+    .mini-card-num {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .mini-card-label { font-size: 0.75rem; color: var(--text-light); margin-top: 4px; }
+
+    /* ── PERCORSO ───────────────────────────────────────────── */
+    #percorso { background: var(--bg2); }
+
+    .percorso-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: end;
+      margin-bottom: 64px;
+    }
+
+    .tl-list { display: flex; flex-direction: column; }
+
+    .tl-item {
+      position: relative;
+      overflow: hidden;
+      padding: 24px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tl-item:last-child { border-bottom: none; }
+
+    .filigrana {
+      position: absolute;
+      left: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 5.5rem;
+      font-style: italic;
+      font-weight: 700;
+      color: transparent;
+      transition: color 0.35s ease, left 0.35s ease;
+      pointer-events: none;
+      line-height: 1;
+      z-index: 1;
+      white-space: nowrap;
+      font-family: var(--font-serif);
+    }
+    .tl-item:hover .filigrana {
+      color: rgba(176, 125, 85, 0.09);
+      left: 8px;
+    }
+    .tl-item:hover .tl-title {
+      color: #B07D55;
+      transition: color 0.3s;
+    }
+    .tl-content { position: relative; z-index: 2; }
+
+    .tl-year {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-style: italic;
+      color: var(--accent-soft);
+      line-height: 1.2;
+      padding-top: 4px;
+    }
+
+    .tl-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .tl-text {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* ── COME LAVORO ────────────────────────────────────────── */
+    #come-lavoro { background: var(--bg); }
+
+    .cl-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 64px;
+    }
+
+    .cl-header .s-body { margin-top: 16px; }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .step-card {
+      background: var(--bg2);
+      border-radius: 24px;
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(44,36,32,0.09);
+    }
+
+    .step-emoji { font-size: 2.4rem; margin-bottom: 20px; display: block; }
+
+    .step-num {
+      position: absolute;
+      top: 24px; right: 28px;
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      font-weight: 400;
+      color: var(--warm);
+      line-height: 1;
+    }
+
+    .step-title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .step-text {
+      font-size: 0.93rem;
+      color: var(--text-mid);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* ── STORIE ─────────────────────────────────────────────── */
+    #storie { background: var(--bg2); }
+
+    .storie-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+    }
+
+    .storie-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 20px;
+    }
+
+    .storia-card {
+      background: var(--bg);
+      border-radius: 24px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .storia-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(44,36,32,0.09);
+    }
+
+    .storia-img .ph {
+      background: linear-gradient(145deg, var(--bg3) 0%, var(--warm) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .storia-body { padding: 24px 28px 32px; }
+
+    .storia-pill {
+      display: inline-block;
+      background: var(--bg3);
+      border-radius: 50px;
+      padding: 3px 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .storia-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    .storia-excerpt {
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* Article Modal */
+    .article-modal {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(44, 36, 32, 0.4);
+      backdrop-filter: blur(8px);
+      z-index: 10000;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .article-modal.active { opacity: 1; pointer-events: all; }
+    .modal-inner {
+      background: var(--bg);
+      width: 100%;
+      max-width: 800px;
+      max-height: 90vh;
+      border-radius: 32px;
+      position: relative;
+      overflow-y: auto;
+      padding: 0; /* Padding rimosso qui per gestirlo nell'header e nel body */
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      transform: translateY(30px);
+      transition: transform 0.4s ease;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;  /* IE and Edge */
+    }
+    .modal-inner::-webkit-scrollbar { display: none; }
+
+    .modal-header-sticky {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      padding: 50px 50px 20px;
+      z-index: 100;
+      border-bottom: 1px solid transparent;
+      transition: border-bottom 0.3s;
+    }
+    .modal-inner.scrolled .modal-header-sticky {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .article-modal.active .modal-inner { transform: translateY(0); }
+    .close-modal {
+      position: absolute;
+      top: 24px; right: 24px;
+      width: 44px; height: 44px;
+      background: var(--bg3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background 0.2s;
+    }
+    .close-modal:hover { background: var(--warm); }
+    .modal-pill { margin-bottom: 20px; }
+    .modal-title { font-family: var(--font-serif); font-size: 2.2rem; line-height: 1.25; margin-bottom: 24px; color: var(--text); }
+    .modal-body { font-size: 1.05rem; line-height: 1.8; color: var(--text-mid); font-weight: 300; }
+    .modal-body p { margin-bottom: 20px; }
+    .storie-grid .storia-card.hidden { display: none; }
+
+    /* Archive Modal */
+    .archive-modal {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(44, 36, 32, 0.6);
+      backdrop-filter: blur(12px);
+      z-index: 9998;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    .archive-modal.active { opacity: 1; pointer-events: all; }
+    .archive-inner {
+      background: var(--bg2);
+      width: 100%;
+      max-width: 1000px;
+      max-height: 85vh;
+      border-radius: 40px;
+      position: relative;
+      overflow-y: auto;
+      padding: 0; /* Padding rimosso qui */
+      box-shadow: 0 30px 90px rgba(0,0,0,0.25);
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .archive-inner::-webkit-scrollbar { display: none; }
+
+    .archive-header-sticky {
+      position: sticky;
+      top: 0;
+      background: var(--bg2);
+      padding: 60px 60px 20px;
+      z-index: 100;
+      text-align: center;
+      border-bottom: 1px solid transparent;
+      transition: border-bottom 0.3s;
+    }
+    .archive-inner.scrolled .archive-header-sticky {
+      border-bottom: 1px solid var(--line);
+    }
+    .archive-header { margin-bottom: 48px; text-align: center; }
+    .archive-grid-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .archive-close {
+      position: absolute;
+      top: 30px; right: 30px;
+      width: 50px; height: 50px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      z-index: 10;
+    }
+
+    /* ── RECENSIONI ─────────────────────────────────────────── */
+    #recensioni { background: var(--bg3); }
+
+    .rec-header { text-align: center; margin-bottom: 56px; }
+
+    .rec-score-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border-radius: 50px;
+      padding: 8px 20px 8px 14px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 12px rgba(44,36,32,0.07);
+    }
+
+    .g-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #4285F4, #EA4335, #FBBC04, #34A853);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .rec-stars { color: #D4A843; font-size: 1rem; letter-spacing: 2px; }
+
+    .rec-score-num {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .rec-grid {
+      display: flex;
+      gap: 20px;
+      padding: 10px 0;
+      width: max-content;
+      animation: marquee 40s linear infinite;
+    }
+
+    .rec-grid:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .rec-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 36px 32px;
+      width: 350px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 20px rgba(44,36,32,0.05);
+    }
+
+    .rec-card:hover { transform: translateY(-3px); }
+
+    .rec-card-stars { color: #D4A843; font-size: 0.9rem; letter-spacing: 3px; margin-bottom: 16px; }
+
+    .rec-text {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .rec-author {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-light);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── PRENOTA ────────────────────────────────────────────── */
+    #prenota { background: var(--bg); }
+
+    .prenota-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .prenota-left .s-title { margin-bottom: 16px; }
+    .prenota-left .s-body { margin-bottom: 16px; }
+
+    .contact-list { margin-top: 40px; display: flex; flex-direction: column; gap: 4px; }
+
+    .c-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .c-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      color: #fff;
+    }
+
+    .c-icon.mail {
+      background: linear-gradient(135deg, #5AC8FA 0%, #007AFF 100%);
+    }
+
+    .c-icon.ig {
+       background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+    }
+
+    .c-label { font-size: 0.72rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.08em; }
+    .c-value { font-size: 0.95rem; color: var(--text); font-weight: 400; margin-top: 1px; }
+    .c-value a { transition: color 0.2s; cursor: pointer; }
+    .c-value a:hover { color: var(--accent); text-decoration: underline; }
+
+    .booking-box {
+      background: var(--bg2);
+      border-radius: 28px;
+      padding: 48px 44px;
+    }
+
+    .booking-box h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .booking-box > p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 32px; }
+
+    .fg { margin-bottom: 18px; }
+
+    .fg label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-mid);
+      margin-bottom: 8px;
+    }
+
+    .fg input, .fg select, .fg textarea {
+      width: 100%;
+      border: 1.5px solid var(--line);
+      background: #fff;
+      padding: 13px 16px;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--text);
+      border-radius: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--accent); }
+    .fg textarea { height: 90px; resize: vertical; }
+
+    .fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .slots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .slot {
+      padding: 10px 6px;
+      border: 1.5px solid var(--line);
+      background: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      cursor: pointer;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.18s;
+      font-family: var(--font-sans);
+    }
+
+    .slot:hover { border-color: var(--accent-soft); color: var(--accent); }
+    .slot.on { border-color: var(--accent); background: var(--accent); color: #fff; }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      padding: 15px;
+      border-radius: 50px;
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 6px;
+    }
+
+    .btn-submit:hover { background: var(--accent-soft); transform: translateY(-1px); }
+
+    .or-divider {
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 16px 0;
+      position: relative;
+    }
+
+    .or-divider::before, .or-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%; width: 40%; height: 1px;
+      background: var(--line);
+    }
+
+    .or-divider::before { left: 0; }
+    .or-divider::after { right: 0; }
+
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer { background: var(--text); padding: 64px 48px 40px; }
+
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 32px;
+    }
+
+    .footer-logo { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 400; color: #F5EFE6; margin-bottom: 16px; }
+    .footer-logo em { font-style: italic; color: var(--accent-soft); }
+    .footer-desc { font-size: 0.88rem; color: #A89890; line-height: 1.75; max-width: 280px; font-weight: 300; }
+
+    .footer-col h4 { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #7A6E66; margin-bottom: 18px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { font-size: 0.9rem; color: #A89890; font-weight: 300; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: #F5EFE6; }
+
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: #7A6E66; }
+
+    /* ── ANIMATIONS ─────────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-up.vis { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; }
+      .hero-img-col { display: none; }
+      .approccio-grid, .percorso-header, .prenota-grid { grid-template-columns: 1fr; gap: 40px; }
+      .steps-grid, .storie-grid, .rec-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .section { padding: 64px 24px; }
+      .ponte { padding: 60px 24px; }
+      .hero-float-card, .hero-float-card2 { display: none; }
+      .fg-row { grid-template-columns: 1fr; }
+    }
+    /* Festa */
+    .celebration-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+    .confetti {
+      position: absolute;
+      width: 12px; height: 12px;
+      border-radius: 2px;
+      will-change: transform, opacity;
+    }
+    .popper {
+      position: absolute;
+      font-size: 2.5rem;
+      will-change: transform, opacity;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Il <span>Fisioterapista</span></div>
+  <ul class="nav-links">
+    <li><a href="#approccio">Il mio approccio</a></li>
+    <li><a href="#percorso">Chi sono</a></li>
+    <li><a href="#come-lavoro">Come lavoro</a></li>
+    <li><a href="#storie">Storie</a></li>
+    <li><a href="#prenota" class="nav-cta">Prenota una chiamata</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-blob"></div>
+  <div class="hero-blob2"></div>
+  <div class="hero-inner">
+    <div class="fade-up">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>Fisioterapista · San Marino</span>
+      </div>
+      <h1 class="hero-title">
+        Prima di ogni tecnica,<br>
+        c'è <em>una persona.</em><br>
+        La tua.
+      </h1>
+      <p class="hero-body">
+        Da oltre vent'anni ascolto quello che il corpo dice — e quello che non riesce a dire. Non tratto sintomi. Tratto persone. E ogni persona porta con sé una storia che merita di essere ascoltata davvero.
+      </p>
+      <div class="hero-actions">
+        <a href="#prenota" class="btn-warm">Prenota una chiamata gratuita</a>
+        <a href="#approccio" class="btn-ghost">Scopri come lavoro →</a>
+      </div>
+    </div>
+
+    <div class="hero-img-col fade-up">
+      <div class="hero-photo-wrap">
+        <div class="ph">
+          <!-- Placeholder immagine colorata beige/sabbia -->
+          <span class="ph-label" style="opacity: 0.8; font-size: 0.9rem;">[ Foto Professionale ]</span>
+        </div>
+      </div>
+      <div class="hero-float-card">
+        <div class="float-icon">🎉</div>
+        <div>
+          <div class="float-text-top">Esperienza</div>
+          <div class="float-text-main">20+ anni con le persone</div>
+        </div>
+      </div>
+      <div class="hero-float-card2">
+        <div class="float2-stars">★★★★★</div>
+        <div class="float2-text">Su Google Reviews</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PONTE -->
+<div class="ponte">
+  <div class="ponte-inner">
+    <p class="ponte-title typewriter-text">
+      "Un sintomo non esiste da solo. Esiste dentro una vita — con le sue fatiche, le sue abitudini, i suoi momenti difficili."
+    </p>
+    <p class="ponte-sub typewriter-text">Questo è il punto da cui parto. Non una diagnosi su carta. Una conversazione vera.</p>
+  </div>
+</div>
+
+<!-- APPROCCIO -->
+<section id="approccio" class="section">
+  <div class="section-inner">
+    <div class="approccio-grid">
+      <div class="approccio-text fade-up">
+        <div class="pill-tag">Il mio approccio</div>
+        <h2 class="s-title">Non si può separare<br>il sintomo dalla <em>persona.</em></h2>
+        <p class="s-body">Potresti avere un mal di schiena da tre anni. O un dolore alla spalla che compare solo la notte. O qualcosa che i medici hanno visitato — ma che ancora non ha un nome preciso.</p>
+        <div class="pullquote">
+          <p>Quello che ascolto non è solo il tuo corpo — è anche come quel dolore ha cambiato le tue giornate, le tue relazioni, il tuo modo di sentirti.</p>
+        </div>
+        <p class="s-body">Separare il sintomo dalla persona significa perdere metà della storia — e metà della soluzione. Il colloquio viene sempre prima. Non come formalità, ma come parte del percorso di cura.</p>
+      </div>
+      <div class="approccio-img-wrap fade-up">
+        <div class="approccio-photo">
+          <div class="ph">
+            <!-- SOSTITUIRE: foto studio o trattamento -->
+            <span class="ph-label">[ Foto studio / trattamento — da inserire ]</span>
+          </div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-num">20+</div>
+          <div class="mini-card-label">anni di esperienza</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERCORSO -->
+<section id="percorso" class="section" style="background:var(--bg2);">
+  <div class="section-inner">
+    <div class="percorso-header fade-up">
+      <div>
+        <div class="pill-tag">Chi sono</div>
+        <h2 class="s-title">Vent'anni non si contano.<br><em>Si vivono.</em></h2>
+      </div>
+      <p class="s-body">Non sono arrivato a questo modo di lavorare leggendo un libro. Ci sono arrivato attraverso migliaia di persone — ognuna con la sua storia, ognuna che mi ha insegnato qualcosa che nessuna università avrebbe potuto insegnarmi.</p>
+    </div>
+    <div class="tl-list">
+      <div class="tl-item fade-up">
+        <div class="filigrana">2004</div>
+        <div class="tl-content">
+          <div class="tl-title">La laurea. L'inizio.</div>
+          <p class="tl-text">Mi sono laureato convinto che la fisioterapia fosse una scienza esatta. Presto avrei scoperto che era anche — e soprattutto — una forma profonda di ascolto.</p>
+        </div>
+      </div>
+      <div class="tl-item fade-up">
+        <div class="filigrana">2006</div>
+        <div class="tl-content">
+          <div class="tl-title">Il primo paziente che mi ha fermato.</div>
+          <p class="tl-text">Aveva ragione lui. Non il protocollo. Da quel giorno ho capito che il corpo parla — ma solo se sai davvero come chiedergli di farlo.</p>
+        </div>
+      </div>
+      <div class="tl-item fade-up">
+        <div class="filigrana">2012</div>
+        <div class="tl-content">
+          <div class="tl-title">Formazione continua, sempre.</div>
+          <p class="tl-text">Anni di aggiornamento, corsi, confronto con colleghi. Non per accumulare certificati, ma per capire sempre meglio le persone che mi sedevano davanti.</p>
+        </div>
+      </div>
+      <div class="tl-item fade-up">
+        <div class="filigrana">Oggi</div>
+        <div class="tl-content">
+          <div class="tl-title">Il colloquio prima di tutto.</div>
+          <p class="tl-text">Ogni percorso inizia con una conversazione. Non un questionario. Non una scheda. Una vera conversazione — perché il sintomo che mi porti è solo l'inizio della storia.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COME LAVORO -->
+<section id="come-lavoro" class="section">
+  <div class="section-inner">
+    <div class="cl-header fade-up">
+      <div class="pill-tag">Come lavoro</div>
+      <h2 class="s-title">Tre momenti.<br><em>Una sola direzione.</em></h2>
+      <p class="s-body">Non esiste un protocollo uguale per tutti. Ma c'è un percorso che rispetto sempre — perché alcune cose non cambiano: l'ascolto viene prima di tutto il resto.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card fade-up">
+        <span class="step-emoji">💬</span>
+        <span class="step-num">01</span>
+        <div class="step-title">Il colloquio</div>
+        <p class="step-text">Partiamo da te. Non dal tuo dolore — da te. Come hai vissuto questo periodo? Cosa è cambiato nelle tue giornate? Solo da qui posso capire davvero cosa serve.</p>
+      </div>
+      <div class="step-card fade-up">
+        <span class="step-emoji">🤲</span>
+        <span class="step-num">02</span>
+        <div class="step-title">La valutazione</div>
+        <p class="step-text">Dopo aver ascoltato, osservo. Il corpo dice molto più di quanto crediamo. La valutazione non è un test — è una conversazione tra me e il tuo corpo.</p>
+      </div>
+      <div class="step-card fade-up">
+        <span class="step-emoji">🌱</span>
+        <span class="step-num">03</span>
+        <div class="step-title">Il percorso</div>
+        <p class="step-text">Costruiamo insieme qualcosa che abbia senso per la tua vita — non solo per il tuo sintomo. Guarire non significa smettere di avere dolore. Significa ritrovare sé stessi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORIE -->
+<section id="storie" class="section" style="background:var(--bg2);">
+  <div class="section-inner">
+    <div class="storie-header fade-up">
+      <div>
+        <div class="pill-tag">Pensieri & Storie</div>
+        <h2 class="s-title" style="margin-bottom:0;">Quello che ho <em>imparato</em><br>dalle persone.</h2>
+      </div>
+      <a href="javascript:void(0)" onclick="openArchive()" class="btn-ghost" style="margin-bottom:8px;">Leggi tutto →</a>
+    </div>
+    <div class="storie-grid" id="storie-container">
+      <div class="storia-card fade-up" onclick="openArticle(1)">
+        <div class="storia-img">
+          <div class="ph" style="height:280px;">
+            <span class="ph-label" style="font-family:var(--font-serif);font-style:italic;font-size:.85rem;color:var(--text-mid);opacity:.5;">[ Immagine articolo ]</span>
+          </div>
+        </div>
+        <div class="storia-body">
+          <span class="storia-pill">Riflessione</span>
+          <div class="storia-title">Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da lì.</div>
+          <p class="storia-excerpt">Vent'anni di pazienti mi hanno insegnato che il confine tra corpo e mente è molto più sottile di quanto crediamo...</p>
+        </div>
+      </div>
+      <div class="storia-card fade-up" onclick="openArticle(2)">
+        <div class="storia-img">
+          <div class="ph" style="height:200px;">
+            <span class="ph-label" style="font-family:var(--font-serif);font-style:italic;font-size:.85rem;color:var(--text-mid);opacity:.5;">[ Immagine articolo ]</span>
+          </div>
+        </div>
+        <div class="storia-body">
+          <span class="storia-pill">Domande frequenti</span>
+          <div class="storia-title">Ha senso prendere appuntamento? Rispondo onestamente.</div>
+          <p class="storia-excerpt">La domanda che mi fanno in molti, spesso dopo aver aspettato troppo a lungo...</p>
+        </div>
+      </div>
+      <div class="storia-card fade-up" onclick="openArticle(3)">
+        <div class="storia-img">
+          <div class="ph" style="height:200px;">
+            <span class="ph-label" style="font-family:var(--font-serif);font-style:italic;font-size:.85rem;color:var(--text-mid);opacity:.5;">[ Immagine articolo ]</span>
+          </div>
+        </div>
+        <div class="storia-body">
+          <span class="storia-pill">Approccio</span>
+          <div class="storia-title">Cosa succede davvero nel primo appuntamento.</div>
+          <p class="storia-excerpt">Niente camice subito. Niente scheda. Prima parliamo — e questo cambia già tutto...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHIVIO STORIE -->
+<div class="archive-modal" id="archive-modal">
+  <div class="archive-inner" onscroll="handleModalScroll(this)">
+    <div class="archive-header-sticky">
+      <div class="archive-close" onclick="closeArchive()">✕</div>
+      <div class="pill-tag" style="margin:0 auto 16px;">Archivio</div>
+      <h2 class="s-title" style="margin-bottom:0;">Tutti i <em>pensieri.</em></h2>
+    </div>
+    <div style="padding: 20px 60px 60px;">
+      <div class="archive-grid-list" id="archive-list">
+        <!-- Generato da JS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ARTICOLO -->
+<div class="article-modal" id="article-modal">
+  <div class="modal-inner" onscroll="handleModalScroll(this)">
+    <div class="modal-header-sticky">
+      <div class="close-modal" onclick="closeArticle()">✕</div>
+      <span class="storia-pill modal-pill" id="modal-category"></span>
+      <h2 class="modal-title" id="modal-title" style="margin-bottom:0;"></h2>
+    </div>
+    <div class="modal-body" id="modal-content" style="padding: 20px 50px 60px;"></div>
+  </div>
+</div>
+
+<!-- RECENSIONI -->
+<section id="recensioni" class="section" style="background:var(--bg3);">
+  <div class="section-inner">
+    <div class="rec-header fade-up">
+      <div class="rec-score-wrap">
+        <span class="g-logo">G</span>
+        <span class="rec-stars">★★★★★</span>
+        <span class="rec-score-num">5.0 · Google Reviews</span>
+      </div>
+      <div class="pill-tag" style="margin:0 auto 16px;">Recensioni</div>
+      <h2 class="s-title">Le parole<br>di <em>chi c'era.</em></h2>
+    </div>
+    <div style="overflow: hidden; margin: 0 -48px; padding: 0 48px;">
+      <div class="rec-grid">
+        <!-- Primo blocco -->
+        <div class="rec-card">
+          <div class="rec-card-stars">★★★★★</div>
+          <p class="rec-text">"Per la prima volta qualcuno mi ha fatto sentire che il mio dolore non era solo un problema meccanico. Mi ha ascoltato davvero."</p>
+          <div class="rec-author">— M.T. · Google Review</div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-card-stars">★★★★★</div>
+          <p class="rec-text">"Ho provato diversi fisioterapisti prima. Qui è diverso. Il colloquio iniziale mi ha già dato una direzione che non avevo da anni."</p>
+          <div class="rec-author">— L.B. · Google Review</div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-card-stars">★★★★★</div>
+          <p class="rec-text">"Non ti fa sentire un numero. Sente davvero quello che stai attraversando — e questo, da solo, cura già qualcosa."</p>
+          <div class="rec-author">— F.R. · Google Review</div>
+        </div>
+        <!-- Duplicato per loop infinito -->
+        <div class="rec-card">
+          <div class="rec-card-stars">★★★★★</div>
+          <p class="rec-text">"Per la prima volta qualcuno mi ha fatto sentire che il mio dolore non era solo un problema meccanico. Mi ha ascoltato davvero."</p>
+          <div class="rec-author">— M.T. · Google Review</div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-card-stars">★★★★★</div>
+          <p class="rec-text">"Ho provato diversi fisioterapisti prima. Qui è diverso. Il colloquio iniziale mi ha già dato una direzione che non avevo da anni."</p>
+          <div class="rec-author">— L.B. · Google Review</div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-card-stars">★★★★★</div>
+          <p class="rec-text">"Non ti fa sentire un numero. Sente davvero quello che stai attraversando — e questo, da solo, cura già qualcosa."</p>
+          <div class="rec-author">— F.R. · Google Review</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRENOTA -->
+<section id="prenota" class="section">
+  <div class="section-inner">
+    <div class="prenota-grid">
+      <div class="fade-up">
+        <div class="pill-tag">Contatti</div>
+        <h2 class="s-title">Il primo passo<br>è <em>una chiamata.</em></h2>
+        <p class="s-body">Non devi arrivare con le idee chiare. Non devi sapere già se sono la persona giusta. Quella valutazione la facciamo insieme — in una chiamata gratuita di 15 minuti.</p>
+        <p class="s-body">Dimmi cosa stai vivendo. Il resto viene da sé.</p>
+        <div class="contact-list">
+          <div class="c-row">
+            <div class="c-icon mail">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <div>
+              <div class="c-label">Email</div>
+              <div class="c-value"><a href="mailto:info@ilfisioterapista.sm">info@ilfisioterapista.sm</a></div>
+            </div>
+          </div>
+          <div class="c-row">
+            <div class="c-icon ig">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </div>
+            <div>
+              <div class="c-label">Instagram</div>
+              <div class="c-value"><a href="https://www.instagram.com/ilfisioterapista.sm" target="_blank">@ilfisioterapista.sm</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-box fade-up">
+        <h3>Prenota una chiamata gratuita</h3>
+        <p>Verifica la mia disponibilità reale e scegli il momento più comodo per te.</p>
+        
+        <div style="margin: 32px 0; padding: 24px; background: #fff; border-radius: 20px; border: 1px solid var(--line); text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 12px;">📅</div>
+          <div style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--green-soft); letter-spacing: 0.1em; margin-bottom: 8px;">Disponibilità Live</div>
+          <p style="font-size: 0.95rem; color: var(--text-mid); margin-bottom: 24px; line-height: 1.5;">Il calendario è sincronizzato in tempo reale con i miei appuntamenti.</p>
+          <a href="https://calendar.app.google/imdtMmvzyEDhdwj78" target="_blank" class="btn-submit" style="text-align: center; text-decoration: none; display: block;">Scegli data e ora</a>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-light); text-align: center;">Verrai indirizzato alla pagina ufficiale di Google Calendar per confermare la prenotazione.</p>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Il <em>Fisioterapista</em></div>
+        <p class="footer-desc">Un approccio che mette la persona al centro — prima del sintomo, prima della tecnica, prima di tutto il resto. San Marino.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Naviga</h4>
+        <ul>
+          <li><a href="#approccio">Il mio approccio</a></li>
+          <li><a href="#percorso">Chi sono</a></li>
+          <li><a href="#come-lavoro">Come lavoro</a></li>
+          <li><a href="#storie">Storie</a></li>
+          <li><a href="#prenota">Prenota</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contatti</h4>
+        <ul>
+          <li><a href="#">info@ilfisioterapista.sm</a></li>
+          <li><a href="#">@ilfisioterapista.sm</a></li>
+          <li><a href="#">San Marino</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Il Fisioterapista · San Marino</span>
+      <span>Privacy Policy · Cookie</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  function pickSlot(btn) {
+    document.querySelectorAll('.slot').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+  }
+
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.padding = scrollY > 40 ? '12px 48px' : '20px 48px';
+  });
+
+  const cards = document.querySelectorAll('.hero-float-card, .hero-float-card2');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -10.5;
+      const rotateY = ((x - centerX) / centerX) * 10.5;
+
+      card.style.transform = `perspective(400px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      card.style.transition = 'none';
+      card.style.animation = 'none';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = `perspective(400px) rotateX(0deg) rotateY(0deg)`;
+      card.style.transition = 'transform 0.4s ease';
+      
+      // Riattiva l'animazione di fluttuazione dopo il reset
+      setTimeout(() => {
+        card.style.animation = '';
+      }, 400);
+    });
+
+    card.addEventListener('click', () => {
+      const rect = card.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const isExperience = card.classList.contains('hero-float-card');
+      const emojis = isExperience ? ['🎉', '🎊', '🎂', '🥳'] : ['⭐', '✨', '🌟', '💫'];
+      
+      const container = document.createElement('div');
+      container.className = 'celebration-overlay';
+      container.style.zIndex = '10001';
+      document.body.appendChild(container);
+
+      for (let i = 0; i < 20; i++) {
+        const el = document.createElement('div');
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.position = 'absolute';
+        el.style.left = centerX + 'px';
+        el.style.top = centerY + 'px';
+        el.style.fontSize = (1 + Math.random()) + 'rem';
+        el.style.userSelect = 'none';
+        container.appendChild(el);
+        
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 60 + Math.random() * 120;
+        const tx = Math.cos(angle) * dist;
+        const ty = Math.sin(angle) * dist;
+
+        el.animate([
+          { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+          { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(1.2) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+        ], { duration: 1200, easing: 'cubic-bezier(0.1, 0.5, 0.5, 1)', fill: 'forwards' });
+      }
+      setTimeout(() => container.remove(), 1200);
+    });
+  });
+
+  const triggerCelebration = () => {
+    const overlay = document.createElement('div');
+    overlay.className = 'celebration-overlay';
+    document.body.appendChild(overlay);
+    const colors = ['#B07D55', '#C9A07A', '#D4A843', '#7A9E87', '#F5EFE6'];
+    const emojis = ['🎉', '🎊', '🎂', '🥳'];
+    for (let i = 0; i < 120; i++) {
+      const isEmoji = Math.random() > 0.8;
+      const el = document.createElement('div');
+      el.className = isEmoji ? 'popper' : 'confetti';
+      if (isEmoji) { el.textContent = emojis[Math.floor(Math.random() * emojis.length)]; }
+      else { el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; }
+      const side = Math.floor(Math.random() * 4);
+      let x, y;
+      if (side === 0) { x = Math.random() * 100; y = -10; }
+      else if (side === 1) { x = 110; y = Math.random() * 100; }
+      else if (side === 2) { x = Math.random() * 100; y = 110; }
+      else { x = -10; y = Math.random() * 100; }
+      el.style.left = x + 'vw'; el.style.top = y + 'vh';
+      overlay.appendChild(el);
+      const destX = 30 + Math.random() * 40;
+      const destY = 30 + Math.random() * 40;
+      el.animate([
+        { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+        { transform: `translate(${(destX - x)}vw, ${(destY - y)}vh) rotate(${720 + Math.random() * 1440}deg)`, opacity: 0 }
+      ], { duration: 2500 + Math.random() * 1500, easing: 'cubic-bezier(0.1, 0.5, 0.5, 1)', fill: 'forwards' });
+    }
+    setTimeout(() => {
+      overlay.style.transition = 'opacity 1s'; overlay.style.opacity = '0';
+      setTimeout(() => overlay.remove(), 1000);
+    }, 3500);
+  };
+
+  const counterEl = document.querySelector('.mini-card-num');
+  if (counterEl) {
+    const startCount = () => {
+      let start = 0; const end = 20; const duration = 2000;
+      const startTime = performance.now();
+      const update = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const val = Math.floor(progress * (2 - progress) * end); // easeOutQuad
+        counterEl.textContent = val + (val === 20 ? '+' : '');
+        if (progress < 1) { requestAnimationFrame(update); }
+        else { triggerCelebration(); }
+      };
+      requestAnimationFrame(update);
+    };
+    const countObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { startCount(); countObs.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+    countObs.observe(counterEl);
+  }
+
+  // Typewriter effect for Ponte
+  document.querySelectorAll('.typewriter-text').forEach(el => {
+    const text = el.textContent.trim();
+    el.textContent = '';
+    [...text].forEach(char => {
+      const span = document.createElement('span');
+      span.textContent = char;
+      span.className = 'char';
+      if (char === ' ') span.innerHTML = '&nbsp;';
+      el.appendChild(span);
+    });
+  });
+
+  const typeText = async (el) => {
+    const chars = el.querySelectorAll('.char');
+    for (let i = 0; i < chars.length; i++) {
+      await new Promise(r => setTimeout(r, 25)); // Velocità di battuta
+      chars[i].classList.add('visible');
+    }
+  };
+
+  const ponteSection = document.querySelector('.ponte');
+  const typeObserver = new IntersectionObserver(async entries => {
+    if (entries[0].isIntersecting) {
+      typeObserver.unobserve(ponteSection);
+      const title = ponteSection.querySelector('.ponte-title');
+      const sub = ponteSection.querySelector('.ponte-sub');
+      
+      await typeText(title);
+      await new Promise(r => setTimeout(r, 500)); // Pausa tra le due frasi
+      await typeText(sub);
+    }
+  }, { threshold: 0.3 });
+
+  if (ponteSection) typeObserver.observe(ponteSection);
+
+  // Articoli Content
+  const articles = {
+    1: {
+      category: 'Riflessione',
+      title: 'Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da lì.',
+      content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p><p>Il dolore cronico è reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. È come un sistema d'allarme che continua a suonare anche dopo che l'incendio è stato spento da tempo.</p><p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore.</p>`
+    },
+    2: {
+      category: 'Domande frequenti',
+      title: 'Ha senso prendere appuntamento? Rispondo onestamente.',
+      content: `<p>Spesso le persone aspettano che il dolore diventi insopportabile prima di chiamare. O peggio, temono che il loro problema sia "troppo piccolo" per disturbare.</p><p>La verità è che la prevenzione non è solo una parola di moda: è efficienza. Risolvere una tensione muscolare iniziale richiede una frazione del tempo necessario per trattare una lombalgia acuta che ti blocca a letto.</p><p>Se senti che qualcosa non va, anche se è solo un fastidio ciclico, parliamone. A volte bastano due consigli e una seduta per evitare settimane di stop forzato.</p>`
+    },
+    3: {
+      category: 'Approccio',
+      title: 'Cosa succede davvero nel primo appuntamento.',
+      content: `<p>Dimentica il lettino nei primi dieci minuti. La prima cosa che faremo è sederci e parlare. Voglio sapere come dormi, cosa mangi, quanto stress hai al lavoro e cosa ti impedisce di fare il tuo dolore.</p><p>Solo dopo passeremo alla valutazione fisica. Questo perché un dolore alla spalla può nascere da una postura scorretta in ufficio, ma può anche essere alimentato da un periodo di forte tensione emotiva o da un vecchio infortunio mai curato bene.</p><p>Il primo appuntamento serve a tracciare la mappa. Il trattamento è il viaggio.</p>`
+    },
+    4: {
+      category: 'Postura',
+      title: 'La postura perfetta non esiste. Ecco cosa conta davvero.',
+      content: `<p>Siamo cresciuti con l'idea che esista una "posizione giusta" per stare seduti o in piedi. La ricerca scientifica moderna ci dice invece che la postura migliore è... la prossima.</p><p>Il corpo umano è fatto per muoversi. Il dolore non nasce da una schiena curva, ma dal mantenere la stessa posizione (anche quella "dritta") per troppo tempo. L'immobilità è il vero nemico, non la gobba.</p><p>Invece di sforzarti di stare dritto come un soldato, impara ad ascoltare quando il tuo corpo ti chiede di cambiare posizione.</p>`
+    },
+    5: {
+      category: 'Benessere',
+      title: 'Il respiro: il primo strumento di cura a tua disposizione.',
+      content: `<p>Semplice, gratuito, immediato. Eppure quasi nessuno respira bene. Spesso usiamo solo la parte alta del torace, mantenendo i muscoli del collo in tensione costante.</p><p>La respirazione diaframmatica non serve solo a rilassarsi: è un massaggio viscerale e un segnale biochimico che diciamo al nostro sistema nervoso che siamo al sicuro. Questo abbassa istantaneamente la soglia del dolore.</p><p>Dedico sempre una parte delle mie sedute al respiro, perché è l'unico strumento che il paziente può portarsi a casa e usare ovunque, in ogni momento.</p>`
+    },
+    6: {
+      category: 'Sport',
+      title: 'Sport e infortuni: quando fermarsi e quando continuare.',
+      content: `<p>Il binomio "ho dolore = devo stare fermo" è uno dei miti più difficili da sfatare. In realtà, il movimento guidato è spesso la cura migliore per un infortunio.</p><p>Il segreto sta nel trovare il "carico ottimale": quel livello di attività che non peggiora il sintomo ma permette al tessuto di rigenerarsi e rinforzarsi. Fermarsi completamente, spesso, indebolisce il corpo e allunga i tempi di recupero.</p><p>Il mio lavoro con gli sportivi è capire fin dove possiamo spingerci oggi per essere più forti domani, senza mai forzare i tempi biologici della guarigione.</p>`
+    }
+  };
+
+  // Modal e Archive
+  const modal = document.getElementById('article-modal');
+  const archiveModal = document.getElementById('archive-modal');
+  const archiveList = document.getElementById('archive-list');
+  const modalCat = document.getElementById('modal-category');
+  const modalTitle = document.getElementById('modal-title');
+  const modalContent = document.getElementById('modal-content');
+
+  window.openArticle = function(id) {
+    const art = articles[id];
+    if (!art) return;
+    modalCat.textContent = art.category;
+    modalTitle.textContent = art.title;
+    modalContent.innerHTML = art.content;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeArticle = function() {
+    modal.classList.remove('active');
+    if (!archiveModal.classList.contains('active')) {
+      document.body.style.overflow = '';
+    }
+  };
+
+  window.openArchive = function() {
+    archiveList.innerHTML = '';
+    Object.keys(articles).forEach(id => {
+      const art = articles[id];
+      const card = document.createElement('div');
+      card.className = 'storia-card';
+      card.innerHTML = `
+        <div class="storia-img"><div class="ph" style="height:140px; background:var(--bg3);"></div></div>
+        <div class="storia-body" style="padding:20px;">
+          <span class="storia-pill">${art.category}</span>
+          <div class="storia-title" style="font-size:1rem;">${art.title}</div>
+        </div>
+      `;
+      card.onclick = () => { openArticle(id); };
+      archiveList.appendChild(card);
+    });
+    archiveModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeArchive = function() {
+    archiveModal.classList.remove('active');
+    document.body.style.overflow = '';
+    document.querySelector('.archive-inner').scrollTop = 0;
+    document.querySelector('.archive-inner').classList.remove('scrolled');
+  };
+
+  // Funzione per gestire l'effetto border sullo scroll dei modal
+  window.handleModalScroll = function(el) {
+    if (el.scrollTop > 10) {
+      el.classList.add('scrolled');
+    } else {
+      el.classList.remove('scrolled');
+    }
+  };
+
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeArticle(); });
+  archiveModal.addEventListener('click', (e) => { if (e.target === archiveModal) closeArchive(); });
+</script>
+</body>
+</html>
