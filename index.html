@@ -1545,17 +1545,18 @@
     });
 
     card.addEventListener('click', () => {
+      if (card.classList.contains('hero-float-card2')) return; // Salta l'animazione per le recensioni
+
       const rect = card.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      const isExperience = card.classList.contains('hero-float-card');
-      const emojis = isExperience ? ['🎉', '🎊', '🎂', '🥳'] : ['⭐', '✨', '🌟', '💫'];
       
       const container = document.createElement('div');
       container.className = 'celebration-overlay';
       container.style.zIndex = '10001';
       document.body.appendChild(container);
 
+      const emojis = ['🎉', '🎊', '🎂', '🥳'];
       for (let i = 0; i < 20; i++) {
         const el = document.createElement('div');
         el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
