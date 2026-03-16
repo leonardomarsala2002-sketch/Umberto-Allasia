@@ -1106,10 +1106,45 @@
 
     .fade-up.vis { opacity: 1; transform: translateY(0); }
 
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      margin: 5px 0;
+      transition: transform 0.3s, opacity 0.3s;
+      border-radius: 2px;
+    }
+    .menu-toggle.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
     /* ── RESPONSIVE ─────────────────────────────────────────── */
     @media (max-width: 900px) {
-      nav { padding: 16px 24px; }
-      .nav-links { display: none; }
+      nav { padding: 16px 24px; flex-wrap: wrap; }
+      .menu-toggle { display: block; }
+      .nav-links { 
+        display: none; 
+        width: 100%; 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 16px; 
+        padding-top: 20px; 
+      }
+      .nav-links.active { display: flex; }
       .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; }
       .hero-img-col { display: none; }
       .approccio-grid, .percorso-header, .prenota-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1166,7 +1201,10 @@
 <!-- NAV -->
 <nav>
   <div class="nav-logo">Il <span>Fisioterapista</span></div>
-  <ul class="nav-links">
+  <button class="menu-toggle" id="mobile-menu" aria-label="Apri menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#approccio">Il mio approccio</a></li>
     <li><a href="#percorso">Chi sono</a></li>
     <li><a href="#come-lavoro">Come lavoro</a></li>
@@ -1790,6 +1828,22 @@
 
   modal.addEventListener('click', (e) => { if (e.target === modal) closeArticle(); });
   archiveModal.addEventListener('click', (e) => { if (e.target === archiveModal) closeArchive(); });
+
+  // Mobile Menu Logic
+  const mobileMenuBtn = document.getElementById('mobile-menu');
+  const navLinksUl = document.getElementById('nav-links');
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenuBtn.classList.toggle('active');
+      navLinksUl.classList.toggle('active');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenuBtn.classList.remove('active');
+        navLinksUl.classList.remove('active');
+      });
+    });
+  }
 
   // PROGRESS BAR Logic
   window.addEventListener('scroll', () => {
