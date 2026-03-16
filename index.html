@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
@@ -257,7 +257,6 @@
       animation: float 6s ease-in-out infinite 0.8s;
       transform-style: preserve-3d;
       will-change: transform;
-      transition: transform 0.4s ease;
     }
 
     .float-icon {
@@ -282,7 +281,6 @@
       box-shadow: 0 6px 30px rgba(44,36,32,0.09);
       transform-style: preserve-3d;
       will-change: transform;
-      transition: transform 0.4s ease;
     }
 
     .float2-stars { color: #D4A843; font-size: 0.9rem; letter-spacing: 2px; }
@@ -1691,6 +1689,22 @@
       el.classList.remove('scrolled');
     }
   };
+
+  document.querySelectorAll('.hero-float-card, .hero-float-card2').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width - 0.5) * 15;
+      const y = ((e.clientY - r.top) / r.height - 0.5) * 15;
+      card.style.transform = `perspective(400px) rotateX(${-y}deg) rotateY(${x}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.4s ease';
+      card.style.transform = 'perspective(400px) rotateX(0deg) rotateY(0deg)';
+    });
+    card.addEventListener('mouseenter', () => {
+      card.style.transition = 'none';
+    });
+  });
 
   modal.addEventListener('click', (e) => { if (e.target === modal) closeArticle(); });
   archiveModal.addEventListener('click', (e) => { if (e.target === archiveModal) closeArchive(); });
