@@ -294,8 +294,8 @@
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      0%, 100% { transform: translateY(0); translate: 0 0; }
+      50% { transform: translateY(-10px); translate: 0 -10px; }
     }
 
     .hero-photo-wrap {
@@ -1458,17 +1458,11 @@
 
       card.style.transform = `perspective(400px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
       card.style.transition = 'none';
-      card.style.animation = 'none';
     });
 
     card.addEventListener('mouseleave', () => {
       card.style.transform = `perspective(400px) rotateX(0deg) rotateY(0deg)`;
       card.style.transition = 'transform 0.4s ease';
-      
-      // Riattiva l'animazione di fluttuazione dopo il reset
-      setTimeout(() => {
-        card.style.animation = '';
-      }, 400);
     });
 
     card.addEventListener('click', () => {
