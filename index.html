@@ -288,9 +288,16 @@
     .float2-stars { color: #D4A843; font-size: 0.9rem; letter-spacing: 2px; }
     .float2-text { font-size: 0.78rem; color: var(--text-mid); margin-top: 4px; font-weight: 400; }
 
-    .hero-float-card,
-    .hero-float-card2 {
+    .hero-float-card {
       cursor: default;
+    }
+    .hero-float-card2 {
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .hero-float-card2:hover {
+      box-shadow: 0 10px 40px rgba(44,36,32,0.15);
+      transform: translateY(-5px);
     }
 
     @keyframes float {
@@ -1134,10 +1141,10 @@
           <div class="float-text-main">20+ anni con le persone</div>
         </div>
       </div>
-      <div class="hero-float-card2">
+      <a href="#recensioni" class="hero-float-card2">
         <div class="float2-stars">★★★★★</div>
         <div class="float2-text">Su Google Reviews</div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
