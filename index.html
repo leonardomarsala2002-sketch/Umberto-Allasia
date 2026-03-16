@@ -277,21 +277,21 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 2px;
       position: absolute;
       top: 40px; right: -30px;
       background: #fff;
-      border-radius: 20px;
-      padding: 16px 24px;
+      border-radius: 15px;
+      padding: 10px 18px;
       box-shadow: 0 10px 40px rgba(44,36,32,0.12);
       z-index: 5;
     }
 
     .google-logo-text {
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       letter-spacing: -0.5px;
-      margin-bottom: 2px;
+      margin-bottom: 0px;
     }
     .g-blue { color: #4285f4; }
     .g-red { color: #ea4335; }
@@ -300,11 +300,11 @@
 
     .float2-stars { 
       color: #FBBC05; 
-      font-size: 0.95rem; 
-      letter-spacing: 1px; 
+      font-size: 0.85rem; 
+      letter-spacing: 0px; 
     }
     .float2-text { 
-      font-size: 0.72rem; 
+      font-size: 0.65rem; 
       color: var(--text-light); 
       font-weight: 600;
       text-transform: uppercase;
@@ -321,21 +321,24 @@
 
     .orb-avatar {
       position: absolute;
-      width: 32px; height: 32px;
+      width: 24px; height: 24px;
       border-radius: 50%;
-      border: 2px solid #fff;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border: 1.5px solid #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
       overflow: hidden;
       background: var(--bg3);
     }
 
-    .av1 { top: -15px; left: -15px; animation: orbit 8s linear infinite; }
-    .av2 { bottom: -10px; right: -20px; animation: orbit 12s linear infinite reverse; }
-    .av3 { top: 50%; left: -35px; animation: orbit 10s ease-in-out infinite; }
+    .av1 { top: -12px; left: -12px; animation: orbit 6s linear infinite; }
+    .av2 { bottom: -8px; right: -15px; animation: orbit 9s linear infinite reverse; }
+    .av3 { top: 40%; left: -30px; animation: orbit 11s ease-in-out infinite; }
+    .av4 { top: -15px; right: 20%; animation: orbit 7s linear infinite 1s; }
+    .av5 { bottom: 20%; left: -25px; animation: orbit 10s linear infinite reverse 0.5s; }
+    .av6 { top: 10%; right: -20px; animation: orbit 8s ease-in-out infinite 2s; }
 
     @keyframes orbit {
-      0% { transform: rotate(0deg) translateX(10px) rotate(0deg); }
-      100% { transform: rotate(360deg) translateX(10px) rotate(-360deg); }
+      0% { transform: rotate(0deg) translateX(8px) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(8px) rotate(-360deg); }
     }
 
     .hero-float-card {
@@ -1203,6 +1206,9 @@
           <img src="https://i.pravatar.cc/100?u=11" alt="Recensione" class="orb-avatar av1">
           <img src="https://i.pravatar.cc/100?u=24" alt="Recensione" class="orb-avatar av2">
           <img src="https://i.pravatar.cc/100?u=35" alt="Recensione" class="orb-avatar av3">
+          <img src="https://i.pravatar.cc/100?u=42" alt="Recensione" class="orb-avatar av4">
+          <img src="https://i.pravatar.cc/100?u=56" alt="Recensione" class="orb-avatar av5">
+          <img src="https://i.pravatar.cc/100?u=78" alt="Recensione" class="orb-avatar av6">
         </div>
       </a>
     </div>
