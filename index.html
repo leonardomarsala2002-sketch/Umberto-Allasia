@@ -3195,13 +3195,24 @@
             to: [{ email: targetEmail }],
             subject: "Benvenuto! Grazie per esserti iscritto",
             htmlContent: `
-              <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 12px;">
-                <h2 style="color: #B07D55;">Benvenuto nel mio spazio digitale</h2>
-                <p style="color: #2C2420; line-height: 1.6; font-size: 1.1rem;">Ciao! Ti ringrazio per aver scelto di rimanere in contatto.</p>
-                <p style="color: #6B5E55; line-height: 1.6;">Da oggi riceverai direttamente via email i miei consigli sulla salute, le storie di chi ha ritrovato il movimento e le ultime news dallo studio.</p>
-                <p style="color: #6B5E55; line-height: 1.6;">A presto,<br><strong>Umberto Allasia</strong></p>
-                <hr style="margin-top: 40px; border: none; border-top: 1px solid #eee;">
-                <p style="font-size: 0.8rem; color: #A8998F;">San Marino - ilfisioterapista.sm</p>
+              <div style="background-color: #FEFCF9; padding: 40px 20px; font-family: 'Helvetica', Arial, sans-serif;">
+                <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(176,125,85,0.1); border: 1px solid #E2D8CC;">
+                  <div style="background: #FBF7F2; padding: 40px; text-align: center; border-bottom: 1px solid #E2D8CC;">
+                    <div style="font-size: 24px; color: #2C2420; font-weight: bold; letter-spacing: 1px;">IL <span style="font-style: italic; color: #B07D55;">FISIOTERAPISTA</span></div>
+                  </div>
+                  <div style="padding: 40px;">
+                    <h2 style="color: #2C2420; font-size: 22px; margin-bottom: 20px; font-weight: 500;">Benvenuto nel mio spazio digitale</h2>
+                    <p style="color: #6B5E55; line-height: 1.7; font-size: 16px; margin-bottom: 20px;">Ciao! Ti ringrazio per aver scelto di rimanere in contatto.</p>
+                    <p style="color: #6B5E55; line-height: 1.7; font-size: 16px; margin-bottom: 30px;">Da oggi riceverai direttamente via email i miei consigli sulla salute, le storie di chi ha ritrovato il movimento e le ultime news dallo studio di San Marino.</p>
+                    <div style="padding-top: 20px; border-top: 1px solid #F5EFE6;">
+                      <p style="color: #6B5E55; line-height: 1.7; font-size: 16px; margin-bottom: 5px;">A presto,</p>
+                      <p style="color: #B07D55; font-size: 18px; font-weight: bold; margin: 0;">Umberto Allasia</p>
+                    </div>
+                  </div>
+                  <div style="background: #2C2420; padding: 20px; text-align: center;">
+                    <p style="font-size: 12px; color: #EDE4D8; margin: 0; opacity: 0.8;">San Marino — Str. Ca' Vagnetto, 3</p>
+                  </div>
+                </div>
               </div>
             `
           })
@@ -3408,13 +3419,24 @@
             to: emails.map(e => ({ email: e })),
             subject: "Nuova storia pubblicata: " + title,
             htmlContent: `
-              <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 12px;">
-                <h2 style="color: #B07D55;">Ciao! Ho pubblicato una nuova news</h2>
-                <h1 style="color: #2C2420;">${title}</h1>
-                <p style="color: #6B5E55; line-height: 1.6; font-size: 1.1rem;">${excerpt}</p>
-                <a href="https://umberto-allasia.vercel.app/" style="display: inline-block; background: #B07D55; color: #fff; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin-top: 20px;">Leggi l'articolo completo</a>
-                <hr style="margin-top: 40px; border: none; border-top: 1px solid #eee;">
-                <p style="font-size: 0.8rem; color: #A8998F;">Ricevi questa mail perché hai richiesto aggiornamenti dal sito ilfisioterapista.sm</p>
+              <div style="background-color: #FEFCF9; padding: 40px 20px; font-family: 'Helvetica', Arial, sans-serif;">
+                <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(176,125,85,0.1); border: 1px solid #E2D8CC;">
+                  <div style="background: #FBF7F2; padding: 40px; text-align: center; border-bottom: 1px solid #E2D8CC;">
+                    <div style="font-size: 14px; color: #B07D55; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Nuova Storia</div>
+                    <h1 style="color: #2C2420; font-size: 28px; margin: 0; font-weight: 500;">${title}</h1>
+                  </div>
+                  <div style="padding: 40px;">
+                    <p style="color: #6B5E55; line-height: 1.8; font-size: 17px; margin-bottom: 30px;">${excerpt}</p>
+                    <a href="https://umberto-allasia.vercel.app/" style="display: inline-block; background: #B07D55; color: #ffffff; padding: 16px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 16px; box-shadow: 0 4px 15px rgba(176,125,85,0.3);">Continua a leggere sul sito</a>
+                    <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #F5EFE6;">
+                      <p style="color: #6B5E55; line-height: 1.7; font-size: 15px; margin: 0;">Un caro saluto,</p>
+                      <p style="color: #B07D55; font-size: 17px; font-weight: bold; margin: 5px 0 0 0;">Umberto Allasia</p>
+                    </div>
+                  </div>
+                  <div style="background: #FBF7F2; padding: 20px; text-align: center; border-top: 1px solid #E2D8CC;">
+                    <p style="font-size: 11px; color: #A8998F; margin: 0;">Ricevi questa comunicazione perché sei iscritto alla newsletter di ilfisioterapista.sm</p>
+                  </div>
+                </div>
               </div>
             `
           })
