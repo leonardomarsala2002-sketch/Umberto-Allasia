@@ -1921,12 +1921,14 @@
     modalContent.innerHTML = art.content;
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    if (typeof lenis !== 'undefined') lenis.stop();
   };
 
   window.closeArticle = function() {
     modal.classList.remove('active');
     if (!archiveModal.classList.contains('active')) {
       document.body.style.overflow = '';
+      if (typeof lenis !== 'undefined') lenis.start();
     }
   };
 
@@ -1948,11 +1950,13 @@
     });
     archiveModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    if (typeof lenis !== 'undefined') lenis.stop();
   };
 
   window.closeArchive = function() {
     archiveModal.classList.remove('active');
     document.body.style.overflow = '';
+    if (typeof lenis !== 'undefined') lenis.start();
     document.querySelector('.archive-inner').scrollTop = 0;
     document.querySelector('.archive-inner').classList.remove('scrolled');
   };
