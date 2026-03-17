@@ -1713,7 +1713,7 @@
 
 <!-- ADMIN PANEL (Hidden) -->
 <div id="admin-panel" class="admin-modal">
-  <div class="admin-inner">
+  <div class="admin-inner" data-lenis-prevent>
     <div class="admin-header">
       <h2 style="font-family:var(--font-serif);">Pannello Gestione News</h2>
       <div onclick="closeAdminPanel()" style="cursor:pointer; font-size:1.5rem;">✕</div>
@@ -2234,11 +2234,15 @@
   const adminPanel = document.getElementById('admin-panel');
   function openAdminPanel() {
     adminPanel.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (typeof lenis !== 'undefined') lenis.stop();
     renderAdminList();
   }
 
   window.closeAdminPanel = function() {
     adminPanel.classList.remove('active');
+    document.body.style.overflow = '';
+    if (typeof lenis !== 'undefined') lenis.start();
   };
 
   function renderAdminList() {
