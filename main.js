@@ -1,0 +1,338 @@
+﻿    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+    function pickSlot(btn) {
+      document.querySelectorAll('.slot').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+    }
+
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').style.padding = scrollY > 40 ? '12px 48px' : '20px 48px';
+    });
+
+    const cards = document.querySelectorAll('.hero-float-card, .hero-float-card2');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -10.5;
+        const rotateY = ((x - centerX) / centerX) * 10.5;
+
+        card.style.transform = `perspective(400px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        card.style.transition = 'transform 0.15s ease-out';
+        card.style.animation = 'none';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(400px) rotateX(0deg) rotateY(0deg)`;
+        card.style.transition = 'transform 0.4s ease';
+
+        // Riattiva l'animazione di fluttuazione dopo il reset
+        setTimeout(() => {
+          card.style.animation = '';
+        }, 400);
+      });
+
+      card.addEventListener('click', () => {
+        if (card.classList.contains('hero-float-card2')) return; // Salta l'animazione per le recensioni
+
+        const rect = card.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const container = document.createElement('div');
+        container.className = 'celebration-overlay';
+        container.style.zIndex = '10001';
+        document.body.appendChild(container);
+
+        const emojis = ['🎉', '🎊', '🎂', '🥳'];
+        for (let i = 0; i < 20; i++) {
+          const el = document.createElement('div');
+          el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          el.style.position = 'absolute';
+          el.style.left = centerX + 'px';
+          el.style.top = centerY + 'px';
+          el.style.fontSize = (1 + Math.random()) + 'rem';
+          el.style.userSelect = 'none';
+          container.appendChild(el);
+
+          const angle = Math.random() * Math.PI * 2;
+          const dist = 60 + Math.random() * 120;
+          const tx = Math.cos(angle) * dist;
+          const ty = Math.sin(angle) * dist;
+
+          el.animate([
+            { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+            { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(1.2) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+          ], { duration: 1200, easing: 'cubic-bezier(0.1, 0.5, 0.5, 1)', fill: 'forwards' });
+        }
+        setTimeout(() => container.remove(), 1200);
+      });
+    });
+
+    const triggerCelebration = () => {
+      const overlay = document.createElement('div');
+      overlay.className = 'celebration-overlay';
+      document.body.appendChild(overlay);
+      const colors = ['#B07D55', '#C9A07A', '#D4A843', '#7A9E87', '#F5EFE6'];
+      const emojis = ['🎉', '🎊', '🎂', '🥳'];
+      for (let i = 0; i < 120; i++) {
+        const isEmoji = Math.random() > 0.8;
+        const el = document.createElement('div');
+        el.className = isEmoji ? 'popper' : 'confetti';
+        if (isEmoji) { el.textContent = emojis[Math.floor(Math.random() * emojis.length)]; }
+        else { el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; }
+        const side = Math.floor(Math.random() * 4);
+        let x, y;
+        if (side === 0) { x = Math.random() * 100; y = -10; }
+        else if (side === 1) { x = 110; y = Math.random() * 100; }
+        else if (side === 2) { x = Math.random() * 100; y = 110; }
+        else { x = -10; y = Math.random() * 100; }
+        el.style.left = x + 'vw'; el.style.top = y + 'vh';
+        overlay.appendChild(el);
+        const destX = 30 + Math.random() * 40;
+        const destY = 30 + Math.random() * 40;
+        el.animate([
+          { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+          { transform: `translate(${(destX - x)}vw, ${(destY - y)}vh) rotate(${720 + Math.random() * 1440}deg)`, opacity: 0 }
+        ], { duration: 2500 + Math.random() * 1500, easing: 'cubic-bezier(0.1, 0.5, 0.5, 1)', fill: 'forwards' });
+      }
+      setTimeout(() => {
+        overlay.style.transition = 'opacity 1s'; overlay.style.opacity = '0';
+        setTimeout(() => overlay.remove(), 1000);
+      }, 3500);
+    };
+
+    const counterEl = document.querySelector('.mini-card-num');
+    if (counterEl) {
+      let accumulatedTime = 0;
+      let lastTime = null;
+      let isIntersecting = false;
+      let animationStarted = false;
+
+      const updateCount = (now) => {
+        if (!lastTime) lastTime = now;
+        const delta = now - lastTime;
+        lastTime = now;
+
+        // Se la pagina è nascosta o l'elemento non è nel mirino, non avanziamo il tempo del contatore
+        if (document.hidden || !isIntersecting) {
+            if (accumulatedTime < 2000) requestAnimationFrame(updateCount);
+            return;
+        }
+
+        accumulatedTime += delta;
+        const progress = Math.min(accumulatedTime / 2000, 1);
+        const val = Math.floor(progress * (2 - progress) * 20); // easeOutQuad
+        counterEl.textContent = val + (val === 20 ? '+' : '');
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCount);
+        } else {
+          triggerCelebration();
+        }
+      };
+
+      const countObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          isIntersecting = e.isIntersecting;
+          if (isIntersecting && !animationStarted) {
+            animationStarted = true;
+            requestAnimationFrame(updateCount);
+          }
+        });
+      }, { threshold: 0.1 }); // Soglia più bassa per una risposta più rapida
+      countObs.observe(counterEl);
+    }
+
+    // Typewriter effect for Ponte
+    document.querySelectorAll('.typewriter-text').forEach(el => {
+      const text = el.textContent.trim();
+      el.textContent = '';
+      [...text].forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.className = 'char';
+        if (char === ' ') span.innerHTML = '&nbsp;';
+        el.appendChild(span);
+      });
+    });
+
+    const typeText = async (el) => {
+      const chars = el.querySelectorAll('.char');
+      for (let i = 0; i < chars.length; i++) {
+        await new Promise(r => setTimeout(r, 25)); // Velocità di battuta
+        chars[i].classList.add('visible');
+      }
+    };
+
+    const ponteSection = document.querySelector('.ponte');
+    const typeObserver = new IntersectionObserver(async entries => {
+      if (entries[0].isIntersecting) {
+        typeObserver.unobserve(ponteSection);
+        const title = ponteSection.querySelector('.ponte-title');
+        const sub = ponteSection.querySelector('.ponte-sub');
+
+        await typeText(title);
+        await new Promise(r => setTimeout(r, 500)); // Pausa tra le due frasi
+        await typeText(sub);
+      }
+    }, { threshold: 0.3 });
+
+    if (ponteSection) typeObserver.observe(ponteSection);
+
+    // Mobile Menu Logic
+    const mobileMenuBtn = document.getElementById('mobile-menu');
+    const navLinksUl = document.getElementById('nav-links');
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('active');
+        navLinksUl.classList.toggle('active');
+      });
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenuBtn.classList.remove('active');
+          navLinksUl.classList.remove('active');
+        });
+      });
+    }
+
+    // PROGRESS BAR Logic
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      const bar = document.getElementById("progressBar");
+      if (bar) bar.style.width = scrolled + "%";
+    });
+
+    // COOKIE BANNER Logic
+    const cookieBanner = document.getElementById('cookie-banner');
+    const trustindexContainer = document.getElementById('trustindex-container');
+
+    // Funzione per caricare script di terze parti (es. Trustindex per le recensioni)
+    function loadThirdPartyScripts() {
+      if (trustindexContainer && !document.getElementById('trustindex-script')) {
+        trustindexContainer.innerHTML = ''; // Rimuove il messaggio di avviso
+        const script = document.createElement('script');
+        script.id = 'trustindex-script';
+        script.defer = true;
+        script.async = true;
+        script.src = 'https://cdn.trustindex.io/loader.js?a6abdf067269292a4c867201a01';
+        trustindexContainer.appendChild(script);
+      }
+    }
+
+    window.addEventListener('click', (e) => {
+        // 1. Intercettazione Recensioni Google (Trustindex)
+        const readMoreBtn = e.target.closest('.ti-read-more-active');
+        const reviewItem = e.target.closest('.ti-review-item');
+        
+        if (readMoreBtn && reviewItem) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const name = reviewItem.querySelector('.ti-name')?.textContent?.trim() || "Paziente";
+          const fullText = reviewItem.querySelector('.ti-review-content')?.innerHTML?.replace(/<span.*<\/span>/, '')?.trim() || "";
+          
+          // Apriamo il nostro modal invece di quello di Trustindex
+          modalCat.textContent = "Recensione Google";
+          modalTitle.textContent = "La testimonianza di " + name;
+          modalContent.innerHTML = `<div style="font-size:1.1rem; line-height:1.8; color:var(--text-mid); font-style:italic;">"${fullText}"</div>`;
+          modal.classList.add('active');
+          lockScroll();
+          return;
+        }
+
+        // 2. Gestione generica dello scroll lock per altri popup (sicurezza)
+        setTimeout(() => {
+            const trustPopup = document.querySelector('.ti-widget-lightbox, .ti-v-fixed, .ti-modal.ti-show');
+            const isTrustVisible = trustPopup && getComputedStyle(trustPopup).display !== 'none';
+            const isOurModalVisible = document.querySelector('.article-modal.active') || 
+                                     document.querySelector('.archive-modal.active') ||
+                                     document.querySelector('.admin-modal.active');
+            
+            if (isTrustVisible || isOurModalVisible) {
+                lockScroll();
+            } else {
+                unlockScroll();
+            }
+        }, 150);
+    }, true); // Fase di cattura per anticipare i widget esterni
+
+    // Verifica stato cookie al caricamento
+    const cookieStatus = localStorage.getItem('cookiesAccepted');
+    if (cookieStatus === 'true') {
+      loadThirdPartyScripts();
+    } else if (!cookieStatus) {
+      if (cookieBanner) {
+        setTimeout(() => {
+          cookieBanner.classList.add('show');
+        }, 1500); // Mostra il banner
+      }
+    }
+
+    window.acceptCookies = function () {
+      localStorage.setItem('cookiesAccepted', 'true');
+      cookieBanner.classList.remove('show');
+      loadThirdPartyScripts(); // Carica le recensioni ora che c'è il consenso
+    };
+
+    window.rejectCookies = function () {
+      localStorage.setItem('cookiesAccepted', 'false');
+      cookieBanner.classList.remove('show');
+    };
+
+    // --- GESTIONE AVANZATA SCROLL LOCK ---
+    let scrollPos = 0;
+    
+    function lockScroll() {
+      if (document.body.classList.contains('modal-open')) return;
+      scrollPos = window.scrollY;
+      document.body.classList.add('modal-open');
+      document.documentElement.classList.add('modal-open');
+      document.body.style.top = `-${scrollPos}px`;
+      if (typeof lenis !== 'undefined') lenis.stop();
+    }
+
+    function unlockScroll() {
+      if (!document.body.classList.contains('modal-open')) return;
+      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove('modal-open');
+      document.body.style.top = '';
+      window.scrollTo(0, scrollPos);
+      if (typeof lenis !== 'undefined') lenis.start();
+    }
+
+    // Monitoraggio continuo per popup di terze parti (Trustindex)
+    setInterval(() => {
+        const trustPopup = document.querySelector('.ti-widget-lightbox, .ti-v-fixed, .ti-modal.ti-show');
+        const isTrustVisible = trustPopup && getComputedStyle(trustPopup).display !== 'none';
+        
+        const isOurModalVisible = document.querySelector('.article-modal.active') || 
+                                 document.querySelector('.archive-modal.active') ||
+                                 document.querySelector('.admin-modal.active');
+        
+        if (isTrustVisible || isOurModalVisible) {
+            lockScroll();
+            
+            // Tentativo di mostrare solo la recensione corrente nel widget Trustindex
+            if (isTrustVisible) {
+                const reviews = document.querySelectorAll('.ti-widget-lightbox-review-container .ti-review-item');
+                if (reviews.length > 1) {
+                    // Se Trustindex mostra più recensioni, cerchiamo di focalizzare quella attiva
+                    // Nota: Questo è un intervento sperimentale sul widget esterno
+                    reviews.forEach(r => {
+                        if (r.getBoundingClientRect().width === 0) return; // Salta se nascosto
+                    });
+                }
+            }
+        } else {
+            unlockScroll();
+        }
+    }, 250);
