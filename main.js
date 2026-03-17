@@ -260,7 +260,7 @@
               <div class="gr-header">
                 <img src="${avatarSrc}" class="gr-avatar" alt="${name}">
                 <div class="gr-info">
-                  <div class="gr-name">${name} <span class="gr-g-badge">G</span></div>
+                  <div class="gr-name"><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}+recensione" target="_blank" class="gr-author-link">${name}</a> <span class="gr-g-badge">G</span></div>
                   <div class="gr-meta">
                     <span class="gr-stars">★★★★★</span>
                     <span class="gr-date">${reviewDate}</span>
