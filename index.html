@@ -3187,6 +3187,39 @@
     // --- NEWSLETTER LOGIC ---
     const CALENDAR_URL = "https://calendar.app.google/imdtMmvzyEDhdwj78";
 
+    async function sendWelcomeEmail(targetEmail) {
+      const apiKey = dbSettings.brevo_api_key;
+      if (!apiKey) return;
+
+      try {
+        await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            'accept': 'application/json',
+            'api-key': apiKey,
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            sender: { name: "Umberto Allasia", email: "info@ilfisioterapista.sm" },
+            to: [{ email: targetEmail }],
+            subject: "Benvenuto! Grazie per esserti iscritto",
+            htmlContent: `
+              <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 12px;">
+                <h2 style="color: #B07D55;">Benvenuto nel mio spazio digitale</h2>
+                <p style="color: #2C2420; line-height: 1.6; font-size: 1.1rem;">Ciao! Ti ringrazio per aver scelto di rimanere in contatto.</p>
+                <p style="color: #6B5E55; line-height: 1.6;">Da oggi riceverai direttamente via email i miei consigli sulla salute, le storie di chi ha ritrovato il movimento e le ultime news dallo studio.</p>
+                <p style="color: #6B5E55; line-height: 1.6;">A presto,<br><strong>Umberto Allasia</strong></p>
+                <hr style="margin-top: 40px; border: none; border-top: 1px solid #eee;">
+                <p style="font-size: 0.8rem; color: #A8998F;">San Marino - ilfisioterapista.sm</p>
+              </div>
+            `
+          })
+        });
+      } catch (e) {
+        console.error("Welcome email error:", e);
+      }
+    }
+
     window.showEmailCollect = function() {
       document.getElementById('main-book-btn').style.display = 'none';
       document.getElementById('booking-collect').style.display = 'block';
@@ -3200,7 +3233,10 @@
       const email = document.getElementById('book-email').value;
       if (email && email.includes('@')) {
         const { error } = await supabaseAdmin.from('subscribers').upsert({ email: email });
-        if (!error) console.log("Subscribed:", email);
+        if (!error) {
+          console.log("Subscribed:", email);
+          sendWelcomeEmail(email); // Invia email di benvenuto
+        }
       }
       window.open(CALENDAR_URL, '_blank');
     };
@@ -3216,6 +3252,7 @@
         msg.textContent = "Grazie! Iscrizione riuscita.";
         msg.style.opacity = "1";
         el.value = "";
+        sendWelcomeEmail(email); // Invia email di benvenuto
         setTimeout(() => { msg.style.opacity = "0"; }, 3000);
       } else {
         msg.textContent = "Errore o già iscritto.";
