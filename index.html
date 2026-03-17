@@ -2013,6 +2013,11 @@
         margin-left: 0;
       }
     }
+    /* Fix per bloccare lo scrolling del body quando i modal sono aperti */
+    body.modal-open {
+      overflow: hidden !important;
+      height: 100vh !important;
+    }
   </style>
 </head>
 
@@ -2785,37 +2790,47 @@
       modalTitle.textContent = art.title;
       modalContent.innerHTML = art.content;
       modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open'); 
       if (typeof lenis !== 'undefined') lenis.stop();
     };
 
     window.closeArticle = function () {
       modal.classList.remove('active');
       if (!archiveModal.classList.contains('active')) {
-        document.body.style.overflow = '';
+        document.body.classList.remove('modal-open');
         if (typeof lenis !== 'undefined') lenis.start();
       }
     };
 
     window.openArchive = function () {
       archiveList.innerHTML = '';
-      const articleKeys = Object.keys(articles);
+      const articleKeys = dbArticles.map(a => a.id); // Usa dbArticles per l'archivio
       articleKeys.forEach(id => {
-        const art = articles[id];
+        const art = dbArticles.find(a => a.id == id);
+        if (!art) return; // Aggiunto controllo per articoli non trovati
         const card = document.createElement('div');
         card.className = 'storia-card';
+
+        let imageHtml = `
+          <div class="ph" style="height:140px; background:var(--bg3);"></div>
+        `;
+        if (art.image_url) {
+          imageHtml = `<img src="${art.image_url}" alt="${art.title}" style="height:140px; width:100%; object-fit:cover;">`;
+        }
+
         card.innerHTML = `
-        <div class="storia-img"><div class="ph" style="height:140px; background:var(--bg3);"></div></div>
+        <div class="storia-img">${imageHtml}</div>
         <div class="storia-body" style="padding:20px;">
           <span class="storia-pill">${art.category}</span>
           <div class="storia-title" style="font-size:1rem;">${art.title}</div>
+          <div class="btn-ghost" style="margin-top:10px; font-size:0.8rem;">Leggi di più →</div>
         </div>
       `;
         card.onclick = () => { openArticleDB(id); };
         archiveList.appendChild(card);
       });
       archiveModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
       if (typeof lenis !== 'undefined') lenis.stop();
     };
 
@@ -2831,7 +2846,7 @@
 
     window.closeArchive = function () {
       archiveModal.classList.remove('active');
-      document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
       if (typeof lenis !== 'undefined') lenis.start();
       document.querySelector('.archive-inner').scrollTop = 0;
       document.querySelector('.archive-inner').classList.remove('scrolled');
@@ -2913,6 +2928,70 @@
       localStorage.setItem('cookiesAccepted', 'false');
       cookieBanner.classList.remove('show');
     };
+
+    // --- MONITORAGGIO POPUP ---
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === 1 && (node.classList.contains('ti-widget') || node.id.includes('ti-'))) {
+            const popup = node.querySelector('.ti-popup, .ti-modal, [class*="ti-v-fixed"]');
+            if (popup) {
+              document.body.classList.add('modal-open');
+              if (typeof lenis !== 'undefined') lenis.stop();
+            }
+          }
+        });
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    window.addEventListener('click', (e) => {
+        setTimeout(() => {
+            const trustPopup = document.querySelector('.ti-popup.ti-show, .ti-modal.ti-show, [class*="ti-v-fixed"]');
+            const isAnyModalActive = document.querySelector('.article-modal.active') || document.querySelector('.archive-modal.active');
+            
+            if (trustPopup && getComputedStyle(trustPopup).display !== 'none') {
+                document.body.classList.add('modal-open');
+                if (typeof lenis !== 'undefined') lenis.stop();
+            } else if (!isAnyModalActive) {
+                document.body.classList.remove('modal-open');
+                if (typeof lenis !== 'undefined') lenis.start();
+            }
+        }, 300);
+    });
+
+    // --- MONITORAGGIO POPUP ESTERNI (Trustindex) ---
+    // Questo osserva se vengono aggiunti elementi alla pagina e blocca lo scroll se sono popup
+    const observer2 = new MutationObserver((mutations) => { // Renamed to observer2 to avoid redeclaration
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          // Se viene aggiunto un elemento che sembra un popup di Trustindex
+          if (node.nodeType === 1 && (node.classList.contains('ti-widget') || node.id.includes('ti-'))) {
+            const popup = node.querySelector('.ti-popup, .ti-modal, .ti-v-fixed');
+            if (popup) {
+              document.body.classList.add('modal-open');
+              if (typeof lenis !== 'undefined') lenis.stop();
+            }
+          }
+        });
+      });
+    });
+    observer2.observe(document.body, { childList: true, subtree: true });
+
+    // Rileva anche se elementi esistenti diventano visibili (stile Trustindex)
+    window.addEventListener('click', (e) => {
+        setTimeout(() => {
+            const trustPopup = document.querySelector('.ti-popup.ti-show, .ti-modal.ti-show, [class*="ti-v-fixed"]');
+            if (trustPopup && getComputedStyle(trustPopup).display !== 'none') {
+                document.body.classList.add('modal-open');
+                if (typeof lenis !== 'undefined') lenis.stop();
+            } else if (!document.querySelector('.article-modal.active') && !document.querySelector('.archive-modal.active')) {
+                // Se i nostri modal sono chiusi e non c'è il popup di Google, sblocca
+                document.body.classList.remove('modal-open');
+                if (typeof lenis !== 'undefined') lenis.start();
+            }
+        }, 300);
+    });
 
     // --- SUPABASE & ADMIN LOGIC ---
     const SUPABASE_URL = 'https://yqevubcpaloxwjxvqchc.supabase.co';
@@ -3052,6 +3131,7 @@
             <span class="storia-pill">${art.category}</span>
             <div class="storia-title">${art.title}</div>
             <p class="storia-excerpt">${art.excerpt || (art.content.replace(/<[^>]*>/g, '').substring(0, 100) + '...')}</p>
+            <div class="btn-ghost" style="margin-top:15px;">Leggi di più →</div>
           </div>
         `;
           container.appendChild(card);
@@ -3077,7 +3157,7 @@
 
       document.getElementById('modal-content').innerHTML = art.content;
       document.getElementById('article-modal').classList.add('active');
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open'); // Blocca lo scroll CSS
       if (typeof lenis !== 'undefined') lenis.stop();
     };
 
