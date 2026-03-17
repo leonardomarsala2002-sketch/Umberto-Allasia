@@ -2976,38 +2976,6 @@
         }, 150);
     });
 
-    // --- MONITORAGGIO POPUP ESTERNI (Trustindex) ---
-    // Questo osserva se vengono aggiunti elementi alla pagina e blocca lo scroll se sono popup
-    const observer2 = new MutationObserver((mutations) => { // Renamed to observer2 to avoid redeclaration
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          // Se viene aggiunto un elemento che sembra un popup di Trustindex
-          if (node.nodeType === 1 && (node.classList.contains('ti-widget') || node.id.includes('ti-'))) {
-            const popup = node.querySelector('.ti-popup, .ti-modal, .ti-v-fixed');
-            if (popup) {
-              document.body.classList.add('modal-open');
-              if (typeof lenis !== 'undefined') lenis.stop();
-            }
-          }
-        });
-      });
-    });
-    observer2.observe(document.body, { childList: true, subtree: true });
-
-    // Rileva anche se elementi esistenti diventano visibili (stile Trustindex)
-    window.addEventListener('click', (e) => {
-        setTimeout(() => {
-            const trustPopup = document.querySelector('.ti-popup.ti-show, .ti-modal.ti-show, [class*="ti-v-fixed"]');
-            if (trustPopup && getComputedStyle(trustPopup).display !== 'none') {
-                document.body.classList.add('modal-open');
-                if (typeof lenis !== 'undefined') lenis.stop();
-            } else if (!document.querySelector('.article-modal.active') && !document.querySelector('.archive-modal.active')) {
-                // Se i nostri modal sono chiusi e non c'è il popup di Google, sblocca
-                document.body.classList.remove('modal-open');
-                if (typeof lenis !== 'undefined') lenis.start();
-            }
-        }, 300);
-    });
 
     // --- SUPABASE & ADMIN LOGIC ---
     const SUPABASE_URL = 'https://yqevubcpaloxwjxvqchc.supabase.co';
