@@ -1252,6 +1252,22 @@
       background: var(--accent-soft);
       transform: translateY(-1px);
     }
+    .cookie-btn-reject {
+      background: transparent;
+      color: var(--text-light);
+      border: 1px solid var(--text-light);
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cookie-btn-reject:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border-color: #fff;
+    }
     @media (max-width: 900px) {
       #cookie-banner {
         flex-direction: column;
@@ -1639,6 +1655,7 @@
 <div id="cookie-banner">
   <p>Utilizziamo i cookie per offrirti la migliore esperienza sul sito, in conformità con la Legge n. 171/2018 (RSM) e il GDPR. <br>Puoi scoprire di più o disattivarli nell'informativa. <a href="cookie-policy.html" target="_blank">Leggi la Cookie Policy</a> | <a href="privacy-policy.html" target="_blank">Privacy Policy</a></p>
   <div class="cookie-btns">
+    <button class="cookie-btn-reject" onclick="rejectCookies()">Rifiuta tutti</button>
     <button class="cookie-btn-accept" onclick="acceptCookies()">Accetta tutti</button>
   </div>
 </div>
@@ -1943,6 +1960,10 @@
   }
   window.acceptCookies = function() {
     localStorage.setItem('cookiesAccepted', 'true');
+    cookieBanner.classList.remove('show');
+  };
+  window.rejectCookies = function() {
+    localStorage.setItem('cookiesAccepted', 'false');
     cookieBanner.classList.remove('show');
   };
 </script>
