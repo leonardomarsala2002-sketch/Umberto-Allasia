@@ -901,6 +901,7 @@
     .admin-form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; }
     .admin-form-group input, .admin-form-group textarea, .admin-form-group select {
       width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;
+      cursor: text !important;
     }
     .admin-actions { display: flex; gap: 12px; margin-top: 30px; }
     .btn-admin-save { background: var(--accent); color: #fff; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
@@ -2448,7 +2449,11 @@
     document.getElementById('edit-excerpt').value = '';
     document.getElementById('edit-content').value = '';
     document.getElementById('edit-image').value = '';
-    document.getElementById('editor-view').style.display = 'block';
+    const editor = document.getElementById('editor-view');
+    editor.style.display = 'block';
+    setTimeout(() => {
+      editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
   };
 
   window.editArticle = function(id) {
@@ -2460,7 +2465,11 @@
     document.getElementById('edit-excerpt').value = art.excerpt || '';
     document.getElementById('edit-content').value = art.content;
     document.getElementById('edit-image').value = art.image_url || '';
-    document.getElementById('editor-view').style.display = 'block';
+    const editor = document.getElementById('editor-view');
+    editor.style.display = 'block';
+    setTimeout(() => {
+      editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
   };
 
   window.saveArticle = async function() {
