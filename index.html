@@ -2411,26 +2411,36 @@
   <div id="admin-panel" class="admin-modal">
     <div class="admin-inner" data-lenis-prevent>
       <div class="admin-header">
-        <h2 style="font-family:var(--font-serif); font-size: 1.4rem;">Pannello Gestione News</h2>
+        <h2 style="font-family:var(--font-serif); font-size: 1.4rem;">Pannello di Controllo</h2>
         <div onclick="closeAdminPanel()" style="cursor:pointer; font-size:1.5rem; opacity: 0.5;">✕</div>
       </div>
 
+      <!-- TABS NAVIGATION -->
+      <div style="display: flex; gap: 20px; border-bottom: 1px solid var(--line); margin-bottom: 30px; padding-bottom: 10px;">
+        <div id="tab-news" onclick="showAdminTab('news')" style="cursor:pointer; font-weight:600; font-size:0.9rem; color:var(--accent);">Articoli & News</div>
+        <div id="tab-pazienti" onclick="showAdminTab('pazienti')" style="cursor:pointer; font-weight:600; font-size:0.9rem; color:var(--text-mid); opacity:0.6;">Pazienti / Iscritti</div>
+      </div>
+
       <div class="admin-body">
-        <!-- VISUAL EDIT TRIGGER -->
-        <div
-          style="background: var(--bg3); padding: 24px; border-radius: 20px; margin-bottom: 40px; text-align: center; border: 1px solid var(--line);">
-          <h3 style="font-family: var(--font-serif); margin-bottom: 8px;">Modifica i testi del sito</h3>
-          <p style="font-size: 0.9rem; color: var(--text-mid); margin-bottom: 20px;">Attiva questa modalità per cliccare
-            sulle scritte e modificarle direttamente.</p>
-          <button class="btn-admin-visual" onclick="enterVisualEditMode()" style="width: auto; padding: 12px 40px;">🎨
-            Attiva Modifica Visiva</button>
+        <!-- SEZIONE NEWS -->
+        <div id="view-news">
+          <div style="background: var(--bg3); padding: 24px; border-radius: 20px; margin-bottom: 40px; text-align: center; border: 1px solid var(--line);">
+            <h3 style="font-family: var(--font-serif); margin-bottom: 8px;">Modifica i testi del sito</h3>
+            <p style="font-size: 0.9rem; color: var(--text-mid); margin-bottom: 20px;">Attiva questa modalità per cliccare sulle scritte e modificarle direttamente.</p>
+            <button class="btn-admin-visual" onclick="enterVisualEditMode()" style="width: auto; padding: 12px 40px;">🎨 Attiva Modifica Visiva</button>
+          </div>
+          <h3 style="margin-bottom: 20px; font-family: var(--font-serif);">Gestione Articoli</h3>
+          <button class="btn-admin-save" style="margin-bottom:24px;" onclick="addNewArticle()">+ Aggiungi Nuova News</button>
+          <div id="admin-article-list"></div>
         </div>
 
-        <div id="view-news">
-          <h3 style="margin-bottom: 20px; font-family: var(--font-serif);">Gestione Articoli</h3>
-          <button class="btn-admin-save" style="margin-bottom:24px;" onclick="addNewArticle()">+ Aggiungi Nuova
-            News</button>
-          <div id="admin-article-list"></div>
+        <!-- SEZIONE CRM PAZIENTI -->
+        <div id="view-pazienti" style="display:none;">
+          <h3 style="margin-bottom: 10px; font-family: var(--font-serif);">Rubrica Pazienti</h3>
+          <p style="font-size: 0.85rem; color: var(--text-mid); margin-bottom: 24px;">Questi contatti sono sincronizzati automaticamente con il tuo CRM Brevo.</p>
+          <div id="admin-subscribers-list">
+            <!-- Popolato da JS -->
+          </div>
         </div>
 
         <div id="editor-view" style="display:none; margin-top:40px; border-top:2px solid #eee; padding-top:30px;">
@@ -3159,6 +3169,16 @@
       const apiKey = dbSettings.brevo_api_key;
       if (!apiKey) return;
 
+      // PRIMA: Sincronizza il contatto con Brevo CRM
+      try {
+        await fetch('https://api.brevo.com/v3/contacts', {
+          method: 'POST',
+          headers: { 'accept': 'application/json', 'api-key': apiKey, 'content-type': 'application/json' },
+          body: JSON.stringify({ email: targetEmail, updateEnabled: true })
+        });
+      } catch(e) { console.log("Brevo sync error", e); }
+
+      // DOPO: Invia la mail di benvenuto
       try {
         await fetch('https://api.brevo.com/v3/smtp/email', {
           method: 'POST',
@@ -3187,6 +3207,72 @@
         console.error("Welcome email error:", e);
       }
     }
+
+    window.showAdminTab = function(tab) {
+      document.getElementById('view-news').style.display = tab === 'news' ? 'block' : 'none';
+      document.getElementById('view-pazienti').style.display = tab === 'pazienti' ? 'block' : 'none';
+      
+      const newsTab = document.getElementById('tab-news');
+      const pazTab = document.getElementById('tab-pazienti');
+      
+      if (tab === 'news') {
+        newsTab.style.opacity = "1"; newsTab.style.color = "var(--accent)";
+        pazTab.style.opacity = "0.6"; pazTab.style.color = "var(--text-mid)";
+      } else {
+        newsTab.style.opacity = "0.6"; newsTab.style.color = "var(--text-mid)";
+        pazTab.style.opacity = "1"; pazTab.style.color = "var(--accent)";
+        renderSubscribersList();
+      }
+    };
+
+    async function renderSubscribersList() {
+      const container = document.getElementById('admin-subscribers-list');
+      container.innerHTML = '<p style="font-size:0.9rem; opacity:0.5;">Caricamento rubrica...</p>';
+      
+      const { data, error } = await supabaseAdmin.from('subscribers').select('*').order('created_at', { ascending: false });
+      
+      if (error || !data) {
+        container.innerHTML = '<p>Errore nel caricamento.</p>';
+        return;
+      }
+
+      if (data.length === 0) {
+        container.innerHTML = '<p style="font-size:0.9rem; opacity:0.5;">Nessun iscritto ancora.</p>';
+        return;
+      }
+
+      let html = `
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+          <thead>
+            <tr style="text-align:left; border-bottom:2px solid var(--line);">
+              <th style="padding:10px;">Email</th>
+              <th style="padding:10px;">Data Iscrizione</th>
+              <th style="padding:10px;">Azione</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      data.forEach(sub => {
+        const date = new Date(sub.created_at).toLocaleDateString('it-IT');
+        html += `
+          <tr style="border-bottom:1px solid #eee;">
+            <td style="padding:10px; font-weight:600;">${sub.email}</td>
+            <td style="padding:10px; color:var(--text-mid);">${date}</td>
+            <td style="padding:10px;"><span onclick="deleteSubscriber('${sub.email}')" style="color:#d9534f; cursor:pointer; font-weight:600;">Elimina</span></td>
+          </tr>
+        `;
+      });
+
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    window.deleteSubscriber = async function(email) {
+      if (!confirm(`Vuoi rimuovere ${email} dalla lista?`)) return;
+      const { error } = await supabaseAdmin.from('subscribers').delete().eq('email', email);
+      if (!error) renderSubscribersList();
+    };
 
     window.showEmailCollect = function() {
       document.getElementById('main-book-btn').style.display = 'none';
