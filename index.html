@@ -2660,22 +2660,43 @@
 
     const counterEl = document.querySelector('.mini-card-num');
     if (counterEl) {
-      const startCount = () => {
-        let start = 0; const end = 20; const duration = 2000;
-        const startTime = performance.now();
-        const update = (now) => {
-          const elapsed = now - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const val = Math.floor(progress * (2 - progress) * end); // easeOutQuad
-          counterEl.textContent = val + (val === 20 ? '+' : '');
-          if (progress < 1) { requestAnimationFrame(update); }
-          else { triggerCelebration(); }
-        };
-        requestAnimationFrame(update);
+      let accumulatedTime = 0;
+      let lastTime = null;
+      let isIntersecting = false;
+      let animationStarted = false;
+
+      const updateCount = (now) => {
+        if (!lastTime) lastTime = now;
+        const delta = now - lastTime;
+        lastTime = now;
+
+        // Se la pagina è nascosta o l'elemento non è nel mirino, non avanziamo il tempo del contatore
+        if (document.hidden || !isIntersecting) {
+            if (accumulatedTime < 2000) requestAnimationFrame(updateCount);
+            return;
+        }
+
+        accumulatedTime += delta;
+        const progress = Math.min(accumulatedTime / 2000, 1);
+        const val = Math.floor(progress * (2 - progress) * 20); // easeOutQuad
+        counterEl.textContent = val + (val === 20 ? '+' : '');
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCount);
+        } else {
+          triggerCelebration();
+        }
       };
+
       const countObs = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { startCount(); countObs.unobserve(e.target); } });
-      }, { threshold: 0.5 });
+        entries.forEach(e => {
+          isIntersecting = e.isIntersecting;
+          if (isIntersecting && !animationStarted) {
+            animationStarted = true;
+            requestAnimationFrame(updateCount);
+          }
+        });
+      }, { threshold: 0.1 }); // Soglia più bassa per una risposta più rapida
       countObs.observe(counterEl);
     }
 
