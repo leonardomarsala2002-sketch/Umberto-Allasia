@@ -3191,7 +3191,10 @@
             'content-type': 'application/json'
           },
           body: JSON.stringify({
-            sender: { name: "Umberto Allasia", email: "leonardo.marsala2002@gmail.com" },
+            sender: { 
+              name: dbSettings.email_sender_name || "Umberto Allasia", 
+              email: dbSettings.email_sender_address || "leonardo.marsala2002@gmail.com" 
+            },
             to: [{ email: targetEmail }],
             subject: "Benvenuto! Grazie per esserti iscritto",
             htmlContent: `
@@ -3415,7 +3418,10 @@
             'content-type': 'application/json'
           },
           body: JSON.stringify({
-            sender: { name: "Umberto Allasia", email: "leonardo.marsala2002@gmail.com" },
+            sender: { 
+              name: dbSettings.email_sender_name || "Umberto Allasia", 
+              email: dbSettings.email_sender_address || "leonardo.marsala2002@gmail.com" 
+            },
             to: emails.map(e => ({ email: e })),
             subject: "Nuova storia pubblicata: " + title,
             htmlContent: `
