@@ -1,4 +1,4 @@
-﻿    // Articoli Content
+    // Articoli Content
     const articles = {
       1: {
         category: 'Riflessione',
@@ -130,11 +130,12 @@
       clicks++;
       if (clicks >= 5) {
         clicks = 0;
-        const pass = prompt("Inserisci la password amministratore:");
-        if (pass === "UmbertoAllasia.") { // Password corretta
+        const user = prompt("Utente Amministratore:");
+        const pass = prompt("Password:");
+        if (user === "uallasia" && pass === "leonardomarsala") {
           openAdminPanel();
         } else if (pass !== null) {
-          alert("Password errata.");
+          alert("Credenziali errate.");
         }
       }
     };
@@ -457,16 +458,24 @@
     window.showAdminTab = function(tab) {
       document.getElementById('view-news').style.display = tab === 'news' ? 'block' : 'none';
       document.getElementById('view-pazienti').style.display = tab === 'pazienti' ? 'block' : 'none';
+      document.getElementById('view-calendario').style.display = tab === 'calendario' ? 'block' : 'none';
       
       const newsTab = document.getElementById('tab-news');
       const pazTab = document.getElementById('tab-pazienti');
+      const calTab = document.getElementById('tab-calendario');
       
-      if (tab === 'news') {
-        newsTab.style.opacity = "1"; newsTab.style.color = "var(--accent)";
-        pazTab.style.opacity = "0.6"; pazTab.style.color = "var(--text-mid)";
-      } else {
-        newsTab.style.opacity = "0.6"; newsTab.style.color = "var(--text-mid)";
-        pazTab.style.opacity = "1"; pazTab.style.color = "var(--accent)";
+      // Reset opacity/colors
+      [newsTab, pazTab, calTab].forEach(t => {
+        if(t) { t.style.opacity = "0.6"; t.style.color = "var(--text-mid)"; }
+      });
+
+      const activeTab = document.getElementById('tab-' + tab);
+      if (activeTab) {
+        activeTab.style.opacity = "1";
+        activeTab.style.color = "var(--accent)";
+      }
+
+      if (tab === 'pazienti') {
         renderSubscribersList();
       }
     };
