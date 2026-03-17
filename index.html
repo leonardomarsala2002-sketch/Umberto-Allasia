@@ -1565,8 +1565,10 @@
       <div class="pill-tag" style="margin:0 auto 16px;">Recensioni</div>
       <h2 class="s-title">Le parole<br>di <em>chi c'era.</em></h2>
     </div>
-    <div style="margin-top: 32px; min-height: 200px;">
-      <script defer async src='https://cdn.trustindex.io/loader.js?a6abdf067269292a4c867201a01'></script>
+    <div style="margin-top: 32px; min-height: 200px;" id="trustindex-container">
+      <p style="text-align:center; color:var(--text-light); font-size:0.9rem;">
+        <i>Per visualizzare le recensioni Google, è necessario accettare i cookie dal banner in basso.</i>
+      </p>
     </div>
   </div>
 </section>
@@ -1959,15 +1961,39 @@
 
   // COOKIE BANNER Logic
   const cookieBanner = document.getElementById('cookie-banner');
-  if (cookieBanner && !localStorage.getItem('cookiesAccepted')) {
-    setTimeout(() => {
-      cookieBanner.classList.add('show');
-    }, 1500); // Mostra il banner dopo 1.5s
+  const trustindexContainer = document.getElementById('trustindex-container');
+
+  // Funzione per caricare script di terze parti (es. Trustindex per le recensioni)
+  function loadThirdPartyScripts() {
+    if (trustindexContainer && !document.getElementById('trustindex-script')) {
+      trustindexContainer.innerHTML = ''; // Rimuove il messaggio di avviso
+      const script = document.createElement('script');
+      script.id = 'trustindex-script';
+      script.defer = true;
+      script.async = true;
+      script.src = 'https://cdn.trustindex.io/loader.js?a6abdf067269292a4c867201a01';
+      trustindexContainer.appendChild(script);
+    }
   }
+
+  // Verifica stato cookie al caricamento
+  const cookieStatus = localStorage.getItem('cookiesAccepted');
+  if (cookieStatus === 'true') {
+    loadThirdPartyScripts();
+  } else if (!cookieStatus) {
+    if (cookieBanner) {
+      setTimeout(() => {
+        cookieBanner.classList.add('show');
+      }, 1500); // Mostra il banner
+    }
+  }
+
   window.acceptCookies = function() {
     localStorage.setItem('cookiesAccepted', 'true');
     cookieBanner.classList.remove('show');
+    loadThirdPartyScripts(); // Carica le recensioni ora che c'è il consenso
   };
+  
   window.rejectCookies = function() {
     localStorage.setItem('cookiesAccepted', 'false');
     cookieBanner.classList.remove('show');
