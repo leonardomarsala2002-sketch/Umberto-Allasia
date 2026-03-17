@@ -2905,6 +2905,43 @@
       }
     }
 
+    window.addEventListener('click', (e) => {
+        // 1. Intercettazione Recensioni Google (Trustindex)
+        const readMoreBtn = e.target.closest('.ti-read-more-active');
+        const reviewItem = e.target.closest('.ti-review-item');
+        
+        if (readMoreBtn && reviewItem) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const name = reviewItem.querySelector('.ti-name')?.textContent?.trim() || "Paziente";
+          const fullText = reviewItem.querySelector('.ti-review-content')?.innerHTML?.replace(/<span.*<\/span>/, '')?.trim() || "";
+          
+          // Apriamo il nostro modal invece di quello di Trustindex
+          modalCat.textContent = "Recensione Google";
+          modalTitle.textContent = "La testimonianza di " + name;
+          modalContent.innerHTML = `<div style="font-size:1.1rem; line-height:1.8; color:var(--text-mid); font-style:italic;">"${fullText}"</div>`;
+          modal.classList.add('active');
+          lockScroll();
+          return;
+        }
+
+        // 2. Gestione generica dello scroll lock per altri popup (sicurezza)
+        setTimeout(() => {
+            const trustPopup = document.querySelector('.ti-widget-lightbox, .ti-v-fixed, .ti-modal.ti-show');
+            const isTrustVisible = trustPopup && getComputedStyle(trustPopup).display !== 'none';
+            const isOurModalVisible = document.querySelector('.article-modal.active') || 
+                                     document.querySelector('.archive-modal.active') ||
+                                     document.querySelector('.admin-modal.active');
+            
+            if (isTrustVisible || isOurModalVisible) {
+                lockScroll();
+            } else {
+                unlockScroll();
+            }
+        }, 150);
+    }, true); // Fase di cattura per anticipare i widget esterni
+
     // Verifica stato cookie al caricamento
     const cookieStatus = localStorage.getItem('cookiesAccepted');
     if (cookieStatus === 'true') {
