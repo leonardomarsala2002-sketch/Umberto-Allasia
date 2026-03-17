@@ -2017,6 +2017,8 @@
     body.modal-open {
       overflow: hidden !important;
       height: 100vh !important;
+      position: fixed;
+      width: 100%;
     }
   </style>
 </head>
@@ -2930,13 +2932,18 @@
     };
 
     // --- MONITORAGGIO POPUP ---
+    let scrollPos = 0;
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
-          if (node.nodeType === 1 && (node.classList.contains('ti-widget') || node.id.includes('ti-'))) {
-            const popup = node.querySelector('.ti-popup, .ti-modal, [class*="ti-v-fixed"]');
+          if (node.nodeType === 1 && (node.classList.contains('ti-widget') || node.id.includes('ti-') || node.className.includes('ti-'))) {
+            const popup = node.querySelector('.ti-popup, .ti-modal, [class*="ti-v-fixed"], .ti-widget-lightbox');
             if (popup) {
-              document.body.classList.add('modal-open');
+              if (!document.body.classList.contains('modal-open')) {
+                scrollPos = window.scrollY;
+                document.body.style.top = `-${scrollPos}px`;
+                document.body.classList.add('modal-open');
+              }
               if (typeof lenis !== 'undefined') lenis.stop();
             }
           }
@@ -2946,18 +2953,27 @@
     observer.observe(document.body, { childList: true, subtree: true });
 
     window.addEventListener('click', (e) => {
+        // Piccola attesa per lasciare che il widget di Google si carichi/apra
         setTimeout(() => {
-            const trustPopup = document.querySelector('.ti-popup.ti-show, .ti-modal.ti-show, [class*="ti-v-fixed"]');
-            const isAnyModalActive = document.querySelector('.article-modal.active') || document.querySelector('.archive-modal.active');
+            const trustPopup = document.querySelector('.ti-popup.ti-show, .ti-modal.ti-show, [class*="ti-v-fixed"], .ti-widget-lightbox[style*="display: block"]');
+            const isAnyModalActive = document.querySelector('.article-modal.active') || document.querySelector('.archive-modal.active') || trustPopup;
             
-            if (trustPopup && getComputedStyle(trustPopup).display !== 'none') {
-                document.body.classList.add('modal-open');
+            if (isAnyModalActive) {
+                if (!document.body.classList.contains('modal-open')) {
+                    scrollPos = window.scrollY;
+                    document.body.style.top = `-${scrollPos}px`;
+                    document.body.classList.add('modal-open');
+                }
                 if (typeof lenis !== 'undefined') lenis.stop();
-            } else if (!isAnyModalActive) {
-                document.body.classList.remove('modal-open');
+            } else {
+                if (document.body.classList.contains('modal-open')) {
+                    document.body.classList.remove('modal-open');
+                    document.body.style.top = '';
+                    window.scrollTo(0, scrollPos);
+                }
                 if (typeof lenis !== 'undefined') lenis.start();
             }
-        }, 300);
+        }, 150);
     });
 
     // --- MONITORAGGIO POPUP ESTERNI (Trustindex) ---
