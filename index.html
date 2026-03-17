@@ -18,7 +18,9 @@
       cursor: default; 
     }
     a, button, [onclick], .storia-card, .close-modal, .archive-close { cursor: pointer !important; }
-    p, span, h1, h2, h3, h4, div { cursor: auto; }
+    p, span, h1, h2, h3, h4, div { cursor: inherit; }
+    body, html { cursor: default; }
+    .s-body, .modal-body, .admin-inner, .tl-text, p { cursor: text; }
 
     :root {
       --bg:         #FEFCF9;
@@ -870,25 +872,31 @@
       max-width: 900px;
       max-height: 85vh;
       border-radius: 32px;
-      padding: 40px;
-      overflow-y: auto;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
       position: relative;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.4);
     }
-    .admin-inner::-webkit-scrollbar { display: none; }
     .admin-header { 
       display: flex; 
       justify-content: space-between; 
       align-items: center; 
-      position: sticky;
-      top: 0;
-      margin: -40px -40px 30px;
-      padding: 40px 40px 20px;
+      padding: 32px 40px;
       background: #fff;
       z-index: 10;
-      border-bottom: 1px solid #eee; 
+      border-bottom: 1px solid #eee;
+      flex-shrink: 0;
     }
+    .admin-body {
+      padding: 32px 40px 40px;
+      overflow-y: auto;
+      flex-grow: 1;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .admin-body::-webkit-scrollbar { display: none; }
     .admin-form-group { margin-bottom: 20px; }
     .admin-form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; }
     .admin-form-group input, .admin-form-group textarea, .admin-form-group select {
@@ -1730,38 +1738,40 @@
 <div id="admin-panel" class="admin-modal">
   <div class="admin-inner" data-lenis-prevent>
     <div class="admin-header">
-      <h2 style="font-family:var(--font-serif);">Pannello Gestione News</h2>
-      <div onclick="closeAdminPanel()" style="cursor:pointer; font-size:1.5rem;">✕</div>
+      <h2 style="font-family:var(--font-serif); font-size: 1.4rem;">Pannello Gestione News</h2>
+      <div onclick="closeAdminPanel()" style="cursor:pointer; font-size:1.5rem; opacity: 0.5;">✕</div>
     </div>
     
-    <button class="btn-admin-save" style="margin-bottom:20px;" onclick="addNewArticle()">+ Aggiungi Nuova News</button>
-    
-    <div id="admin-article-list">
-      <!-- Lista articoli per edit/delete -->
-    </div>
+    <div class="admin-body">
+      <button class="btn-admin-save" style="margin-bottom:24px;" onclick="addNewArticle()">+ Aggiungi Nuova News</button>
+      
+      <div id="admin-article-list">
+        <!-- Lista articoli per edit/delete -->
+      </div>
 
-    <div id="editor-view" style="display:none; margin-top:40px; border-top:2px solid #eee; padding-top:30px;">
-      <h3 id="editor-title">Modifica Articolo</h3>
-      <input type="hidden" id="edit-id">
-      <div class="admin-form-group">
-        <label>Titolo</label>
-        <input type="text" id="edit-title">
-      </div>
-      <div class="admin-form-group">
-        <label>Categoria</label>
-        <input type="text" id="edit-category" placeholder="es. Riflessione, Postura...">
-      </div>
-      <div class="admin-form-group">
-        <label>Estratto (breve riassunto)</label>
-        <textarea id="edit-excerpt" rows="2"></textarea>
-      </div>
-      <div class="admin-form-group">
-        <label>Contenuto (HTML ammesso)</label>
-        <textarea id="edit-content" rows="10"></textarea>
-      </div>
-      <div class="admin-actions">
-        <button class="btn-admin-save" onclick="saveArticle()">Salva Modifiche</button>
-        <button class="btn-admin-cancel" onclick="document.getElementById('editor-view').style.display='none'">Annulla</button>
+      <div id="editor-view" style="display:none; margin-top:40px; border-top:2px solid #eee; padding-top:30px;">
+        <h3 id="editor-title" style="margin-bottom: 24px; font-family: var(--font-serif);">Modifica Articolo</h3>
+        <input type="hidden" id="edit-id">
+        <div class="admin-form-group">
+          <label>Titolo</label>
+          <input type="text" id="edit-title">
+        </div>
+        <div class="admin-form-group">
+          <label>Categoria</label>
+          <input type="text" id="edit-category" placeholder="es. Riflessione, Postura...">
+        </div>
+        <div class="admin-form-group">
+          <label>Estratto (breve riassunto)</label>
+          <textarea id="edit-excerpt" rows="2"></textarea>
+        </div>
+        <div class="admin-form-group">
+          <label>Contenuto (HTML ammesso)</label>
+          <textarea id="edit-content" rows="10"></textarea>
+        </div>
+        <div class="admin-actions">
+          <button class="btn-admin-save" onclick="saveArticle()">Salva Modifiche</button>
+          <button class="btn-admin-cancel" onclick="document.getElementById('editor-view').style.display='none'">Annulla</button>
+        </div>
       </div>
     </div>
   </div>
