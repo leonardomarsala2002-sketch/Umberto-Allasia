@@ -9,13 +9,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <style>
-    /* Forza il cursore a freccia fissa su tutti gli elementi */
+    /* Forza il cursore a freccia fissa di base, ma lascia la selezione testo e i link */
     *, *::before, *::after { 
       box-sizing: border-box; 
       margin: 0; 
       padding: 0; 
-      cursor: default !important; 
+      cursor: default; 
     }
+    a, button, [onclick], .storia-card, .close-modal, .archive-close { cursor: pointer !important; }
+    p, span, h1, h2, h3, h4, div { cursor: auto; }
 
     :root {
       --bg:         #FEFCF9;
@@ -1936,14 +1938,12 @@
     modalContent.innerHTML = art.content;
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    if (typeof lenis !== 'undefined') lenis.stop();
   };
 
   window.closeArticle = function() {
     modal.classList.remove('active');
     if (!archiveModal.classList.contains('active')) {
       document.body.style.overflow = '';
-      if (typeof lenis !== 'undefined') lenis.start();
     }
   };
 
@@ -1966,7 +1966,6 @@
     });
     archiveModal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    if (typeof lenis !== 'undefined') lenis.stop();
   };
 
   // Update News Counts
@@ -1982,7 +1981,6 @@
   window.closeArchive = function() {
     archiveModal.classList.remove('active');
     document.body.style.overflow = '';
-    if (typeof lenis !== 'undefined') lenis.start();
     document.querySelector('.archive-inner').scrollTop = 0;
     document.querySelector('.archive-inner').classList.remove('scrolled');
   };
