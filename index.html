@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 
 <head>
@@ -2418,8 +2418,17 @@
               Disponibilità Live</div>
             <p style="font-size: 0.95rem; color: var(--text-mid); margin-bottom: 24px; line-height: 1.5;">Il calendario
               è sincronizzato in tempo reale con i miei appuntamenti.</p>
-            <a href="https://calendar.app.google/imdtMmvzyEDhdwj78" target="_blank" class="btn-submit"
-              style="text-align: center; text-decoration: none; display: block;">Scegli data e ora</a>
+            
+            <div id="booking-collect" style="margin-bottom: 20px; display: none; text-align: left; background: var(--bg2); padding: 15px; border-radius: 12px;">
+              <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; display: block;">Lascia la tua mail per ricevere i miei consigli sulla salute:</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="email" id="book-email" placeholder="tua@email.com" style="flex: 1; padding: 8px 12px; border-radius: 50px; border: 1px solid #ddd; outline: none; font-size: 0.9rem;">
+                <button onclick="subscribeAndRedirect()" class="btn-submit" style="padding: 8px 15px; font-size: 0.8rem;">Continua</button>
+              </div>
+              <p style="font-size: 0.7rem; color: var(--text-light); margin-top: 8px; cursor: pointer;" onclick="directRedirect()">O continua senza iscriverti →</p>
+            </div>
+
+            <button id="main-book-btn" onclick="showEmailCollect()" class="btn-submit" style="width: 100%; border: none;">Scegli data e ora</button>
           </div>
 
           <p style="font-size: 0.85rem; color: var(--text-light); text-align: center;">Verrai indirizzato alla pagina
@@ -2483,8 +2492,8 @@
           </div>
           <div class="admin-actions">
             <button class="btn-admin-save" onclick="saveArticle()">Salva Modifiche</button>
-            <button class="btn-admin-cancel"
-              onclick="document.getElementById('editor-view').style.display='none'">Annulla</button>
+            <button id="btn-notify-email" class="btn-admin-visual" style="margin-top:0; width:auto; background:var(--green-soft); display:none;" onclick="sendNewsletterToAll()">📢 Avvisa Pazienti (Email)</button>
+            <button class="btn-admin-cancel" onclick="document.getElementById('editor-view').style.display='none'">Annulla</button>
           </div>
         </div>
       </div>
@@ -2506,6 +2515,16 @@
           <div class="footer-logo">Il <em>Fisioterapista</em></div>
           <p class="footer-desc">Un approccio che mette la persona al centro — prima del sintomo, prima della tecnica,
             prima di tutto il resto. San Marino.</p>
+          
+          <!-- NEWSLETTER BOX -->
+          <div style="margin-top: 30px; background: rgba(0,0,0,0.03); padding: 20px; border-radius: 16px;">
+            <h5 style="font-size: 0.85rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-mid);">Rimani aggiornato</h5>
+            <div style="display: flex; gap: 8px;">
+              <input type="email" id="newsletter-input" placeholder="La tua email..." style="flex: 1; background: #fff; border: 1px solid var(--line); border-radius: 50px; padding: 10px 18px; font-size: 0.85rem; outline: none;">
+              <button onclick="footerSubscribe()" style="background: var(--text); color: #fff; border: none; border-radius: 50px; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center;">→</button>
+            </div>
+            <p id="nl-msg" style="font-size: 0.75rem; margin-top: 10px; color: var(--green-soft); opacity: 0; transition: opacity 0.3s;"></p>
+          </div>
         </div>
         <div class="footer-col">
           <h4>Naviga</h4>
@@ -2793,7 +2812,7 @@
           <div class="storia-title" style="font-size:1rem;">${art.title}</div>
         </div>
       `;
-        card.onclick = () => { openArticle(id); };
+        card.onclick = () => { openArticleDB(id); };
         archiveList.appendChild(card);
       });
       archiveModal.classList.add('active');
@@ -3110,6 +3129,7 @@
       document.getElementById('edit-excerpt').value = '';
       document.getElementById('edit-content').value = '';
       document.getElementById('edit-image').value = '';
+      document.getElementById('btn-notify-email').style.display = 'none'; // Nascondi il tasto notifica per nuovo articolo
       const editor = document.getElementById('editor-view');
       editor.style.display = 'block';
       setTimeout(() => {
@@ -3126,6 +3146,7 @@
       document.getElementById('edit-excerpt').value = art.excerpt || '';
       document.getElementById('edit-content').value = art.content;
       document.getElementById('edit-image').value = art.image_url || '';
+      document.getElementById('btn-notify-email').style.display = 'block'; // Mostra il tasto notifica solo in modifica
       const editor = document.getElementById('editor-view');
       editor.style.display = 'block';
       setTimeout(() => {
@@ -3160,6 +3181,104 @@
         const { error } = await supabaseAdmin.from('articles').delete().eq('id', id);
         if (error) alert("Errore nell'eliminazione");
         fetchArticles();
+      }
+    };
+
+    // --- NEWSLETTER LOGIC ---
+    const CALENDAR_URL = "https://calendar.app.google/imdtMmvzyEDhdwj78";
+
+    window.showEmailCollect = function() {
+      document.getElementById('main-book-btn').style.display = 'none';
+      document.getElementById('booking-collect').style.display = 'block';
+    };
+
+    window.directRedirect = function() {
+      window.open(CALENDAR_URL, '_blank');
+    };
+
+    window.subscribeAndRedirect = async function() {
+      const email = document.getElementById('book-email').value;
+      if (email && email.includes('@')) {
+        const { error } = await supabaseAdmin.from('subscribers').upsert({ email: email });
+        if (!error) console.log("Subscribed:", email);
+      }
+      window.open(CALENDAR_URL, '_blank');
+    };
+
+    window.footerSubscribe = async function() {
+      const el = document.getElementById('newsletter-input');
+      const msg = document.getElementById('nl-msg');
+      const email = el.value.trim();
+      if (!email || !email.includes('@')) return;
+
+      const { error } = await supabaseAdmin.from('subscribers').upsert({ email: email });
+      if (!error) {
+        msg.textContent = "Grazie! Iscrizione riuscita.";
+        msg.style.opacity = "1";
+        el.value = "";
+        setTimeout(() => { msg.style.opacity = "0"; }, 3000);
+      } else {
+        msg.textContent = "Errore o già iscritto.";
+        msg.style.opacity = "1";
+      }
+    };
+
+    window.sendNewsletterToAll = async function() {
+      const title = document.getElementById('edit-title').value;
+      const excerpt = document.getElementById('edit-excerpt').value;
+      const id = document.getElementById('edit-id').value;
+      
+      // Recupera iscritti dal DB
+      const { data: subs, error } = await supabaseAdmin.from('subscribers').select('email');
+      if (error || !subs || subs.length === 0) {
+        alert("Nessun iscritto trovato a cui inviare l'email.");
+        return;
+      }
+
+      if (!confirm(`Vuoi inviare una notifica email a ${subs.length} pazienti?`)) return;
+
+      // Recupera API KEY da site_settings o variabile (da inserire)
+      const apiKey = dbSettings.brevo_api_key;
+      if (!apiKey) {
+        alert("Configura prima l'API KEY di Brevo nelle impostazioni (o forniscila nell'admin).");
+        return;
+      }
+
+      const emails = subs.map(s => s.email);
+      
+      // Logica di invio tramite fetch a Brevo
+      try {
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            'accept': 'application/json',
+            'api-key': apiKey,
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            sender: { name: "Umberto Allasia", email: "info@ilfisioterapista.sm" },
+            to: emails.map(e => ({ email: e })),
+            subject: "Nuova storia pubblicata: " + title,
+            htmlContent: `
+              <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 12px;">
+                <h2 style="color: #B07D55;">Ciao! Ho pubblicato una nuova news</h2>
+                <h1 style="color: #2C2420;">${title}</h1>
+                <p style="color: #6B5E55; line-height: 1.6; font-size: 1.1rem;">${excerpt}</p>
+                <a href="https://umberto-allasia.vercel.app/" style="display: inline-block; background: #B07D55; color: #fff; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin-top: 20px;">Leggi l'articolo completo</a>
+                <hr style="margin-top: 40px; border: none; border-top: 1px solid #eee;">
+                <p style="font-size: 0.8rem; color: #A8998F;">Ricevi questa mail perché hai richiesto aggiornamenti dal sito ilfisioterapista.sm</p>
+              </div>
+            `
+          })
+        });
+
+        if (response.ok) {
+          alert("Email inviate con successo a tutti i pazienti!");
+        } else {
+          alert("Errore nell'invio delle email tramite Brevo. Controlla la tua API Key.");
+        }
+      } catch (e) {
+        alert("Errore tecnico durante l'invio.");
       }
     };
 
