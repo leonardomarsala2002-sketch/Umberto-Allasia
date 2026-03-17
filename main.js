@@ -238,9 +238,17 @@
           e.stopPropagation();
           
           const name = reviewItem.querySelector('.ti-name')?.textContent?.trim() || "Paziente";
-          const fullText = reviewItem.querySelector('.ti-review-content')?.innerHTML?.replace(/<span.*<\/span>/, '')?.trim() || "";
+          
+          // Pulizia profonda del testo: rimuoviamo link "leggi tutto" e testi di verifica Trustindex
+          let contentClone = reviewItem.querySelector('.ti-review-content')?.cloneNode(true);
+          if (contentClone) {
+            // Rimuoviamo eventuali script o testi di sistema
+            contentClone.querySelectorAll('.ti-read-more, .ti-read-more-active, span[style*="display: none"]').forEach(el => el.remove());
+            // Se c'è il testo di verifica in fondo, lo cerchiamo e rimuoviamo (spesso è un testo libero o in un div specifico)
+          }
+          
+          const fullText = contentClone?.innerHTML?.split('Trustindex verifica')[0]?.trim() || "";
           const avatarSrc = reviewItem.querySelector('.ti-profile-img img')?.src || "https://i.pravatar.cc/100?u=" + encodeURIComponent(name);
-          const starsHtml = reviewItem.querySelector('.ti-stars')?.innerHTML || "★★★★★";
           const reviewDate = reviewItem.querySelector('.ti-date')?.textContent?.trim() || "Recensione recente";
           
           // Apriamo il nostro modal invece di quello di Trustindex
@@ -254,7 +262,7 @@
                 <div class="gr-info">
                   <div class="gr-name">${name} <span class="gr-g-badge">G</span></div>
                   <div class="gr-meta">
-                    <span class="gr-stars">${starsHtml}</span>
+                    <span class="gr-stars">★★★★★</span>
                     <span class="gr-date">${reviewDate}</span>
                   </div>
                 </div>
