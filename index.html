@@ -934,9 +934,17 @@
       outline-offset: 4px;
       border-radius: 4px;
       cursor: text !important;
-    }
-    [contenteditable="true"]:hover {
+      user-select: text !important;
+      position: relative;
+      z-index: 100000 !important;
       background: rgba(176, 125, 85, 0.05);
+      transition: background 0.2s;
+      pointer-events: auto !important;
+    }
+    [contenteditable="true"]:focus {
+      outline: 3px solid var(--accent);
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
     .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee; }
     .admin-list-item:hover { background: #f9f9f9; }
@@ -1440,7 +1448,7 @@
     <div class="fade-up">
       <div class="hero-eyebrow">
         <div class="hero-eyebrow-dot"></div>
-        <span>Fisioterapista · San Marino</span>
+        <span id="dyn-hero-eyebrow">Fisioterapista · San Marino</span>
       </div>
       <h1 class="hero-title" id="dyn-hero-title">
         Prima di ogni tecnica,<br>
@@ -1466,8 +1474,8 @@
       <div class="hero-float-card">
         <div class="float-icon">🎉</div>
         <div>
-          <div class="float-text-top">Esperienza</div>
-          <div class="float-text-main">20+ anni con le persone</div>
+          <div class="float-text-top" id="dyn-card-exp-top">Esperienza</div>
+          <div class="float-text-main" id="dyn-card-exp-main">20+ anni con le persone</div>
         </div>
       </div>
       <a href="#recensioni" class="google-card hero-float-card2">
@@ -1507,12 +1515,12 @@
     <div class="approccio-grid">
       <div class="approccio-text fade-up">
         <div class="pill-tag">Il mio approccio</div>
-        <h2 class="s-title">Non si può separare<br>il sintomo dalla <em>persona.</em></h2>
-        <p class="s-body">Potresti avere un mal di schiena da tre anni. O un dolore alla spalla che compare solo la notte. O qualcosa che i medici hanno visitato — ma che ancora non ha un nome preciso.</p>
+        <h2 class="s-title" id="dyn-approach-title">Non si può separare<br>il sintomo dalla <em>persona.</em></h2>
+        <p class="s-body" id="dyn-approach-body">Potresti avere un mal di schiena da tre anni. O un dolore alla spalla che compare solo la notte. O qualcosa che i medici hanno visitato — ma che ancora non ha un nome preciso.</p>
         <div class="pullquote">
-          <p>Quello che ascolto non è solo il tuo corpo — è anche come quel dolore ha cambiato le tue giornate, le tue relazioni, il tuo modo di sentirti.</p>
+          <p id="dyn-approach-quote">Quello che ascolto non è solo il tuo corpo — è anche come quel dolore ha cambiato le tue giornate, le tue relazioni, il tuo modo di sentirti.</p>
         </div>
-        <p class="s-body">Separare il sintomo dalla persona significa perdere metà della storia — e metà della soluzione. Il colloquio viene sempre prima. Non come formalità, ma come parte del percorso di cura.</p>
+        <p class="s-body" id="dyn-approach-footer">Separare il sintomo dalla persona significa perdere metà della storia — e metà della soluzione. Il colloquio viene sempre prima. Non come formalità, ma come parte del percorso di cura.</p>
       </div>
       <div class="approccio-img-wrap fade-up">
         <div class="approccio-photo">
@@ -1536,16 +1544,16 @@
     <div class="percorso-header fade-up">
       <div>
         <div class="pill-tag">Chi sono</div>
-        <h2 class="s-title">Vent'anni non si contano.<br><em>Si vivono.</em></h2>
+        <h2 class="s-title" id="dyn-about-title">Vent'anni non si contano.<br><em>Si vivono.</em></h2>
       </div>
-      <p class="s-body">Non sono arrivato a questo modo di lavorare leggendo un libro. Ci sono arrivato attraverso migliaia di persone — ognuna con la sua storia, ognuna che mi ha insegnato qualcosa che nessuna università avrebbe potuto insegnarmi.</p>
+      <p class="s-body" id="dyn-about-body">Non sono arrivato a questo modo di lavorare leggendo un libro. Ci sono arrivato attraverso migliaia di persone — ognuna con la sua storia, ognuna che mi ha insegnato qualcosa che nessuna università avrebbe potuto insegnarmi.</p>
     </div>
     <div class="tl-list">
       <div class="tl-item fade-up">
         <div class="filigrana">2004</div>
         <div class="tl-content">
-          <div class="tl-title">La laurea. L'inizio.</div>
-          <p class="tl-text">Mi sono laureato convinto che la fisioterapia fosse una scienza esatta. Presto avrei scoperto che era anche — e soprattutto — una forma profonda di ascolto.</p>
+          <div class="tl-title" id="dyn-tl-2004-title">La laurea. L'inizio.</div>
+          <p class="tl-text" id="dyn-tl-2004-text">Mi sono laureato convinto che la fisioterapia fosse una scienza esatta. Presto avrei scoperto che era anche — e soprattutto — una forma profonda di ascolto.</p>
         </div>
       </div>
       <div class="tl-item fade-up">
@@ -1578,27 +1586,27 @@
   <div class="section-inner">
     <div class="cl-header fade-up">
       <div class="pill-tag">Come lavoro</div>
-      <h2 class="s-title">Tre momenti.<br><em>Una sola direzione.</em></h2>
-      <p class="s-body">Non esiste un protocollo uguale per tutti. Ma c'è un percorso che rispetto sempre — perché alcune cose non cambiano: l'ascolto viene prima di tutto il resto.</p>
+      <h2 class="s-title" id="dyn-how-title">Tre momenti.<br><em>Una sola direzione.</em></h2>
+      <p class="s-body" id="dyn-how-body">Non esiste un protocollo uguale per tutti. Ma c'è un percorso che rispetto sempre — perché alcune cose non cambiano: l'ascolto viene prima di tutto il resto.</p>
     </div>
     <div class="steps-grid">
       <div class="step-card fade-up">
         <span class="step-emoji">💬</span>
         <span class="step-num">01</span>
-        <div class="step-title">Il colloquio</div>
-        <p class="step-text">Partiamo da te. Non dal tuo dolore — da te. Come hai vissuto questo periodo? Cosa è cambiato nelle tue giornate? Solo da qui posso capire davvero cosa serve.</p>
+        <div class="step-title" id="dyn-step-01-title">Il colloquio</div>
+        <p class="step-text" id="dyn-step-01-text">Partiamo da te. Non dal tuo dolore — da te. Come hai vissuto questo periodo? Cosa è cambiato nelle tue giornate? Solo da qui posso capire davvero cosa serve.</p>
       </div>
       <div class="step-card fade-up">
         <span class="step-emoji">🤲</span>
         <span class="step-num">02</span>
-        <div class="step-title">La valutazione</div>
-        <p class="step-text">Dopo aver ascoltato, osservo. Il corpo dice molto più di quanto crediamo. La valutazione non è un test — è una conversazione tra me e il tuo corpo.</p>
+        <div class="step-title" id="dyn-step-02-title">La valutazione</div>
+        <p class="step-text" id="dyn-step-02-text">Dopo aver ascoltato, osservo. Il corpo dice molto più di quanto crediamo. La valutazione non è un test — è una conversazione tra me e il tuo corpo.</p>
       </div>
       <div class="step-card fade-up">
         <span class="step-emoji">🌱</span>
         <span class="step-num">03</span>
-        <div class="step-title">Il percorso</div>
-        <p class="step-text">Costruiamo insieme qualcosa che abbia senso per la tua vita — non solo per il tuo sintomo. Guarire non significa smettere di avere dolore. Significa ritrovare sé stessi.</p>
+        <div class="step-title" id="dyn-step3-title">Il percorso</div>
+        <p class="step-text" id="dyn-step3-text">Costruiamo insieme qualcosa che abbia senso per la tua vita — non solo per il tuo sintomo. Guarire non significa smettere di avere dolore. Significa ritrovare sé stessi.</p>
       </div>
     </div>
   </div>
@@ -1696,7 +1704,7 @@
   <div class="section-inner">
     <div class="rec-header fade-up">
       <div class="pill-tag" style="margin:0 auto 16px;">Recensioni</div>
-      <h2 class="s-title">Le parole<br>di <em>chi c'era.</em></h2>
+      <h2 class="s-title" id="dyn-reviews-title">Le parole<br>di <em>chi c'era.</em></h2>
     </div>
     <div style="margin-top: 32px; min-height: 200px;" id="trustindex-container">
       <p style="text-align:center; color:var(--text-light); font-size:0.9rem;">
@@ -1712,9 +1720,9 @@
     <div class="prenota-grid">
       <div class="fade-up">
         <div class="pill-tag">Contatti</div>
-        <h2 class="s-title">Il primo passo<br>è <em>una chiamata.</em></h2>
-        <p class="s-body">Non devi arrivare con le idee chiare. Non devi sapere già se sono la persona giusta. Quella valutazione la facciamo insieme — in una chiamata gratuita di 15 minuti.</p>
-        <p class="s-body">Dimmi cosa stai vivendo. Il resto viene da sé.</p>
+        <h2 class="s-title" id="dyn-contact-title">Il primo passo<br>è <em>una chiamata.</em></h2>
+        <p class="s-body" id="dyn-contact-body1">Non devi arrivare con le idee chiare. Non devi sapere già se sono la persona giusta. Quella valutazione la facciamo insieme — in una chiamata gratuita di 15 minuti.</p>
+        <p class="s-body" id="dyn-contact-body2">Dimmi cosa stai vivendo. Il resto viene da sé.</p>
         <div class="contact-list">
           <div class="c-row">
             <div class="c-icon mail">
@@ -1755,8 +1763,8 @@
       </div>
 
       <div class="booking-box fade-up">
-        <h3>Prenota una chiamata gratuita</h3>
-        <p>Verifica la mia disponibilità reale e scegli il momento più comodo per te.</p>
+        <h3 id="dyn-booking-title">Prenota una chiamata gratuita</h3>
+        <p id="dyn-booking-text">Verifica la mia disponibilità reale e scegli il momento più comodo per te.</p>
         
         <div style="margin: 32px 0; padding: 24px; background: #fff; border-radius: 20px; border: 1px solid var(--line); text-align: center;">
           <div style="font-size: 2rem; margin-bottom: 12px;">📅</div>
@@ -1781,32 +1789,17 @@
     </div>
     
     <div class="admin-body">
-      <div class="admin-tabs" style="display:flex; gap:20px; margin-bottom:30px; border-bottom:1px solid #eee; padding-bottom:10px;">
-        <span onclick="showAdminTab('news')" id="tab-news" style="cursor:pointer; font-weight:600; color:var(--accent);">Gestione News</span>
-        <span onclick="showAdminTab('settings')" id="tab-settings" style="cursor:pointer; font-weight:600; opacity:0.5;">Testi Sito</span>
+      <!-- VISUAL EDIT TRIGGER -->
+      <div style="background: var(--bg3); padding: 24px; border-radius: 20px; margin-bottom: 40px; text-align: center; border: 1px solid var(--line);">
+        <h3 style="font-family: var(--font-serif); margin-bottom: 8px;">Modifica i testi del sito</h3>
+        <p style="font-size: 0.9rem; color: var(--text-mid); margin-bottom: 20px;">Attiva questa modalità per cliccare sulle scritte e modificarle direttamente.</p>
+        <button class="btn-admin-visual" onclick="enterVisualEditMode()" style="width: auto; padding: 12px 40px;">🎨 Attiva Modifica Visiva</button>
       </div>
 
       <div id="view-news">
+        <h3 style="margin-bottom: 20px; font-family: var(--font-serif);">Gestione Articoli</h3>
         <button class="btn-admin-save" style="margin-bottom:24px;" onclick="addNewArticle()">+ Aggiungi Nuova News</button>
         <div id="admin-article-list"></div>
-      </div>
-
-      <div id="view-settings" style="display:none;">
-        <h3 style="font-family:var(--font-serif); margin-bottom:20px;">Modifica Testi Principali</h3>
-        <div class="admin-form-group">
-          <label>Titolo Hero (usa &lt;br&gt; per andare a capo, &lt;em&gt; per il corsivo)</label>
-          <textarea id="set-hero-title" rows="3"></textarea>
-        </div>
-        <div class="admin-form-group">
-          <label>Descrizione Hero</label>
-          <textarea id="set-hero-body" rows="4"></textarea>
-        </div>
-        <button class="btn-admin-save" onclick="saveSettings()">Salva Testi Sito</button>
-
-        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px dashed #eee;">
-          <p style="font-size: 0.85rem; margin-bottom: 15px; color: var(--text-mid);">Vuoi modificare i testi navigando direttamente nel sito?</p>
-          <button class="btn-admin-visual" onclick="enterVisualEditMode()">✨ Attiva Modifica Visiva</button>
-        </div>
       </div>
 
       <div id="editor-view" style="display:none; margin-top:40px; border-top:2px solid #eee; padding-top:30px;">
@@ -2292,25 +2285,10 @@
         const el = document.getElementById('dyn-' + s.key.replace(/_/g, '-'));
         if (el) el.innerHTML = s.value;
       });
-      // Popola i campi nell'admin
-      if (dbSettings.hero_title) document.getElementById('set-hero-title').value = dbSettings.hero_title;
-      if (dbSettings.hero_body) document.getElementById('set-hero-body').value = dbSettings.hero_body;
     }
   }
 
-  window.saveSettings = async function() {
-    const settings = [
-      { key: 'hero_title', value: document.getElementById('set-hero-title').value },
-      { key: 'hero_body', value: document.getElementById('set-hero-body').value }
-    ];
-
-    for (const s of settings) {
-      const { error } = await supabaseAdmin.from('site_settings').upsert(s);
-      if (error) { alert("Errore nel salvataggio dei testi"); return; }
-    }
-    alert("Testi salvati con successo!");
-    fetchSettings();
-  };
+  // Rimosso saveSettings manuale, si usa solo visual save
 
   // --- VISUAL EDIT MODE ---
   let isVisualEditMode = false;
@@ -2324,9 +2302,11 @@
     const targets = document.querySelectorAll('[id^="dyn-"]');
     targets.forEach(el => {
       el.contentEditable = "true";
+      el.style.pointerEvents = "auto";
+      // Disabilita i link interni per permettere l'editing senza navigare
+      const links = el.querySelectorAll('a');
+      links.forEach(l => l.style.pointerEvents = "none");
     });
-    
-    alert("Modalità Visiva Attiva! Ora puoi cliccare su qualsiasi testo del sito e scriverci sopra. Al termine, clicca 'Registra Modifiche' in basso.");
   };
 
   window.exitVisualEditMode = function() {
@@ -2335,8 +2315,11 @@
     const targets = document.querySelectorAll('[id^="dyn-"]');
     targets.forEach(el => {
       el.contentEditable = "false";
+      el.style.pointerEvents = "";
+      const links = el.querySelectorAll('a');
+      links.forEach(l => l.style.pointerEvents = "");
     });
-    fetchSettings(); // Ripristina i testi orginali
+    fetchSettings(); // Ripristina i testi originali
   };
 
   window.saveVisualChanges = async function() {
