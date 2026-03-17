@@ -1567,7 +1567,7 @@
 
 <!-- ARCHIVIO STORIE -->
 <div class="archive-modal" id="archive-modal">
-  <div class="archive-inner" onscroll="handleModalScroll(this)">
+  <div class="archive-inner" onscroll="handleModalScroll(this)" data-lenis-prevent>
     <div class="archive-header-sticky">
       <div class="archive-close" onclick="closeArchive()">✕</div>
       <div class="pill-tag" style="margin:0 auto 16px;">Archivio</div>
@@ -1583,7 +1583,7 @@
 
 <!-- MODAL ARTICOLO -->
 <div class="article-modal" id="article-modal">
-  <div class="modal-inner" onscroll="handleModalScroll(this)">
+  <div class="modal-inner" onscroll="handleModalScroll(this)" data-lenis-prevent>
     <div class="modal-header-sticky">
       <div class="close-modal" onclick="closeArticle()">✕</div>
       <span class="storia-pill modal-pill" id="modal-category"></span>
@@ -1938,12 +1938,14 @@
     modalContent.innerHTML = art.content;
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    if (typeof lenis !== 'undefined') lenis.stop();
   };
 
   window.closeArticle = function() {
     modal.classList.remove('active');
     if (!archiveModal.classList.contains('active')) {
       document.body.style.overflow = '';
+      if (typeof lenis !== 'undefined') lenis.start();
     }
   };
 
@@ -1966,6 +1968,7 @@
     });
     archiveModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    if (typeof lenis !== 'undefined') lenis.stop();
   };
 
   // Update News Counts
@@ -1981,6 +1984,7 @@
   window.closeArchive = function() {
     archiveModal.classList.remove('active');
     document.body.style.overflow = '';
+    if (typeof lenis !== 'undefined') lenis.start();
     document.querySelector('.archive-inner').scrollTop = 0;
     document.querySelector('.archive-inner').classList.remove('scrolled');
   };
