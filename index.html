@@ -3167,7 +3167,10 @@
 
     async function sendWelcomeEmail(targetEmail) {
       const apiKey = dbSettings.brevo_api_key;
-      if (!apiKey) return;
+      if (!apiKey) {
+        console.warn("API Key Brevo mancante nelle impostazioni.");
+        return;
+      }
 
       // PRIMA: Sincronizza il contatto con Brevo CRM
       try {
@@ -3176,11 +3179,11 @@
           headers: { 'accept': 'application/json', 'api-key': apiKey, 'content-type': 'application/json' },
           body: JSON.stringify({ email: targetEmail, updateEnabled: true })
         });
-      } catch(e) { console.log("Brevo sync error", e); }
+      } catch(e) { console.error("Brevo sync error", e); }
 
       // DOPO: Invia la mail di benvenuto
       try {
-        await fetch('https://api.brevo.com/v3/smtp/email', {
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
           method: 'POST',
           headers: {
             'accept': 'application/json',
@@ -3203,6 +3206,10 @@
             `
           })
         });
+        if (!response.ok) {
+            const err = await response.json();
+            console.error("Brevo API error:", err);
+        }
       } catch (e) {
         console.error("Welcome email error:", e);
       }
@@ -3271,7 +3278,13 @@
     window.deleteSubscriber = async function(email) {
       if (!confirm(`Vuoi rimuovere ${email} dalla lista?`)) return;
       const { error } = await supabaseAdmin.from('subscribers').delete().eq('email', email);
-      if (!error) renderSubscribersList();
+      if (!error) {
+        alert("Paziente rimosso con successo.");
+        renderSubscribersList();
+      } else {
+        alert("Errore durante l'eliminazione. Assicurati di aver configurato i permessi SQL (Policy delete).");
+        console.error(error);
+      }
     };
 
     window.showEmailCollect = function() {
