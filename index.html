@@ -1,45 +1,81 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Il Fisioterapista – San Marino</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     /* Forza il cursore a freccia fissa di base, ma lascia la selezione testo e i link */
-    *, *::before, *::after { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
-      cursor: default; 
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      cursor: default;
     }
-    a, button, [onclick], .storia-card, .close-modal, .archive-close { cursor: pointer !important; }
-    p, span, h1, h2, h3, h4, div { cursor: inherit; }
-    body, html { cursor: default; }
-    .s-body, .modal-body, .admin-inner, .tl-text, p { cursor: text; }
+
+    a,
+    button,
+    [onclick],
+    .storia-card,
+    .close-modal,
+    .archive-close {
+      cursor: pointer !important;
+    }
+
+    p,
+    span,
+    h1,
+    h2,
+    h3,
+    h4,
+    div {
+      cursor: inherit;
+    }
+
+    body,
+    html {
+      cursor: default;
+    }
+
+    .s-body,
+    .modal-body,
+    .admin-inner,
+    .tl-text,
+    p {
+      cursor: text;
+    }
 
     :root {
-      --bg:         #FEFCF9;
-      --bg2:        #FBF7F2;
-      --bg3:        #F5EFE6;
-      --warm:       #EDE4D8;
-      --line:       #E2D8CC;
-      --accent:     #B07D55;
-      --accent-soft:#C9A07A;
-      --text:       #2C2420;
-      --text-mid:   #6B5E55;
+      --bg: #FEFCF9;
+      --bg2: #FBF7F2;
+      --bg3: #F5EFE6;
+      --warm: #EDE4D8;
+      --line: #E2D8CC;
+      --accent: #B07D55;
+      --accent-soft: #C9A07A;
+      --text: #2C2420;
+      --text-mid: #6B5E55;
       --text-light: #A8998F;
       --green-soft: #7A9E87;
 
       --font-serif: 'Lora', Georgia, serif;
-      --font-sans:  'Nunito', system-ui, sans-serif;
+      --font-sans: 'Nunito', system-ui, sans-serif;
     }
 
-    html { scroll-behavior: auto; /* Disattivato qui per usare la libreria avanzata Lenis (smooth control) */ }
+    html {
+      scroll-behavior: auto;
+      /* Disattivato qui per usare la libreria avanzata Lenis (smooth control) */
+    }
 
     body {
       font-family: var(--font-sans);
@@ -50,19 +86,29 @@
       overflow-x: hidden;
     }
 
-    a { color: inherit; text-decoration: none; }
-    img { display: block; width: 100%; object-fit: cover; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      object-fit: cover;
+    }
 
     /* ── NAV ─────────────────────────────────────────────────── */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
       padding: 20px 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(254,252,249,0.92);
+      background: rgba(254, 252, 249, 0.92);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
       transition: padding 0.3s;
@@ -75,7 +121,10 @@
       color: var(--text);
     }
 
-    .nav-logo span { color: var(--accent); font-style: italic; }
+    .nav-logo span {
+      color: var(--accent);
+      font-style: italic;
+    }
 
     .nav-links {
       display: flex;
@@ -91,7 +140,9 @@
       transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover {
+      color: var(--accent);
+    }
 
     .nav-cta {
       background: var(--accent) !important;
@@ -103,7 +154,9 @@
       transition: background 0.2s !important;
     }
 
-    .nav-cta:hover { background: var(--accent-soft) !important; }
+    .nav-cta:hover {
+      background: var(--accent-soft) !important;
+    }
 
     /* ── HERO ────────────────────────────────────────────────── */
     #home {
@@ -118,8 +171,10 @@
 
     .hero-blob {
       position: absolute;
-      top: -120px; right: -120px;
-      width: 600px; height: 600px;
+      top: -120px;
+      right: -120px;
+      width: 600px;
+      height: 600px;
       border-radius: 50%;
       background: radial-gradient(circle, #EDE4D8 0%, transparent 70%);
       pointer-events: none;
@@ -128,8 +183,10 @@
 
     .hero-blob2 {
       position: absolute;
-      bottom: -80px; left: -80px;
-      width: 400px; height: 400px;
+      bottom: -80px;
+      left: -80px;
+      width: 400px;
+      height: 400px;
       border-radius: 50%;
       background: radial-gradient(circle, #E8EFE2 0%, transparent 70%);
       pointer-events: none;
@@ -159,7 +216,8 @@
     }
 
     .hero-eyebrow-dot {
-      width: 8px; height: 8px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--green-soft);
     }
@@ -181,7 +239,10 @@
       margin-bottom: 24px;
     }
 
-    .hero-title em { font-style: italic; color: var(--accent); }
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
 
     .hero-body {
       font-size: 1.08rem;
@@ -213,7 +274,10 @@
       display: inline-block;
     }
 
-    .btn-warm:hover { background: var(--accent-soft); transform: translateY(-1px); }
+    .btn-warm:hover {
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+    }
 
     .btn-ghost {
       color: var(--accent);
@@ -225,9 +289,13 @@
       transition: gap 0.2s;
     }
 
-    .btn-ghost:hover { gap: 10px; }
+    .btn-ghost:hover {
+      gap: 10px;
+    }
 
-    .hero-img-col { position: relative; }
+    .hero-img-col {
+      position: relative;
+    }
 
     .hero-photo-wrap {
       border-radius: 40% 60% 55% 45% / 45% 40% 60% 55%;
@@ -238,7 +306,8 @@
     }
 
     .hero-photo-wrap .ph {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       background: linear-gradient(135deg, #F5EFE6 0%, #E2D8CC 50%, #D2B48C 100%);
       display: flex;
       align-items: center;
@@ -261,7 +330,7 @@
       background: #fff;
       border-radius: 20px;
       padding: 18px 24px;
-      box-shadow: 0 8px 40px rgba(44,36,32,0.10);
+      box-shadow: 0 8px 40px rgba(44, 36, 32, 0.10);
       display: flex;
       align-items: center;
       gap: 14px;
@@ -272,7 +341,8 @@
     }
 
     .float-icon {
-      width: 44px; height: 44px;
+      width: 44px;
+      height: 44px;
       border-radius: 14px;
       background: #EFF5EC;
       display: flex;
@@ -281,8 +351,18 @@
       font-size: 1.4rem;
     }
 
-    .float-text-top { font-size: 0.78rem; font-weight: 400; color: var(--text-light); }
-    .float-text-main { font-family: var(--font-serif); font-size: 1rem; font-weight: 500; color: var(--text); }
+    .float-text-top {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--text-light);
+    }
+
+    .float-text-main {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+    }
 
     .google-card {
       display: flex;
@@ -290,11 +370,12 @@
       align-items: center;
       gap: 2px;
       position: absolute;
-      top: 40px; right: -30px;
+      top: 40px;
+      right: -30px;
       background: #fff;
       border-radius: 15px;
       padding: 10px 18px;
-      box-shadow: 0 10px 40px rgba(44,36,32,0.12);
+      box-shadow: 0 10px 40px rgba(44, 36, 32, 0.12);
       z-index: 5;
     }
 
@@ -304,19 +385,32 @@
       letter-spacing: -0.5px;
       margin-bottom: 0px;
     }
-    .g-blue { color: #4285f4; }
-    .g-red { color: #ea4335; }
-    .g-yellow { color: #fbbc05; }
-    .g-green { color: #34a853; }
 
-    .float2-stars { 
-      color: #FBBC05; 
-      font-size: 0.85rem; 
-      letter-spacing: 0px; 
+    .g-blue {
+      color: #4285f4;
     }
-    .float2-text { 
-      font-size: 0.65rem; 
-      color: var(--text-light); 
+
+    .g-red {
+      color: #ea4335;
+    }
+
+    .g-yellow {
+      color: #fbbc05;
+    }
+
+    .g-green {
+      color: #34a853;
+    }
+
+    .float2-stars {
+      color: #FBBC05;
+      font-size: 0.85rem;
+      letter-spacing: 0px;
+    }
+
+    .float2-text {
+      font-size: 0.65rem;
+      color: var(--text-light);
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -325,48 +419,94 @@
     /* Avatars Orbiting */
     .avatar-cloud {
       position: absolute;
-      width: 100%; height: 100%;
-      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
       pointer-events: none;
     }
 
     .orb-avatar {
       position: absolute;
-      width: 24px; height: 24px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       border: 1.5px solid #fff;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
       overflow: hidden;
       background: var(--bg3);
     }
 
-    .av1 { top: -12px; left: -12px; animation: orbit 6s linear infinite; }
-    .av2 { bottom: -8px; right: -15px; animation: orbit 9s linear infinite reverse; }
-    .av3 { top: 40%; left: -30px; animation: orbit 11s ease-in-out infinite; }
-    .av4 { top: -15px; right: 20%; animation: orbit 7s linear infinite 1s; }
-    .av5 { bottom: 20%; left: -25px; animation: orbit 10s linear infinite reverse 0.5s; }
-    .av6 { top: 10%; right: -20px; animation: orbit 8s ease-in-out infinite 2s; }
+    .av1 {
+      top: -12px;
+      left: -12px;
+      animation: orbit 6s linear infinite;
+    }
+
+    .av2 {
+      bottom: -8px;
+      right: -15px;
+      animation: orbit 9s linear infinite reverse;
+    }
+
+    .av3 {
+      top: 40%;
+      left: -30px;
+      animation: orbit 11s ease-in-out infinite;
+    }
+
+    .av4 {
+      top: -15px;
+      right: 20%;
+      animation: orbit 7s linear infinite 1s;
+    }
+
+    .av5 {
+      bottom: 20%;
+      left: -25px;
+      animation: orbit 10s linear infinite reverse 0.5s;
+    }
+
+    .av6 {
+      top: 10%;
+      right: -20px;
+      animation: orbit 8s ease-in-out infinite 2s;
+    }
 
     @keyframes orbit {
-      0% { transform: rotate(0deg) translateX(8px) rotate(0deg); }
-      100% { transform: rotate(360deg) translateX(8px) rotate(-360deg); }
+      0% {
+        transform: rotate(0deg) translateX(8px) rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg) translateX(8px) rotate(-360deg);
+      }
     }
 
     .hero-float-card {
       cursor: default;
     }
+
     .hero-float-card2 {
       cursor: pointer;
       transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
+
     .hero-float-card2:hover {
-      box-shadow: 0 10px 40px rgba(44,36,32,0.15);
+      box-shadow: 0 10px 40px rgba(44, 36, 32, 0.15);
       transform: translateY(-5px);
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
     }
 
     .hero-photo-wrap {
@@ -388,7 +528,10 @@
       text-align: center;
     }
 
-    .ponte-inner { max-width: 720px; margin: 0 auto; }
+    .ponte-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
 
     .ponte-title {
       font-family: var(--font-serif);
@@ -408,13 +551,20 @@
       display: inline-block;
       opacity: 0;
     }
+
     .char.visible {
       opacity: 1;
     }
 
     /* ── SECTION SHARED ──────────────────────────────────────── */
-    .section { padding: 100px 48px; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section {
+      padding: 100px 48px;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
     .pill-tag {
       display: inline-flex;
@@ -440,7 +590,10 @@
       margin-bottom: 20px;
     }
 
-    .s-title em { font-style: italic; color: var(--accent); }
+    .s-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
 
     .s-body {
       font-size: 1.02rem;
@@ -450,7 +603,9 @@
     }
 
     /* ── APPROCCIO ──────────────────────────────────────────── */
-    #approccio { background: var(--bg); }
+    #approccio {
+      background: var(--bg);
+    }
 
     .approccio-grid {
       display: grid;
@@ -459,7 +614,9 @@
       align-items: center;
     }
 
-    .approccio-text .s-body { margin-bottom: 20px; }
+    .approccio-text .s-body {
+      margin-bottom: 20px;
+    }
 
     .pullquote {
       margin: 32px 0;
@@ -486,22 +643,26 @@
     }
 
     .approccio-photo .ph {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       background: linear-gradient(145deg, #EBE2D6 0%, #D4C4B0 100%);
       display: flex;
       align-items: flex-end;
       padding: 28px;
     }
 
-    .approccio-img-wrap { position: relative; }
+    .approccio-img-wrap {
+      position: relative;
+    }
 
     .mini-card {
       position: absolute;
-      bottom: -20px; right: -20px;
+      bottom: -20px;
+      right: -20px;
       background: #fff;
       border-radius: 18px;
       padding: 20px 24px;
-      box-shadow: 0 8px 32px rgba(44,36,32,0.10);
+      box-shadow: 0 8px 32px rgba(44, 36, 32, 0.10);
       text-align: center;
     }
 
@@ -513,10 +674,16 @@
       line-height: 1;
     }
 
-    .mini-card-label { font-size: 0.75rem; color: var(--text-light); margin-top: 4px; }
+    .mini-card-label {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
 
     /* ── PERCORSO ───────────────────────────────────────────── */
-    #percorso { background: var(--bg2); }
+    #percorso {
+      background: var(--bg2);
+    }
 
     .percorso-header {
       display: grid;
@@ -526,7 +693,10 @@
       margin-bottom: 64px;
     }
 
-    .tl-list { display: flex; flex-direction: column; }
+    .tl-list {
+      display: flex;
+      flex-direction: column;
+    }
 
     .tl-item {
       position: relative;
@@ -535,7 +705,9 @@
       border-bottom: 1px solid var(--line);
     }
 
-    .tl-item:last-child { border-bottom: none; }
+    .tl-item:last-child {
+      border-bottom: none;
+    }
 
     .filigrana {
       position: absolute;
@@ -553,15 +725,21 @@
       white-space: nowrap;
       font-family: var(--font-serif);
     }
+
     .tl-item:hover .filigrana {
       color: rgba(176, 125, 85, 0.09);
       left: 8px;
     }
+
     .tl-item:hover .tl-title {
       color: #B07D55;
       transition: color 0.3s;
     }
-    .tl-content { position: relative; z-index: 2; }
+
+    .tl-content {
+      position: relative;
+      z-index: 2;
+    }
 
     .tl-year {
       font-family: var(--font-serif);
@@ -588,7 +766,9 @@
     }
 
     /* ── COME LAVORO ────────────────────────────────────────── */
-    #come-lavoro { background: var(--bg); }
+    #come-lavoro {
+      background: var(--bg);
+    }
 
     .cl-header {
       text-align: center;
@@ -596,7 +776,9 @@
       margin: 0 auto 64px;
     }
 
-    .cl-header .s-body { margin-top: 16px; }
+    .cl-header .s-body {
+      margin-top: 16px;
+    }
 
     .steps-grid {
       display: grid;
@@ -615,14 +797,19 @@
 
     .step-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(44,36,32,0.09);
+      box-shadow: 0 16px 48px rgba(44, 36, 32, 0.09);
     }
 
-    .step-emoji { font-size: 2.4rem; margin-bottom: 20px; display: block; }
+    .step-emoji {
+      font-size: 2.4rem;
+      margin-bottom: 20px;
+      display: block;
+    }
 
     .step-num {
       position: absolute;
-      top: 24px; right: 28px;
+      top: 24px;
+      right: 28px;
       font-family: var(--font-serif);
       font-size: 3.5rem;
       font-weight: 400;
@@ -646,7 +833,9 @@
     }
 
     /* ── STORIE ─────────────────────────────────────────────── */
-    #storie { background: var(--bg2); }
+    #storie {
+      background: var(--bg2);
+    }
 
     .storie-header {
       display: flex;
@@ -683,7 +872,7 @@
 
     .storia-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(44,36,32,0.09);
+      box-shadow: 0 12px 40px rgba(44, 36, 32, 0.09);
     }
 
     .storia-img .ph {
@@ -693,7 +882,9 @@
       padding: 20px;
     }
 
-    .storia-body { padding: 24px 28px 32px; }
+    .storia-body {
+      padding: 24px 28px 32px;
+    }
 
     .storia-pill {
       display: inline-block;
@@ -727,18 +918,27 @@
     /* Article Modal */
     .article-modal {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(44, 36, 32, 0.4);
       backdrop-filter: blur(8px);
       z-index: 10000;
-      opacity: 0; pointer-events: none;
+      opacity: 0;
+      pointer-events: none;
       transition: opacity 0.4s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    .article-modal.active { opacity: 1; pointer-events: all; }
+
+    .article-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
     .modal-inner {
       background: var(--bg);
       width: 100%;
@@ -747,14 +947,20 @@
       border-radius: 32px;
       position: relative;
       overflow-y: auto;
-      padding: 0; /* Padding rimosso qui per gestirlo nell'header e nel body */
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      padding: 0;
+      /* Padding rimosso qui per gestirlo nell'header e nel body */
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
       transform: translateY(30px);
       transition: transform 0.4s ease;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+      -ms-overflow-style: none;
+      /* IE and Edge */
     }
-    .modal-inner::-webkit-scrollbar { display: none; }
+
+    .modal-inner::-webkit-scrollbar {
+      display: none;
+    }
 
     .modal-header-sticky {
       position: sticky;
@@ -765,15 +971,21 @@
       border-bottom: 1px solid transparent;
       transition: border-bottom 0.3s;
     }
+
     .modal-inner.scrolled .modal-header-sticky {
       border-bottom: 1px solid var(--line);
     }
 
-    .article-modal.active .modal-inner { transform: translateY(0); }
+    .article-modal.active .modal-inner {
+      transform: translateY(0);
+    }
+
     .close-modal {
       position: absolute;
-      top: 24px; right: 24px;
-      width: 44px; height: 44px;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
       background: var(--bg3);
       border-radius: 50%;
       display: flex;
@@ -783,28 +995,62 @@
       font-size: 1.2rem;
       transition: background 0.2s;
     }
-    .close-modal:hover { background: var(--warm); }
-    .modal-pill { margin-bottom: 20px; }
-    .modal-title { font-family: var(--font-serif); font-size: 2.2rem; line-height: 1.25; margin-bottom: 24px; color: var(--text); }
-    .modal-body { font-size: 1.05rem; line-height: 1.8; color: var(--text-mid); font-weight: 300; }
-    .modal-body p { margin-bottom: 20px; }
-    .storie-grid .storia-card.hidden { display: none; }
+
+    .close-modal:hover {
+      background: var(--warm);
+    }
+
+    .modal-pill {
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      line-height: 1.25;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+
+    .modal-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      font-weight: 300;
+    }
+
+    .modal-body p {
+      margin-bottom: 20px;
+    }
+
+    .storie-grid .storia-card.hidden {
+      display: none;
+    }
 
     /* Archive Modal */
     .archive-modal {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(44, 36, 32, 0.6);
       backdrop-filter: blur(12px);
       z-index: 9998;
-      opacity: 0; pointer-events: none;
+      opacity: 0;
+      pointer-events: none;
       transition: opacity 0.4s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 40px;
     }
-    .archive-modal.active { opacity: 1; pointer-events: all; }
+
+    .archive-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
     .archive-inner {
       background: var(--bg2);
       width: 100%;
@@ -813,12 +1059,16 @@
       border-radius: 40px;
       position: relative;
       overflow-y: auto;
-      padding: 0; /* Padding rimosso qui */
-      box-shadow: 0 30px 90px rgba(0,0,0,0.25);
+      padding: 0;
+      /* Padding rimosso qui */
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.25);
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
-    .archive-inner::-webkit-scrollbar { display: none; }
+
+    .archive-inner::-webkit-scrollbar {
+      display: none;
+    }
 
     .archive-header-sticky {
       position: sticky;
@@ -830,19 +1080,28 @@
       border-bottom: 1px solid transparent;
       transition: border-bottom 0.3s;
     }
+
     .archive-inner.scrolled .archive-header-sticky {
       border-bottom: 1px solid var(--line);
     }
-    .archive-header { margin-bottom: 48px; text-align: center; }
+
+    .archive-header {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
     .archive-grid-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 24px;
     }
+
     .archive-close {
       position: absolute;
-      top: 30px; right: 30px;
-      width: 50px; height: 50px;
+      top: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
       background: #fff;
       border-radius: 50%;
       display: flex;
@@ -850,22 +1109,29 @@
       justify-content: center;
       cursor: pointer;
       font-size: 1.4rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       z-index: 10;
     }
 
     /* Admin Editor Styles */
     .admin-modal {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
       z-index: 20000;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    .admin-modal.active { display: flex; }
+
+    .admin-modal.active {
+      display: flex;
+    }
+
     .admin-inner {
       background: #fff;
       width: 100%;
@@ -877,18 +1143,20 @@
       display: flex;
       flex-direction: column;
       position: relative;
-      box-shadow: 0 30px 90px rgba(0,0,0,0.4);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
     }
-    .admin-header { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 32px 40px;
       background: #fff;
       z-index: 10;
       border-bottom: 1px solid #eee;
       flex-shrink: 0;
     }
+
     .admin-body {
       padding: 32px 40px 40px;
       overflow-y: auto;
@@ -896,23 +1164,82 @@
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
-    .admin-body::-webkit-scrollbar { display: none; }
-    .admin-form-group { margin-bottom: 20px; }
-    .admin-form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; }
-    .admin-form-group input, .admin-form-group textarea, .admin-form-group select {
-      width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;
+
+    .admin-body::-webkit-scrollbar {
+      display: none;
+    }
+
+    .admin-form-group {
+      margin-bottom: 20px;
+    }
+
+    .admin-form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .admin-form-group input,
+    .admin-form-group textarea,
+    .admin-form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
       cursor: text !important;
     }
-    .admin-actions { display: flex; gap: 12px; margin-top: 30px; }
-    .btn-admin-save { background: var(--accent); color: #fff; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
-    .btn-admin-save:hover { background: var(--accent-soft); transform: translateY(-2px); }
-    .btn-admin-visual { background: #2c2420; color: #fff; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: 600; margin-top: 10px; width: 100%; display: block; border: 1px solid rgba(255,255,255,0.1); }
-    .btn-admin-cancel { background: #eee; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; }
-    
+
+    .admin-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn-admin-save {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-admin-save:hover {
+      background: var(--accent-soft);
+      transform: translateY(-2px);
+    }
+
+    .btn-admin-visual {
+      background: #2c2420;
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 10px;
+      width: 100%;
+      display: block;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-admin-cancel {
+      background: #eee;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+
     /* Visual Edit Toolbar */
     .edit-toolbar {
       position: fixed;
-      bottom: 20px; left: 50%;
+      bottom: 20px;
+      left: 50%;
       transform: translateX(-50%) translateY(100px);
       background: var(--text);
       color: #fff;
@@ -922,13 +1249,38 @@
       align-items: center;
       gap: 20px;
       z-index: 30000;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
       transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .edit-toolbar.active { transform: translateX(-50%) translateY(0); }
-    .edit-toolbar span { font-size: 0.85rem; font-weight: 600; opacity: 0.8; }
-    .btn-save-visual { background: var(--accent); color: #fff; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 600; }
-    .btn-exit-visual { background: rgba(255,255,255,0.1); color: #fff; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; }
+
+    .edit-toolbar.active {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .edit-toolbar span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+    .btn-save-visual {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-exit-visual {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+    }
 
     [contenteditable="true"] {
       outline: 2px dashed var(--accent);
@@ -942,20 +1294,49 @@
       transition: background 0.2s;
       pointer-events: auto !important;
     }
+
     [contenteditable="true"]:focus {
       outline: 3px solid var(--accent);
       background: #fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     }
-    .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee; }
-    .admin-list-item:hover { background: #f9f9f9; }
-    .admin-btn-edit { color: var(--accent); cursor: pointer; font-weight: 600; font-size: 0.85rem; }
-    .admin-btn-delete { color: #ff3b30; cursor: pointer; font-weight: 600; font-size: 0.85rem; margin-left: 15px; }
+
+    .admin-list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .admin-list-item:hover {
+      background: #f9f9f9;
+    }
+
+    .admin-btn-edit {
+      color: var(--accent);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .admin-btn-delete {
+      color: #ff3b30;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-left: 15px;
+    }
 
     /* ── RECENSIONI ─────────────────────────────────────────── */
-    #recensioni { background: var(--bg3); }
+    #recensioni {
+      background: var(--bg3);
+    }
 
-    .rec-header { text-align: center; margin-bottom: 56px; }
+    .rec-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
 
     .rec-score-wrap {
       display: inline-flex;
@@ -965,7 +1346,7 @@
       border-radius: 50px;
       padding: 8px 20px 8px 14px;
       margin-bottom: 24px;
-      box-shadow: 0 2px 12px rgba(44,36,32,0.07);
+      box-shadow: 0 2px 12px rgba(44, 36, 32, 0.07);
     }
 
     .g-logo {
@@ -977,7 +1358,11 @@
       background-clip: text;
     }
 
-    .rec-stars { color: #D4A843; font-size: 1rem; letter-spacing: 2px; }
+    .rec-stars {
+      color: #D4A843;
+      font-size: 1rem;
+      letter-spacing: 2px;
+    }
 
     .rec-score-num {
       font-family: var(--font-serif);
@@ -999,8 +1384,13 @@
     }
 
     @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
     }
 
     .rec-card {
@@ -1009,12 +1399,19 @@
       padding: 36px 32px;
       width: 350px;
       flex-shrink: 0;
-      box-shadow: 0 4px 20px rgba(44,36,32,0.05);
+      box-shadow: 0 4px 20px rgba(44, 36, 32, 0.05);
     }
 
-    .rec-card:hover { transform: translateY(-3px); }
+    .rec-card:hover {
+      transform: translateY(-3px);
+    }
 
-    .rec-card-stars { color: #D4A843; font-size: 0.9rem; letter-spacing: 3px; margin-bottom: 16px; }
+    .rec-card-stars {
+      color: #D4A843;
+      font-size: 0.9rem;
+      letter-spacing: 3px;
+      margin-bottom: 16px;
+    }
 
     .rec-text {
       font-family: var(--font-serif);
@@ -1034,7 +1431,9 @@
     }
 
     /* ── PRENOTA ────────────────────────────────────────────── */
-    #prenota { background: var(--bg); }
+    #prenota {
+      background: var(--bg);
+    }
 
     .prenota-grid {
       display: grid;
@@ -1043,10 +1442,20 @@
       align-items: start;
     }
 
-    .prenota-left .s-title { margin-bottom: 16px; }
-    .prenota-left .s-body { margin-bottom: 16px; }
+    .prenota-left .s-title {
+      margin-bottom: 16px;
+    }
 
-    .contact-list { margin-top: 40px; display: flex; flex-direction: column; gap: 4px; }
+    .prenota-left .s-body {
+      margin-bottom: 16px;
+    }
+
+    .contact-list {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
     .c-row {
       display: flex;
@@ -1057,7 +1466,8 @@
     }
 
     .c-icon {
-      width: 44px; height: 44px;
+      width: 44px;
+      height: 44px;
       border-radius: 12px;
       background: var(--bg3);
       display: flex;
@@ -1065,7 +1475,7 @@
       justify-content: center;
       font-size: 1.2rem;
       flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       color: #fff;
     }
 
@@ -1074,11 +1484,11 @@
     }
 
     .c-icon.ig {
-       background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
     }
 
     .c-icon.map {
-       background: linear-gradient(135deg, #FF3B30 0%, #FF9500 100%);
+      background: linear-gradient(135deg, #FF3B30 0%, #FF9500 100%);
     }
 
     .map-wrap {
@@ -1089,16 +1499,37 @@
       height: 220px;
       position: relative;
     }
+
     .map-wrap iframe {
       width: 100%;
       height: 100%;
       border: none;
     }
 
-    .c-label { font-size: 0.72rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.08em; }
-    .c-value { font-size: 0.95rem; color: var(--text); font-weight: 400; margin-top: 1px; }
-    .c-value a { transition: color 0.2s; cursor: pointer; }
-    .c-value a:hover { color: var(--accent); text-decoration: underline; }
+    .c-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .c-value {
+      font-size: 0.95rem;
+      color: var(--text);
+      font-weight: 400;
+      margin-top: 1px;
+    }
+
+    .c-value a {
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+
+    .c-value a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
 
     .booking-box {
       background: var(--bg2);
@@ -1114,9 +1545,15 @@
       margin-bottom: 6px;
     }
 
-    .booking-box > p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 32px; }
+    .booking-box>p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 32px;
+    }
 
-    .fg { margin-bottom: 18px; }
+    .fg {
+      margin-bottom: 18px;
+    }
 
     .fg label {
       display: block;
@@ -1128,7 +1565,9 @@
       margin-bottom: 8px;
     }
 
-    .fg input, .fg select, .fg textarea {
+    .fg input,
+    .fg select,
+    .fg textarea {
       width: 100%;
       border: 1.5px solid var(--line);
       background: #fff;
@@ -1142,10 +1581,22 @@
       appearance: none;
     }
 
-    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--accent); }
-    .fg textarea { height: 90px; resize: vertical; }
+    .fg input:focus,
+    .fg select:focus,
+    .fg textarea:focus {
+      border-color: var(--accent);
+    }
 
-    .fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .fg textarea {
+      height: 90px;
+      resize: vertical;
+    }
+
+    .fg-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
 
     .slots {
       display: grid;
@@ -1168,8 +1619,16 @@
       font-family: var(--font-sans);
     }
 
-    .slot:hover { border-color: var(--accent-soft); color: var(--accent); }
-    .slot.on { border-color: var(--accent); background: var(--accent); color: #fff; }
+    .slot:hover {
+      border-color: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .slot.on {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
 
     .btn-submit {
       width: 100%;
@@ -1186,7 +1645,10 @@
       margin-top: 6px;
     }
 
-    .btn-submit:hover { background: var(--accent-soft); transform: translateY(-1px); }
+    .btn-submit:hover {
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+    }
 
     .or-divider {
       text-align: center;
@@ -1199,42 +1661,101 @@
       position: relative;
     }
 
-    .or-divider::before, .or-divider::after {
+    .or-divider::before,
+    .or-divider::after {
       content: '';
       position: absolute;
-      top: 50%; width: 40%; height: 1px;
+      top: 50%;
+      width: 40%;
+      height: 1px;
       background: var(--line);
     }
 
-    .or-divider::before { left: 0; }
-    .or-divider::after { right: 0; }
+    .or-divider::before {
+      left: 0;
+    }
+
+    .or-divider::after {
+      right: 0;
+    }
 
 
     /* ── FOOTER ─────────────────────────────────────────────── */
-    footer { background: var(--text); padding: 64px 48px 40px; }
+    footer {
+      background: var(--text);
+      padding: 64px 48px 40px;
+    }
 
-    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
     .footer-top {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
       gap: 60px;
       padding-bottom: 48px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       margin-bottom: 32px;
     }
 
-    .footer-logo { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 400; color: #F5EFE6; margin-bottom: 16px; }
-    .footer-logo em { font-style: italic; color: var(--accent-soft); }
-    .footer-desc { font-size: 0.88rem; color: #A89890; line-height: 1.75; max-width: 280px; font-weight: 300; }
+    .footer-logo {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #F5EFE6;
+      margin-bottom: 16px;
+    }
 
-    .footer-col h4 { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #7A6E66; margin-bottom: 18px; }
-    .footer-col ul { list-style: none; }
-    .footer-col ul li { margin-bottom: 10px; }
-    .footer-col ul li a { font-size: 0.9rem; color: #A89890; font-weight: 300; transition: color 0.2s; }
-    .footer-col ul li a:hover { color: #F5EFE6; }
+    .footer-logo em {
+      font-style: italic;
+      color: var(--accent-soft);
+    }
 
-    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: #7A6E66; }
+    .footer-desc {
+      font-size: 0.88rem;
+      color: #A89890;
+      line-height: 1.75;
+      max-width: 280px;
+      font-weight: 300;
+    }
+
+    .footer-col h4 {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #7A6E66;
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.9rem;
+      color: #A89890;
+      font-weight: 300;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: #F5EFE6;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: #7A6E66;
+    }
 
     /* ── ANIMATIONS ─────────────────────────────────────────── */
     .fade-up {
@@ -1243,7 +1764,10 @@
       transition: opacity 0.65s ease, transform 0.65s ease;
     }
 
-    .fade-up.vis { opacity: 1; transform: translateY(0); }
+    .fade-up.vis {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     .menu-toggle {
       display: none;
@@ -1252,6 +1776,7 @@
       cursor: pointer;
       padding: 4px;
     }
+
     .menu-toggle span {
       display: block;
       width: 24px;
@@ -1261,53 +1786,109 @@
       transition: transform 0.3s, opacity 0.3s;
       border-radius: 2px;
     }
+
     .menu-toggle.active span:nth-child(1) {
       transform: translateY(7px) rotate(45deg);
     }
+
     .menu-toggle.active span:nth-child(2) {
       opacity: 0;
     }
+
     .menu-toggle.active span:nth-child(3) {
       transform: translateY(-7px) rotate(-45deg);
     }
 
     /* ── RESPONSIVE ─────────────────────────────────────────── */
     @media (max-width: 900px) {
-      nav { padding: 16px 24px; flex-wrap: wrap; }
-      .menu-toggle { display: block; }
-      .nav-links { 
-        display: none; 
-        width: 100%; 
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 16px; 
-        padding-top: 20px; 
+      nav {
+        padding: 16px 24px;
+        flex-wrap: wrap;
       }
-      .nav-links.active { display: flex; }
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; }
-      .hero-img-col { display: none; }
-      .approccio-grid, .percorso-header, .prenota-grid { grid-template-columns: 1fr; gap: 40px; }
-      .steps-grid, .storie-grid, .rec-grid { grid-template-columns: 1fr; }
-      .footer-top { grid-template-columns: 1fr; gap: 32px; }
-      .section { padding: 64px 24px; }
-      .ponte { padding: 60px 24px; }
-      .hero-float-card, .hero-float-card2 { display: none; }
-      .fg-row { grid-template-columns: 1fr; }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding-top: 20px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 24px;
+      }
+
+      .hero-img-col {
+        display: none;
+      }
+
+      .approccio-grid,
+      .percorso-header,
+      .prenota-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .steps-grid,
+      .storie-grid,
+      .rec-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .section {
+        padding: 64px 24px;
+      }
+
+      .ponte {
+        padding: 60px 24px;
+      }
+
+      .hero-float-card,
+      .hero-float-card2 {
+        display: none;
+      }
+
+      .fg-row {
+        grid-template-columns: 1fr;
+      }
     }
+
     /* Festa */
     .celebration-overlay {
       position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       pointer-events: none;
       z-index: 9999;
       overflow: hidden;
     }
+
     .confetti {
       position: absolute;
-      width: 12px; height: 12px;
+      width: 12px;
+      height: 12px;
       border-radius: 2px;
       will-change: transform, opacity;
     }
+
     .popper {
       position: absolute;
       font-size: 2.5rem;
@@ -1325,6 +1906,7 @@
       background: transparent;
       z-index: 101;
     }
+
     .progress-bar {
       height: 100%;
       background: var(--accent);
@@ -1347,35 +1929,41 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
       transform: translateY(100%);
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
       font-size: 0.88rem;
     }
+
     #cookie-banner.show {
       transform: translateY(0);
     }
+
     #cookie-banner p {
       margin: 0;
       max-width: 800px;
       line-height: 1.6;
       font-weight: 300;
     }
+
     #cookie-banner a {
       color: var(--accent-soft);
       font-weight: 600;
       text-decoration: none;
       transition: color 0.2s;
     }
+
     #cookie-banner a:hover {
       color: #fff;
     }
+
     .cookie-btns {
       display: flex;
       gap: 12px;
       flex-shrink: 0;
       margin-left: 30px;
     }
+
     .cookie-btn-accept {
       background: var(--accent);
       color: #fff;
@@ -1387,10 +1975,12 @@
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
     }
+
     .cookie-btn-accept:hover {
       background: var(--accent-soft);
       transform: translateY(-1px);
     }
+
     .cookie-btn-reject {
       background: transparent;
       color: var(--text-light);
@@ -1402,11 +1992,13 @@
       cursor: pointer;
       transition: all 0.2s;
     }
+
     .cookie-btn-reject:hover {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
       color: #fff;
       border-color: #fff;
     }
+
     @media (max-width: 900px) {
       #cookie-banner {
         flex-direction: column;
@@ -1414,960 +2006,1029 @@
         text-align: center;
         gap: 16px;
       }
+
       .cookie-btns {
         margin-left: 0;
       }
     }
   </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">Il <span>Fisioterapista</span></div>
-  <button class="menu-toggle" id="mobile-menu" aria-label="Apri menu">
-    <span></span><span></span><span></span>
-  </button>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="#approccio">Il mio approccio</a></li>
-    <li><a href="#percorso">Chi sono</a></li>
-    <li><a href="#come-lavoro">Come lavoro</a></li>
-    <li><a href="#storie">Storie</a></li>
-    <li><a href="#prenota">Contatti e dove trovarmi</a></li>
-    <li><a href="https://calendar.app.google/imdtMmvzyEDhdwj78" target="_blank" class="nav-cta">Prenota una chiamata</a></li>
-  </ul>
-  <div class="progress-container">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-</nav>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Il <span>Fisioterapista</span></div>
+    <button class="menu-toggle" id="mobile-menu" aria-label="Apri menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#approccio">Il mio approccio</a></li>
+      <li><a href="#percorso">Chi sono</a></li>
+      <li><a href="#come-lavoro">Come lavoro</a></li>
+      <li><a href="#storie">Storie</a></li>
+      <li><a href="#prenota">Contatti e dove trovarmi</a></li>
+      <li><a href="https://calendar.app.google/imdtMmvzyEDhdwj78" target="_blank" class="nav-cta">Prenota una
+          chiamata</a></li>
+    </ul>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </nav>
 
-<!-- HERO -->
-<section id="home">
-  <div class="hero-blob"></div>
-  <div class="hero-blob2"></div>
-  <div class="hero-inner">
-    <div class="fade-up">
-      <div class="hero-eyebrow">
-        <div class="hero-eyebrow-dot"></div>
-        <span id="dyn-hero-eyebrow">Fisioterapista · San Marino</span>
-      </div>
-      <h1 class="hero-title" id="dyn-hero-title">
-        Prima di ogni tecnica,<br>
-        c'è <em>una persona.</em><br>
-        La tua.
-      </h1>
-      <p class="hero-body" id="dyn-hero-body">
-        Da oltre vent'anni ascolto quello che il corpo dice — e quello che non riesce a dire. Non tratto sintomi. Tratto persone. E ogni persona porta con sé una storia che merita di essere ascoltata davvero.
-      </p>
-      <div class="hero-actions">
-        <a href="https://calendar.app.google/imdtMmvzyEDhdwj78" target="_blank" class="btn-warm">Prenota una chiamata gratuita</a>
-        <a href="#approccio" class="btn-ghost">Scopri come lavoro →</a>
-      </div>
-    </div>
-
-    <div class="hero-img-col fade-up">
-      <div class="hero-photo-wrap">
-        <div class="ph">
-          <!-- Placeholder immagine colorata beige/sabbia -->
-          <span class="ph-label" style="opacity: 0.8; font-size: 0.9rem;">[ Foto Professionale ]</span>
-        </div>
-      </div>
-      <div class="hero-float-card">
-        <div class="float-icon">🎉</div>
-        <div>
-          <div class="float-text-top" id="dyn-card-exp-top">Esperienza</div>
-          <div class="float-text-main" id="dyn-card-exp-main">20+ anni con le persone</div>
-        </div>
-      </div>
-      <a href="#recensioni" class="google-card hero-float-card2">
-        <div class="google-logo-text">
-          <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
-        </div>
-        <div class="float2-stars">★★★★★</div>
-        <div class="float2-text">4.9/5 Recensioni</div>
-        
-        <!-- Nuvola di avatar orbitanti -->
-        <div class="avatar-cloud">
-          <img src="https://i.pravatar.cc/100?u=11" alt="Recensione" class="orb-avatar av1">
-          <img src="https://i.pravatar.cc/100?u=24" alt="Recensione" class="orb-avatar av2">
-          <img src="https://i.pravatar.cc/100?u=35" alt="Recensione" class="orb-avatar av3">
-          <img src="https://i.pravatar.cc/100?u=42" alt="Recensione" class="orb-avatar av4">
-          <img src="https://i.pravatar.cc/100?u=56" alt="Recensione" class="orb-avatar av5">
-          <img src="https://i.pravatar.cc/100?u=78" alt="Recensione" class="orb-avatar av6">
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- PONTE -->
-<div class="ponte">
-  <div class="ponte-inner">
-    <p class="ponte-title typewriter-text" id="dyn-bridge-quote">
-      "Un sintomo non esiste da solo. Esiste dentro una vita — con le sue fatiche, le sue abitudini, i suoi momenti difficili."
-    </p>
-    <p class="ponte-sub typewriter-text" id="dyn-bridge-sub">Questo è il punto da cui parto. Non una diagnosi su carta. Una conversazione vera.</p>
-  </div>
-</div>
-
-<!-- APPROCCIO -->
-<section id="approccio" class="section">
-  <div class="section-inner">
-    <div class="approccio-grid">
-      <div class="approccio-text fade-up">
-        <div class="pill-tag">Il mio approccio</div>
-        <h2 class="s-title" id="dyn-approach-title">Non si può separare<br>il sintomo dalla <em>persona.</em></h2>
-        <p class="s-body" id="dyn-approach-body">Potresti avere un mal di schiena da tre anni. O un dolore alla spalla che compare solo la notte. O qualcosa che i medici hanno visitato — ma che ancora non ha un nome preciso.</p>
-        <div class="pullquote">
-          <p id="dyn-approach-quote">Quello che ascolto non è solo il tuo corpo — è anche come quel dolore ha cambiato le tue giornate, le tue relazioni, il tuo modo di sentirti.</p>
-        </div>
-        <p class="s-body" id="dyn-approach-footer">Separare il sintomo dalla persona significa perdere metà della storia — e metà della soluzione. Il colloquio viene sempre prima. Non come formalità, ma come parte del percorso di cura.</p>
-      </div>
-      <div class="approccio-img-wrap fade-up">
-        <div class="approccio-photo">
-          <div class="ph">
-            <!-- SOSTITUIRE: foto studio o trattamento -->
-            <span class="ph-label">[ Foto studio / trattamento — da inserire ]</span>
-          </div>
-        </div>
-        <div class="mini-card">
-          <div class="mini-card-num">20+</div>
-          <div class="mini-card-label">anni di esperienza</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PERCORSO -->
-<section id="percorso" class="section" style="background:var(--bg2);">
-  <div class="section-inner">
-    <div class="percorso-header fade-up">
-      <div>
-        <div class="pill-tag">Chi sono</div>
-        <h2 class="s-title" id="dyn-about-title">Vent'anni non si contano.<br><em>Si vivono.</em></h2>
-      </div>
-      <p class="s-body" id="dyn-about-body">Non sono arrivato a questo modo di lavorare leggendo un libro. Ci sono arrivato attraverso migliaia di persone — ognuna con la sua storia, ognuna che mi ha insegnato qualcosa che nessuna università avrebbe potuto insegnarmi.</p>
-    </div>
-    <div class="tl-list">
-      <div class="tl-item fade-up">
-        <div class="filigrana">2004</div>
-        <div class="tl-content">
-          <div class="tl-title" id="dyn-tl-2004-title">La laurea. L'inizio.</div>
-          <p class="tl-text" id="dyn-tl-2004-text">Mi sono laureato convinto che la fisioterapia fosse una scienza esatta. Presto avrei scoperto che era anche — e soprattutto — una forma profonda di ascolto.</p>
-        </div>
-      </div>
-      <div class="tl-item fade-up">
-        <div class="filigrana" id="dyn-tl-2006-year">2006</div>
-        <div class="tl-content">
-          <div class="tl-title" id="dyn-tl-2006-title">Il primo paziente che mi ha fermato.</div>
-          <p class="tl-text" id="dyn-tl-2006-text">Aveva ragione lui. Non il protocollo. Da quel giorno ho capito che il corpo parla — ma solo se sai davvero come chiedergli di farlo.</p>
-        </div>
-      </div>
-      <div class="tl-item fade-up">
-        <div class="filigrana" id="dyn-tl-2012-year">2012</div>
-        <div class="tl-content">
-          <div class="tl-title" id="dyn-tl-2012-title">Formazione continua, sempre.</div>
-          <p class="tl-text" id="dyn-tl-2012-text">Anni di aggiornamento, corsi, confronto con colleghi. Non per accumulare certificati, ma per capire sempre meglio le persone che mi sedevano davanti.</p>
-        </div>
-      </div>
-      <div class="tl-item fade-up">
-        <div class="filigrana" id="dyn-tl-today-year">Oggi</div>
-        <div class="tl-content">
-          <div class="tl-title" id="dyn-tl-today-title">Il colloquio prima di tutto.</div>
-          <p class="tl-text" id="dyn-tl-today-text">Ogni percorso inizia con una conversazione. Non un questionario. Non una scheda. Una vera conversazione — perché il sintomo che mi porti è solo l'inizio della storia.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COME LAVORO -->
-<section id="come-lavoro" class="section">
-  <div class="section-inner">
-    <div class="cl-header fade-up">
-      <div class="pill-tag">Come lavoro</div>
-      <h2 class="s-title" id="dyn-how-title">Tre momenti.<br><em>Una sola direzione.</em></h2>
-      <p class="s-body" id="dyn-how-body">Non esiste un protocollo uguale per tutti. Ma c'è un percorso che rispetto sempre — perché alcune cose non cambiano: l'ascolto viene prima di tutto il resto.</p>
-    </div>
-    <div class="steps-grid">
-      <div class="step-card fade-up">
-        <span class="step-emoji">💬</span>
-        <span class="step-num">01</span>
-        <div class="step-title" id="dyn-step-01-title">Il colloquio</div>
-        <p class="step-text" id="dyn-step-01-text">Partiamo da te. Non dal tuo dolore — da te. Come hai vissuto questo periodo? Cosa è cambiato nelle tue giornate? Solo da qui posso capire davvero cosa serve.</p>
-      </div>
-      <div class="step-card fade-up">
-        <span class="step-emoji">🤲</span>
-        <span class="step-num">02</span>
-        <div class="step-title" id="dyn-step-02-title">La valutazione</div>
-        <p class="step-text" id="dyn-step-02-text">Dopo aver ascoltato, osservo. Il corpo dice molto più di quanto crediamo. La valutazione non è un test — è una conversazione tra me e il tuo corpo.</p>
-      </div>
-      <div class="step-card fade-up">
-        <span class="step-emoji">🌱</span>
-        <span class="step-num">03</span>
-        <div class="step-title" id="dyn-step3-title">Il percorso</div>
-        <p class="step-text" id="dyn-step3-text">Costruiamo insieme qualcosa che abbia senso per la tua vita — non solo per il tuo sintomo. Guarire non significa smettere di avere dolore. Significa ritrovare sé stessi.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STORIE -->
-<section id="storie" class="section" style="background:var(--bg2);">
-  <div class="section-inner">
-    <div class="storie-header fade-up">
-      <div>
-        <div class="pill-tag">Pensieri & Storie</div>
-        <h2 class="s-title" id="dyn-storie-title" style="margin-bottom:0;">Quello che ho <em>imparato</em><br>dalle persone.</h2>
-      </div>
-      <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end;">
-        <span class="news-badge" id="news-count-header">0 NEWS</span>
-        <a href="javascript:void(0)" onclick="openArchive()" class="btn-ghost" style="margin-bottom:8px;">Leggi tutto →</a>
-      </div>
-    </div>
-    <div class="storie-grid" id="storie-container">
-      <div class="storia-card fade-up" onclick="openArticle(1)">
-        <div class="storia-img">
-          <div class="ph" style="height:280px;">
-            <span class="ph-label" style="font-family:var(--font-serif);font-style:italic;font-size:.85rem;color:var(--text-mid);opacity:.5;">[ Immagine articolo ]</span>
-          </div>
-        </div>
-        <div class="storia-body">
-          <span class="storia-pill">Riflessione</span>
-          <div class="storia-title">Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da lì.</div>
-          <p class="storia-excerpt">Vent'anni di pazienti mi hanno insegnato che il confine tra corpo e mente è molto più sottile di quanto crediamo...</p>
-        </div>
-      </div>
-      <div class="storia-card fade-up" onclick="openArticle(2)">
-        <div class="storia-img">
-          <div class="ph" style="height:200px;">
-            <span class="ph-label" style="font-family:var(--font-serif);font-style:italic;font-size:.85rem;color:var(--text-mid);opacity:.5;">[ Immagine articolo ]</span>
-          </div>
-        </div>
-        <div class="storia-body">
-          <span class="storia-pill">Domande frequenti</span>
-          <div class="storia-title">Ha senso prendere appuntamento? Rispondo onestamente.</div>
-          <p class="storia-excerpt">La domanda che mi fanno in molti, spesso dopo aver aspettato troppo a lungo...</p>
-        </div>
-      </div>
-      <div class="storia-card fade-up" onclick="openArticle(3)">
-        <div class="storia-img">
-          <div class="ph" style="height:200px;">
-            <span class="ph-label" style="font-family:var(--font-serif);font-style:italic;font-size:.85rem;color:var(--text-mid);opacity:.5;">[ Immagine articolo ]</span>
-          </div>
-        </div>
-        <div class="storia-body">
-          <span class="storia-pill">Approccio</span>
-          <div class="storia-title">Cosa succede davvero nel primo appuntamento.</div>
-          <p class="storia-excerpt">Niente camice subito. Niente scheda. Prima parliamo — e questo cambia già tutto...</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ARCHIVIO STORIE -->
-<div class="archive-modal" id="archive-modal">
-  <div class="archive-inner" onscroll="handleModalScroll(this)" data-lenis-prevent>
-    <div class="archive-header-sticky">
-      <div class="archive-close" onclick="closeArchive()">✕</div>
-      <div class="pill-tag" style="margin:0 auto 16px;">Archivio</div>
-      <h2 class="s-title" style="margin-bottom:0;">Tutti i <em id="news-count-archive">0</em> <em>pensieri.</em></h2>
-    </div>
-    <div style="padding: 20px 60px 60px;">
-      <div class="archive-grid-list" id="archive-list">
-        <!-- Generato da JS -->
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL ARTICOLO -->
-<div class="article-modal" id="article-modal">
-  <div class="modal-inner" onscroll="handleModalScroll(this)" data-lenis-prevent>
-    <div class="modal-header-sticky">
-      <div class="close-modal" onclick="closeArticle()">✕</div>
-      <span class="storia-pill modal-pill" id="modal-category"></span>
-      <h2 class="modal-title" id="modal-title" style="margin-bottom:0;"></h2>
-    </div>
-    <div class="modal-body" style="padding: 20px 50px 60px;">
-      <div id="modal-image-container" style="margin-bottom: 24px; display: none;">
-        <img id="modal-image" src="" alt="News Image" style="width: 100%; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-      </div>
-      <div id="modal-content"></div>
-    </div>
-  </div>
-</div>
-
-<!-- RECENSIONI -->
-<section id="recensioni" class="section" style="background:var(--bg3);">
-  <div class="section-inner">
-    <div class="rec-header fade-up">
-      <div class="pill-tag" style="margin:0 auto 16px;">Recensioni</div>
-      <h2 class="s-title" id="dyn-reviews-title">Le parole<br>di <em>chi c'era.</em></h2>
-    </div>
-    <div style="margin-top: 32px; min-height: 200px;" id="trustindex-container">
-      <p style="text-align:center; color:var(--text-light); font-size:0.9rem;">
-        <i>Per visualizzare le recensioni Google, è necessario accettare i cookie dal banner in basso.</i>
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- PRENOTA -->
-<section id="prenota" class="section">
-  <div class="section-inner">
-    <div class="prenota-grid">
+  <!-- HERO -->
+  <section id="home">
+    <div class="hero-blob"></div>
+    <div class="hero-blob2"></div>
+    <div class="hero-inner">
       <div class="fade-up">
-        <div class="pill-tag">Contatti</div>
-        <h2 class="s-title" id="dyn-contact-title">Il primo passo<br>è <em>una chiamata.</em></h2>
-        <p class="s-body" id="dyn-contact-body1">Non devi arrivare con le idee chiare. Non devi sapere già se sono la persona giusta. Quella valutazione la facciamo insieme — in una chiamata gratuita di 15 minuti.</p>
-        <p class="s-body" id="dyn-contact-body2">Dimmi cosa stai vivendo. Il resto viene da sé.</p>
-        <div class="contact-list">
-          <div class="c-row">
-            <div class="c-icon mail">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            </div>
-            <div>
-              <div class="c-label" id="dyn-contact-mail-label">Email</div>
-              <div class="c-value"><a href="mailto:info@ilfisioterapista.sm" id="dyn-contact-mail-value">info@ilfisioterapista.sm</a></div>
-            </div>
-          </div>
-          <div class="c-row">
-            <div class="c-icon ig">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            </div>
-            <div>
-              <div class="c-label" id="dyn-contact-ig-label">Instagram</div>
-              <div class="c-value"><a href="https://www.instagram.com/ilfisioterapista.sm" target="_blank" id="dyn-contact-ig-value">@ilfisioterapista.sm</a></div>
-            </div>
-          </div>
-          <div class="c-row" style="border-bottom:none;">
-            <div class="c-icon map">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            </div>
-            <div>
-              <div class="c-label" id="dyn-contact-studio-label">Studio</div>
-              <div class="c-value"><a href="https://www.google.com/maps?daddr=Str.+Ca%27+Vagnetto,+3,+47890" target="_blank" id="dyn-contact-studio-value">Str. Ca' Vagnetto, 3, San Marino</a></div>
-            </div>
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-dot"></div>
+          <span id="dyn-hero-eyebrow">Fisioterapista · San Marino</span>
+        </div>
+        <h1 class="hero-title" id="dyn-hero-title">
+          Prima di ogni tecnica,<br>
+          c'è <em>una persona.</em><br>
+          La tua.
+        </h1>
+        <p class="hero-body" id="dyn-hero-body">
+          Da oltre vent'anni ascolto quello che il corpo dice — e quello che non riesce a dire. Non tratto sintomi.
+          Tratto persone. E ogni persona porta con sé una storia che merita di essere ascoltata davvero.
+        </p>
+        <div class="hero-actions">
+          <a href="https://calendar.app.google/imdtMmvzyEDhdwj78" target="_blank" class="btn-warm">Prenota una chiamata
+            gratuita</a>
+          <a href="#approccio" class="btn-ghost">Scopri come lavoro →</a>
+        </div>
+      </div>
+
+      <div class="hero-img-col fade-up">
+        <div class="hero-photo-wrap">
+          <div class="ph">
+            <!-- Placeholder immagine colorata beige/sabbia -->
+            <span class="ph-label" style="opacity: 0.8; font-size: 0.9rem;">[ Foto Professionale ]</span>
           </div>
         </div>
+        <div class="hero-float-card">
+          <div class="float-icon">🎉</div>
+          <div>
+            <div class="float-text-top" id="dyn-card-exp-top">Esperienza</div>
+            <div class="float-text-main" id="dyn-card-exp-main">20+ anni con le persone</div>
+          </div>
+        </div>
+        <a href="#recensioni" class="google-card hero-float-card2">
+          <div class="google-logo-text">
+            <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span
+              class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+          </div>
+          <div class="float2-stars">★★★★★</div>
+          <div class="float2-text">4.9/5 Recensioni</div>
 
-        <div class="map-wrap">
-          <iframe 
-            src="https://maps.google.com/maps?q=Str.%20Ca'%20Vagnetto,%203,%2047890%20San%20Marino&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-            allowfullscreen="" 
-            loading="lazy">
-          </iframe>
+          <!-- Nuvola di avatar orbitanti -->
+          <div class="avatar-cloud">
+            <img src="https://i.pravatar.cc/100?u=11" alt="Recensione" class="orb-avatar av1">
+            <img src="https://i.pravatar.cc/100?u=24" alt="Recensione" class="orb-avatar av2">
+            <img src="https://i.pravatar.cc/100?u=35" alt="Recensione" class="orb-avatar av3">
+            <img src="https://i.pravatar.cc/100?u=42" alt="Recensione" class="orb-avatar av4">
+            <img src="https://i.pravatar.cc/100?u=56" alt="Recensione" class="orb-avatar av5">
+            <img src="https://i.pravatar.cc/100?u=78" alt="Recensione" class="orb-avatar av6">
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PONTE -->
+  <div class="ponte">
+    <div class="ponte-inner">
+      <p class="ponte-title typewriter-text" id="dyn-bridge-quote">
+        "Un sintomo non esiste da solo. Esiste dentro una vita — con le sue fatiche, le sue abitudini, i suoi momenti
+        difficili."
+      </p>
+      <p class="ponte-sub typewriter-text" id="dyn-bridge-sub">Questo è il punto da cui parto. Non una diagnosi su
+        carta. Una conversazione vera.</p>
+    </div>
+  </div>
+
+  <!-- APPROCCIO -->
+  <section id="approccio" class="section">
+    <div class="section-inner">
+      <div class="approccio-grid">
+        <div class="approccio-text fade-up">
+          <div class="pill-tag">Il mio approccio</div>
+          <h2 class="s-title" id="dyn-approach-title">Non si può separare<br>il sintomo dalla <em>persona.</em></h2>
+          <p class="s-body" id="dyn-approach-body">Potresti avere un mal di schiena da tre anni. O un dolore alla spalla
+            che compare solo la notte. O qualcosa che i medici hanno visitato — ma che ancora non ha un nome preciso.
+          </p>
+          <div class="pullquote">
+            <p id="dyn-approach-quote">Quello che ascolto non è solo il tuo corpo — è anche come quel dolore ha cambiato
+              le tue giornate, le tue relazioni, il tuo modo di sentirti.</p>
+          </div>
+          <p class="s-body" id="dyn-approach-footer">Separare il sintomo dalla persona significa perdere metà della
+            storia — e metà della soluzione. Il colloquio viene sempre prima. Non come formalità, ma come parte del
+            percorso di cura.</p>
+        </div>
+        <div class="approccio-img-wrap fade-up">
+          <div class="approccio-photo">
+            <div class="ph">
+              <!-- SOSTITUIRE: foto studio o trattamento -->
+              <span class="ph-label">[ Foto studio / trattamento — da inserire ]</span>
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-num">20+</div>
+            <div class="mini-card-label">anni di esperienza</div>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="booking-box fade-up">
-        <h3 id="dyn-booking-title">Prenota una chiamata gratuita</h3>
-        <p id="dyn-booking-text">Verifica la mia disponibilità reale e scegli il momento più comodo per te.</p>
-        
-        <div style="margin: 32px 0; padding: 24px; background: #fff; border-radius: 20px; border: 1px solid var(--line); text-align: center;">
-          <div style="font-size: 2rem; margin-bottom: 12px;">📅</div>
-          <div style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--green-soft); letter-spacing: 0.1em; margin-bottom: 8px;">Disponibilità Live</div>
-          <p style="font-size: 0.95rem; color: var(--text-mid); margin-bottom: 24px; line-height: 1.5;">Il calendario è sincronizzato in tempo reale con i miei appuntamenti.</p>
-          <a href="https://calendar.app.google/imdtMmvzyEDhdwj78" target="_blank" class="btn-submit" style="text-align: center; text-decoration: none; display: block;">Scegli data e ora</a>
+  <!-- PERCORSO -->
+  <section id="percorso" class="section" style="background:var(--bg2);">
+    <div class="section-inner">
+      <div class="percorso-header fade-up">
+        <div>
+          <div class="pill-tag">Chi sono</div>
+          <h2 class="s-title" id="dyn-about-title">Vent'anni non si contano.<br><em>Si vivono.</em></h2>
         </div>
+        <p class="s-body" id="dyn-about-body">Non sono arrivato a questo modo di lavorare leggendo un libro. Ci sono
+          arrivato attraverso migliaia di persone — ognuna con la sua storia, ognuna che mi ha insegnato qualcosa che
+          nessuna università avrebbe potuto insegnarmi.</p>
+      </div>
+      <div class="tl-list">
+        <div class="tl-item fade-up">
+          <div class="filigrana">2004</div>
+          <div class="tl-content">
+            <div class="tl-title" id="dyn-tl-2004-title">La laurea. L'inizio.</div>
+            <p class="tl-text" id="dyn-tl-2004-text">Mi sono laureato convinto che la fisioterapia fosse una scienza
+              esatta. Presto avrei scoperto che era anche — e soprattutto — una forma profonda di ascolto.</p>
+          </div>
+        </div>
+        <div class="tl-item fade-up">
+          <div class="filigrana" id="dyn-tl-2006-year">2006</div>
+          <div class="tl-content">
+            <div class="tl-title" id="dyn-tl-2006-title">Il primo paziente che mi ha fermato.</div>
+            <p class="tl-text" id="dyn-tl-2006-text">Aveva ragione lui. Non il protocollo. Da quel giorno ho capito che
+              il corpo parla — ma solo se sai davvero come chiedergli di farlo.</p>
+          </div>
+        </div>
+        <div class="tl-item fade-up">
+          <div class="filigrana" id="dyn-tl-2012-year">2012</div>
+          <div class="tl-content">
+            <div class="tl-title" id="dyn-tl-2012-title">Formazione continua, sempre.</div>
+            <p class="tl-text" id="dyn-tl-2012-text">Anni di aggiornamento, corsi, confronto con colleghi. Non per
+              accumulare certificati, ma per capire sempre meglio le persone che mi sedevano davanti.</p>
+          </div>
+        </div>
+        <div class="tl-item fade-up">
+          <div class="filigrana" id="dyn-tl-today-year">Oggi</div>
+          <div class="tl-content">
+            <div class="tl-title" id="dyn-tl-today-title">Il colloquio prima di tutto.</div>
+            <p class="tl-text" id="dyn-tl-today-text">Ogni percorso inizia con una conversazione. Non un questionario.
+              Non una scheda. Una vera conversazione — perché il sintomo che mi porti è solo l'inizio della storia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <p style="font-size: 0.85rem; color: var(--text-light); text-align: center;">Verrai indirizzato alla pagina ufficiale di Google Calendar per confermare la prenotazione.</p>
-        
+  <!-- COME LAVORO -->
+  <section id="come-lavoro" class="section">
+    <div class="section-inner">
+      <div class="cl-header fade-up">
+        <div class="pill-tag">Come lavoro</div>
+        <h2 class="s-title" id="dyn-how-title">Tre momenti.<br><em>Una sola direzione.</em></h2>
+        <p class="s-body" id="dyn-how-body">Non esiste un protocollo uguale per tutti. Ma c'è un percorso che rispetto
+          sempre — perché alcune cose non cambiano: l'ascolto viene prima di tutto il resto.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card fade-up">
+          <span class="step-emoji">💬</span>
+          <span class="step-num">01</span>
+          <div class="step-title" id="dyn-step-01-title">Il colloquio</div>
+          <p class="step-text" id="dyn-step-01-text">Partiamo da te. Non dal tuo dolore — da te. Come hai vissuto questo
+            periodo? Cosa è cambiato nelle tue giornate? Solo da qui posso capire davvero cosa serve.</p>
+        </div>
+        <div class="step-card fade-up">
+          <span class="step-emoji">🤲</span>
+          <span class="step-num">02</span>
+          <div class="step-title" id="dyn-step-02-title">La valutazione</div>
+          <p class="step-text" id="dyn-step-02-text">Dopo aver ascoltato, osservo. Il corpo dice molto più di quanto
+            crediamo. La valutazione non è un test — è una conversazione tra me e il tuo corpo.</p>
+        </div>
+        <div class="step-card fade-up">
+          <span class="step-emoji">🌱</span>
+          <span class="step-num">03</span>
+          <div class="step-title" id="dyn-step3-title">Il percorso</div>
+          <p class="step-text" id="dyn-step3-text">Costruiamo insieme qualcosa che abbia senso per la tua vita — non
+            solo per il tuo sintomo. Guarire non significa smettere di avere dolore. Significa ritrovare sé stessi.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIE -->
+  <section id="storie" class="section" style="background:var(--bg2);">
+    <div class="section-inner">
+      <div class="storie-header fade-up">
+        <div>
+          <div class="pill-tag">Pensieri & Storie</div>
+          <h2 class="s-title" id="dyn-storie-title" style="margin-bottom:0;">Quello che ho <em>imparato</em><br>dalle
+            persone.</h2>
+        </div>
+        <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end;">
+          <span class="news-badge" id="news-count-header">0 NEWS</span>
+          <a href="javascript:void(0)" onclick="openArchive()" class="btn-ghost" style="margin-bottom:8px;">Leggi tutto
+            →</a>
+        </div>
+      </div>
+      <div class="storie-grid" id="storie-container">
+        <div class="storia-card fade-up" onclick="openArticle(1)">
+          <div class="storia-img">
+            <div class="ph" style="height:280px;">
+              <span class="ph-label"
+                style="font-family:var(--font-serif);font-style:italic;font-size:.85rem;color:var(--text-mid);opacity:.5;">[
+                Immagine articolo ]</span>
+            </div>
+          </div>
+          <div class="storia-body">
+            <span class="storia-pill">Riflessione</span>
+            <div class="storia-title">Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da
+              lì.</div>
+            <p class="storia-excerpt">Vent'anni di pazienti mi hanno insegnato che il confine tra corpo e mente è molto
+              più sottile di quanto crediamo...</p>
+          </div>
+        </div>
+        <div class="storia-card fade-up" onclick="openArticle(2)">
+          <div class="storia-img">
+            <div class="ph" style="height:200px;">
+              <span class="ph-label"
+                style="font-family:var(--font-serif);font-style:italic;font-size:.85rem;color:var(--text-mid);opacity:.5;">[
+                Immagine articolo ]</span>
+            </div>
+          </div>
+          <div class="storia-body">
+            <span class="storia-pill">Domande frequenti</span>
+            <div class="storia-title">Ha senso prendere appuntamento? Rispondo onestamente.</div>
+            <p class="storia-excerpt">La domanda che mi fanno in molti, spesso dopo aver aspettato troppo a lungo...</p>
+          </div>
+        </div>
+        <div class="storia-card fade-up" onclick="openArticle(3)">
+          <div class="storia-img">
+            <div class="ph" style="height:200px;">
+              <span class="ph-label"
+                style="font-family:var(--font-serif);font-style:italic;font-size:.85rem;color:var(--text-mid);opacity:.5;">[
+                Immagine articolo ]</span>
+            </div>
+          </div>
+          <div class="storia-body">
+            <span class="storia-pill">Approccio</span>
+            <div class="storia-title">Cosa succede davvero nel primo appuntamento.</div>
+            <p class="storia-excerpt">Niente camice subito. Niente scheda. Prima parliamo — e questo cambia già tutto...
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHIVIO STORIE -->
+  <div class="archive-modal" id="archive-modal">
+    <div class="archive-inner" onscroll="handleModalScroll(this)" data-lenis-prevent>
+      <div class="archive-header-sticky">
+        <div class="archive-close" onclick="closeArchive()">✕</div>
+        <div class="pill-tag" style="margin:0 auto 16px;">Archivio</div>
+        <h2 class="s-title" style="margin-bottom:0;">Tutti i <em id="news-count-archive">0</em> <em>pensieri.</em></h2>
+      </div>
+      <div style="padding: 20px 60px 60px;">
+        <div class="archive-grid-list" id="archive-list">
+          <!-- Generato da JS -->
+        </div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ADMIN PANEL (Hidden) -->
-<div id="admin-panel" class="admin-modal">
-  <div class="admin-inner" data-lenis-prevent>
-    <div class="admin-header">
-      <h2 style="font-family:var(--font-serif); font-size: 1.4rem;">Pannello Gestione News</h2>
-      <div onclick="closeAdminPanel()" style="cursor:pointer; font-size:1.5rem; opacity: 0.5;">✕</div>
+  <!-- MODAL ARTICOLO -->
+  <div class="article-modal" id="article-modal">
+    <div class="modal-inner" onscroll="handleModalScroll(this)" data-lenis-prevent>
+      <div class="modal-header-sticky">
+        <div class="close-modal" onclick="closeArticle()">✕</div>
+        <span class="storia-pill modal-pill" id="modal-category"></span>
+        <h2 class="modal-title" id="modal-title" style="margin-bottom:0;"></h2>
+      </div>
+      <div class="modal-body" style="padding: 20px 50px 60px;">
+        <div id="modal-image-container" style="margin-bottom: 24px; display: none;">
+          <img id="modal-image" src="" alt="News Image"
+            style="width: 100%; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        </div>
+        <div id="modal-content"></div>
+      </div>
     </div>
-    
-    <div class="admin-body">
-      <!-- VISUAL EDIT TRIGGER -->
-      <div style="background: var(--bg3); padding: 24px; border-radius: 20px; margin-bottom: 40px; text-align: center; border: 1px solid var(--line);">
-        <h3 style="font-family: var(--font-serif); margin-bottom: 8px;">Modifica i testi del sito</h3>
-        <p style="font-size: 0.9rem; color: var(--text-mid); margin-bottom: 20px;">Attiva questa modalità per cliccare sulle scritte e modificarle direttamente.</p>
-        <button class="btn-admin-visual" onclick="enterVisualEditMode()" style="width: auto; padding: 12px 40px;">🎨 Attiva Modifica Visiva</button>
+  </div>
+
+  <!-- RECENSIONI -->
+  <section id="recensioni" class="section" style="background:var(--bg3);">
+    <div class="section-inner">
+      <div class="rec-header fade-up">
+        <div class="pill-tag" style="margin:0 auto 16px;">Recensioni</div>
+        <h2 class="s-title" id="dyn-reviews-title">Le parole<br>di <em>chi c'era.</em></h2>
+      </div>
+      <div style="margin-top: 32px; min-height: 200px;" id="trustindex-container">
+        <p style="text-align:center; color:var(--text-light); font-size:0.9rem;">
+          <i>Per visualizzare le recensioni Google, è necessario accettare i cookie dal banner in basso.</i>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRENOTA -->
+  <section id="prenota" class="section">
+    <div class="section-inner">
+      <div class="prenota-grid">
+        <div class="fade-up">
+          <div class="pill-tag">Contatti</div>
+          <h2 class="s-title" id="dyn-contact-title">Il primo passo<br>è <em>una chiamata.</em></h2>
+          <p class="s-body" id="dyn-contact-body1">Non devi arrivare con le idee chiare. Non devi sapere già se sono la
+            persona giusta. Quella valutazione la facciamo insieme — in una chiamata gratuita di 15 minuti.</p>
+          <p class="s-body" id="dyn-contact-body2">Dimmi cosa stai vivendo. Il resto viene da sé.</p>
+          <div class="contact-list">
+            <div class="c-row">
+              <div class="c-icon mail">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div>
+                <div class="c-label" id="dyn-contact-mail-label">Email</div>
+                <div class="c-value"><a href="mailto:info@ilfisioterapista.sm"
+                    id="dyn-contact-mail-value">info@ilfisioterapista.sm</a></div>
+              </div>
+            </div>
+            <div class="c-row">
+              <div class="c-icon ig">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </div>
+              <div>
+                <div class="c-label" id="dyn-contact-ig-label">Instagram</div>
+                <div class="c-value"><a href="https://www.instagram.com/ilfisioterapista.sm" target="_blank"
+                    id="dyn-contact-ig-value">@ilfisioterapista.sm</a></div>
+              </div>
+            </div>
+            <div class="c-row" style="border-bottom:none;">
+              <div class="c-icon map">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <div>
+                <div class="c-label" id="dyn-contact-studio-label">Studio</div>
+                <div class="c-value"><a href="https://www.google.com/maps?daddr=Str.+Ca%27+Vagnetto,+3,+47890"
+                    target="_blank" id="dyn-contact-studio-value">Str. Ca' Vagnetto, 3, San Marino</a></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="map-wrap">
+            <iframe
+              src="https://maps.google.com/maps?q=Str.%20Ca'%20Vagnetto,%203,%2047890%20San%20Marino&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              allowfullscreen="" loading="lazy">
+            </iframe>
+          </div>
+        </div>
+
+        <div class="booking-box fade-up">
+          <h3 id="dyn-booking-title">Prenota una chiamata gratuita</h3>
+          <p id="dyn-booking-text">Verifica la mia disponibilità reale e scegli il momento più comodo per te.</p>
+
+          <div
+            style="margin: 32px 0; padding: 24px; background: #fff; border-radius: 20px; border: 1px solid var(--line); text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 12px;">📅</div>
+            <div
+              style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--green-soft); letter-spacing: 0.1em; margin-bottom: 8px;">
+              Disponibilità Live</div>
+            <p style="font-size: 0.95rem; color: var(--text-mid); margin-bottom: 24px; line-height: 1.5;">Il calendario
+              è sincronizzato in tempo reale con i miei appuntamenti.</p>
+            <a href="https://calendar.app.google/imdtMmvzyEDhdwj78" target="_blank" class="btn-submit"
+              style="text-align: center; text-decoration: none; display: block;">Scegli data e ora</a>
+          </div>
+
+          <p style="font-size: 0.85rem; color: var(--text-light); text-align: center;">Verrai indirizzato alla pagina
+            ufficiale di Google Calendar per confermare la prenotazione.</p>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN PANEL (Hidden) -->
+  <div id="admin-panel" class="admin-modal">
+    <div class="admin-inner" data-lenis-prevent>
+      <div class="admin-header">
+        <h2 style="font-family:var(--font-serif); font-size: 1.4rem;">Pannello Gestione News</h2>
+        <div onclick="closeAdminPanel()" style="cursor:pointer; font-size:1.5rem; opacity: 0.5;">✕</div>
       </div>
 
-      <div id="view-news">
-        <h3 style="margin-bottom: 20px; font-family: var(--font-serif);">Gestione Articoli</h3>
-        <button class="btn-admin-save" style="margin-bottom:24px;" onclick="addNewArticle()">+ Aggiungi Nuova News</button>
-        <div id="admin-article-list"></div>
-      </div>
+      <div class="admin-body">
+        <!-- VISUAL EDIT TRIGGER -->
+        <div
+          style="background: var(--bg3); padding: 24px; border-radius: 20px; margin-bottom: 40px; text-align: center; border: 1px solid var(--line);">
+          <h3 style="font-family: var(--font-serif); margin-bottom: 8px;">Modifica i testi del sito</h3>
+          <p style="font-size: 0.9rem; color: var(--text-mid); margin-bottom: 20px;">Attiva questa modalità per cliccare
+            sulle scritte e modificarle direttamente.</p>
+          <button class="btn-admin-visual" onclick="enterVisualEditMode()" style="width: auto; padding: 12px 40px;">🎨
+            Attiva Modifica Visiva</button>
+        </div>
 
-      <div id="editor-view" style="display:none; margin-top:40px; border-top:2px solid #eee; padding-top:30px;">
-        <h3 id="editor-title" style="margin-bottom: 24px; font-family: var(--font-serif);">Modifica Articolo</h3>
-        <input type="hidden" id="edit-id">
-        <div class="admin-form-group">
-          <label>Titolo</label>
-          <input type="text" id="edit-title">
+        <div id="view-news">
+          <h3 style="margin-bottom: 20px; font-family: var(--font-serif);">Gestione Articoli</h3>
+          <button class="btn-admin-save" style="margin-bottom:24px;" onclick="addNewArticle()">+ Aggiungi Nuova
+            News</button>
+          <div id="admin-article-list"></div>
         </div>
-        <div class="admin-form-group">
-          <label>Categoria</label>
-          <input type="text" id="edit-category" placeholder="es. Riflessione, Postura...">
-        </div>
-        <div class="admin-form-group">
-          <label>Estratto (breve riassunto)</label>
-          <textarea id="edit-excerpt" rows="2"></textarea>
-        </div>
-        <div class="admin-form-group">
-          <label>Contenuto (HTML ammesso)</label>
-          <textarea id="edit-content" rows="10"></textarea>
-        </div>
-        <div class="admin-form-group">
-          <label>URL Immagine (link diretto)</label>
-          <input type="text" id="edit-image" placeholder="https://esempio.com/foto.jpg">
-          <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 4px;">Puoi usare siti come ImgBB o simili per caricare la foto e incollare qui il link diretto.</p>
-        </div>
-        <div class="admin-actions">
-          <button class="btn-admin-save" onclick="saveArticle()">Salva Modifiche</button>
-          <button class="btn-admin-cancel" onclick="document.getElementById('editor-view').style.display='none'">Annulla</button>
+
+        <div id="editor-view" style="display:none; margin-top:40px; border-top:2px solid #eee; padding-top:30px;">
+          <h3 id="editor-title" style="margin-bottom: 24px; font-family: var(--font-serif);">Modifica Articolo</h3>
+          <input type="hidden" id="edit-id">
+          <div class="admin-form-group">
+            <label>Titolo</label>
+            <input type="text" id="edit-title">
+          </div>
+          <div class="admin-form-group">
+            <label>Categoria</label>
+            <input type="text" id="edit-category" placeholder="es. Riflessione, Postura...">
+          </div>
+          <div class="admin-form-group">
+            <label>Estratto (breve riassunto)</label>
+            <textarea id="edit-excerpt" rows="2"></textarea>
+          </div>
+          <div class="admin-form-group">
+            <label>Contenuto (HTML ammesso)</label>
+            <textarea id="edit-content" rows="10"></textarea>
+          </div>
+          <div class="admin-form-group">
+            <label>URL Immagine (link diretto)</label>
+            <input type="text" id="edit-image" placeholder="https://esempio.com/foto.jpg">
+            <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 4px;">Puoi usare siti come ImgBB o
+              simili per caricare la foto e incollare qui il link diretto.</p>
+          </div>
+          <div class="admin-actions">
+            <button class="btn-admin-save" onclick="saveArticle()">Salva Modifiche</button>
+            <button class="btn-admin-cancel"
+              onclick="document.getElementById('editor-view').style.display='none'">Annulla</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- VISUAL EDIT TOOLBAR -->
-<div id="visual-edit-toolbar" class="edit-toolbar">
-  <span>MODALITÀ MODIFICA ATTIVA</span>
-  <button class="btn-save-visual" onclick="saveVisualChanges()">Registra Modifiche</button>
-  <button class="btn-exit-visual" onclick="exitVisualEditMode()">Esci senza salvare</button>
-</div>
+  <!-- VISUAL EDIT TOOLBAR -->
+  <div id="visual-edit-toolbar" class="edit-toolbar">
+    <span>MODALITÀ MODIFICA ATTIVA</span>
+    <button class="btn-save-visual" onclick="saveVisualChanges()">Registra Modifiche</button>
+    <button class="btn-exit-visual" onclick="exitVisualEditMode()">Esci senza salvare</button>
+  </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <div class="footer-logo">Il <em>Fisioterapista</em></div>
-        <p class="footer-desc">Un approccio che mette la persona al centro — prima del sintomo, prima della tecnica, prima di tutto il resto. San Marino.</p>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">Il <em>Fisioterapista</em></div>
+          <p class="footer-desc">Un approccio che mette la persona al centro — prima del sintomo, prima della tecnica,
+            prima di tutto il resto. San Marino.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Naviga</h4>
+          <ul>
+            <li><a href="#approccio">Il mio approccio</a></li>
+            <li><a href="#percorso">Chi sono</a></li>
+            <li><a href="#come-lavoro">Come lavoro</a></li>
+            <li><a href="#storie">Storie</a></li>
+            <li><a href="#prenota">Prenota</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contatti</h4>
+          <ul>
+            <li><a href="#">info@ilfisioterapista.sm</a></li>
+            <li><a href="#">@ilfisioterapista.sm</a></li>
+            <li><a href="#">San Marino</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Naviga</h4>
-        <ul>
-          <li><a href="#approccio">Il mio approccio</a></li>
-          <li><a href="#percorso">Chi sono</a></li>
-          <li><a href="#come-lavoro">Come lavoro</a></li>
-          <li><a href="#storie">Storie</a></li>
-          <li><a href="#prenota">Prenota</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contatti</h4>
-        <ul>
-          <li><a href="#">info@ilfisioterapista.sm</a></li>
-          <li><a href="#">@ilfisioterapista.sm</a></li>
-          <li><a href="#">San Marino</a></li>
-        </ul>
+      <div class="footer-bottom">
+        <span>© 2026 Il Fisioterapista · San Marino <span onclick="adminLoginTrigger()"
+            style="opacity:0; cursor:pointer;">.</span></span>
+        <span>
+          <a href="privacy-policy.html" target="_blank"
+            style="color:#7A6E66; text-decoration:none; margin-right:12px;">Privacy Policy</a>
+          <a href="cookie-policy.html" target="_blank" style="color:#7A6E66; text-decoration:none;">Cookie Policy</a>
+        </span>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 Il Fisioterapista · San Marino <span onclick="adminLoginTrigger()" style="opacity:0; cursor:pointer;">.</span></span>
-      <span>
-        <a href="privacy-policy.html" target="_blank" style="color:#7A6E66; text-decoration:none; margin-right:12px;">Privacy Policy</a>
-        <a href="cookie-policy.html" target="_blank" style="color:#7A6E66; text-decoration:none;">Cookie Policy</a>
-      </span>
+  </footer>
+
+  <!-- COOKIE BANNER -->
+  <div id="cookie-banner">
+    <p>Utilizziamo i cookie per offrirti la migliore esperienza sul sito, in conformità con la Legge n. 171/2018 (RSM) e
+      il GDPR. <br>Puoi scoprire di più o disattivarli nell'informativa. <a href="cookie-policy.html"
+        target="_blank">Leggi la Cookie Policy</a> | <a href="privacy-policy.html" target="_blank">Privacy Policy</a>
+    </p>
+    <div class="cookie-btns">
+      <button class="cookie-btn-reject" onclick="rejectCookies()">Rifiuta tutti</button>
+      <button class="cookie-btn-accept" onclick="acceptCookies()">Accetta tutti</button>
     </div>
   </div>
-</footer>
 
-<!-- COOKIE BANNER -->
-<div id="cookie-banner">
-  <p>Utilizziamo i cookie per offrirti la migliore esperienza sul sito, in conformità con la Legge n. 171/2018 (RSM) e il GDPR. <br>Puoi scoprire di più o disattivarli nell'informativa. <a href="cookie-policy.html" target="_blank">Leggi la Cookie Policy</a> | <a href="privacy-policy.html" target="_blank">Privacy Policy</a></p>
-  <div class="cookie-btns">
-    <button class="cookie-btn-reject" onclick="rejectCookies()">Rifiuta tutti</button>
-    <button class="cookie-btn-accept" onclick="acceptCookies()">Accetta tutti</button>
-  </div>
-</div>
+  <script>
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-<script>
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    function pickSlot(btn) {
+      document.querySelectorAll('.slot').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+    }
 
-  function pickSlot(btn) {
-    document.querySelectorAll('.slot').forEach(b => b.classList.remove('on'));
-    btn.classList.add('on');
-  }
-
-  window.addEventListener('scroll', () => {
-    document.querySelector('nav').style.padding = scrollY > 40 ? '12px 48px' : '20px 48px';
-  });
-
-  const cards = document.querySelectorAll('.hero-float-card, .hero-float-card2');
-  cards.forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * -10.5;
-      const rotateY = ((x - centerX) / centerX) * 10.5;
-
-      card.style.transform = `perspective(400px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      card.style.transition = 'transform 0.15s ease-out';
-      card.style.animation = 'none';
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').style.padding = scrollY > 40 ? '12px 48px' : '20px 48px';
     });
 
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = `perspective(400px) rotateX(0deg) rotateY(0deg)`;
-      card.style.transition = 'transform 0.4s ease';
-      
-      // Riattiva l'animazione di fluttuazione dopo il reset
-      setTimeout(() => {
-        card.style.animation = '';
-      }, 400);
+    const cards = document.querySelectorAll('.hero-float-card, .hero-float-card2');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -10.5;
+        const rotateY = ((x - centerX) / centerX) * 10.5;
+
+        card.style.transform = `perspective(400px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        card.style.transition = 'transform 0.15s ease-out';
+        card.style.animation = 'none';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(400px) rotateX(0deg) rotateY(0deg)`;
+        card.style.transition = 'transform 0.4s ease';
+
+        // Riattiva l'animazione di fluttuazione dopo il reset
+        setTimeout(() => {
+          card.style.animation = '';
+        }, 400);
+      });
+
+      card.addEventListener('click', () => {
+        if (card.classList.contains('hero-float-card2')) return; // Salta l'animazione per le recensioni
+
+        const rect = card.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const container = document.createElement('div');
+        container.className = 'celebration-overlay';
+        container.style.zIndex = '10001';
+        document.body.appendChild(container);
+
+        const emojis = ['🎉', '🎊', '🎂', '🥳'];
+        for (let i = 0; i < 20; i++) {
+          const el = document.createElement('div');
+          el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          el.style.position = 'absolute';
+          el.style.left = centerX + 'px';
+          el.style.top = centerY + 'px';
+          el.style.fontSize = (1 + Math.random()) + 'rem';
+          el.style.userSelect = 'none';
+          container.appendChild(el);
+
+          const angle = Math.random() * Math.PI * 2;
+          const dist = 60 + Math.random() * 120;
+          const tx = Math.cos(angle) * dist;
+          const ty = Math.sin(angle) * dist;
+
+          el.animate([
+            { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+            { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(1.2) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+          ], { duration: 1200, easing: 'cubic-bezier(0.1, 0.5, 0.5, 1)', fill: 'forwards' });
+        }
+        setTimeout(() => container.remove(), 1200);
+      });
     });
 
-    card.addEventListener('click', () => {
-      if (card.classList.contains('hero-float-card2')) return; // Salta l'animazione per le recensioni
-
-      const rect = card.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      const container = document.createElement('div');
-      container.className = 'celebration-overlay';
-      container.style.zIndex = '10001';
-      document.body.appendChild(container);
-
+    const triggerCelebration = () => {
+      const overlay = document.createElement('div');
+      overlay.className = 'celebration-overlay';
+      document.body.appendChild(overlay);
+      const colors = ['#B07D55', '#C9A07A', '#D4A843', '#7A9E87', '#F5EFE6'];
       const emojis = ['🎉', '🎊', '🎂', '🥳'];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 120; i++) {
+        const isEmoji = Math.random() > 0.8;
         const el = document.createElement('div');
-        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        el.style.position = 'absolute';
-        el.style.left = centerX + 'px';
-        el.style.top = centerY + 'px';
-        el.style.fontSize = (1 + Math.random()) + 'rem';
-        el.style.userSelect = 'none';
-        container.appendChild(el);
-        
-        const angle = Math.random() * Math.PI * 2;
-        const dist = 60 + Math.random() * 120;
-        const tx = Math.cos(angle) * dist;
-        const ty = Math.sin(angle) * dist;
-
+        el.className = isEmoji ? 'popper' : 'confetti';
+        if (isEmoji) { el.textContent = emojis[Math.floor(Math.random() * emojis.length)]; }
+        else { el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; }
+        const side = Math.floor(Math.random() * 4);
+        let x, y;
+        if (side === 0) { x = Math.random() * 100; y = -10; }
+        else if (side === 1) { x = 110; y = Math.random() * 100; }
+        else if (side === 2) { x = Math.random() * 100; y = 110; }
+        else { x = -10; y = Math.random() * 100; }
+        el.style.left = x + 'vw'; el.style.top = y + 'vh';
+        overlay.appendChild(el);
+        const destX = 30 + Math.random() * 40;
+        const destY = 30 + Math.random() * 40;
         el.animate([
-          { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
-          { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(1.2) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-        ], { duration: 1200, easing: 'cubic-bezier(0.1, 0.5, 0.5, 1)', fill: 'forwards' });
+          { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+          { transform: `translate(${(destX - x)}vw, ${(destY - y)}vh) rotate(${720 + Math.random() * 1440}deg)`, opacity: 0 }
+        ], { duration: 2500 + Math.random() * 1500, easing: 'cubic-bezier(0.1, 0.5, 0.5, 1)', fill: 'forwards' });
       }
-      setTimeout(() => container.remove(), 1200);
-    });
-  });
-
-  const triggerCelebration = () => {
-    const overlay = document.createElement('div');
-    overlay.className = 'celebration-overlay';
-    document.body.appendChild(overlay);
-    const colors = ['#B07D55', '#C9A07A', '#D4A843', '#7A9E87', '#F5EFE6'];
-    const emojis = ['🎉', '🎊', '🎂', '🥳'];
-    for (let i = 0; i < 120; i++) {
-      const isEmoji = Math.random() > 0.8;
-      const el = document.createElement('div');
-      el.className = isEmoji ? 'popper' : 'confetti';
-      if (isEmoji) { el.textContent = emojis[Math.floor(Math.random() * emojis.length)]; }
-      else { el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; }
-      const side = Math.floor(Math.random() * 4);
-      let x, y;
-      if (side === 0) { x = Math.random() * 100; y = -10; }
-      else if (side === 1) { x = 110; y = Math.random() * 100; }
-      else if (side === 2) { x = Math.random() * 100; y = 110; }
-      else { x = -10; y = Math.random() * 100; }
-      el.style.left = x + 'vw'; el.style.top = y + 'vh';
-      overlay.appendChild(el);
-      const destX = 30 + Math.random() * 40;
-      const destY = 30 + Math.random() * 40;
-      el.animate([
-        { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
-        { transform: `translate(${(destX - x)}vw, ${(destY - y)}vh) rotate(${720 + Math.random() * 1440}deg)`, opacity: 0 }
-      ], { duration: 2500 + Math.random() * 1500, easing: 'cubic-bezier(0.1, 0.5, 0.5, 1)', fill: 'forwards' });
-    }
-    setTimeout(() => {
-      overlay.style.transition = 'opacity 1s'; overlay.style.opacity = '0';
-      setTimeout(() => overlay.remove(), 1000);
-    }, 3500);
-  };
-
-  const counterEl = document.querySelector('.mini-card-num');
-  if (counterEl) {
-    const startCount = () => {
-      let start = 0; const end = 20; const duration = 2000;
-      const startTime = performance.now();
-      const update = (now) => {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const val = Math.floor(progress * (2 - progress) * end); // easeOutQuad
-        counterEl.textContent = val + (val === 20 ? '+' : '');
-        if (progress < 1) { requestAnimationFrame(update); }
-        else { triggerCelebration(); }
-      };
-      requestAnimationFrame(update);
+      setTimeout(() => {
+        overlay.style.transition = 'opacity 1s'; overlay.style.opacity = '0';
+        setTimeout(() => overlay.remove(), 1000);
+      }, 3500);
     };
-    const countObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { startCount(); countObs.unobserve(e.target); } });
-    }, { threshold: 0.5 });
-    countObs.observe(counterEl);
-  }
 
-  // Typewriter effect for Ponte
-  document.querySelectorAll('.typewriter-text').forEach(el => {
-    const text = el.textContent.trim();
-    el.textContent = '';
-    [...text].forEach(char => {
-      const span = document.createElement('span');
-      span.textContent = char;
-      span.className = 'char';
-      if (char === ' ') span.innerHTML = '&nbsp;';
-      el.appendChild(span);
+    const counterEl = document.querySelector('.mini-card-num');
+    if (counterEl) {
+      const startCount = () => {
+        let start = 0; const end = 20; const duration = 2000;
+        const startTime = performance.now();
+        const update = (now) => {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const val = Math.floor(progress * (2 - progress) * end); // easeOutQuad
+          counterEl.textContent = val + (val === 20 ? '+' : '');
+          if (progress < 1) { requestAnimationFrame(update); }
+          else { triggerCelebration(); }
+        };
+        requestAnimationFrame(update);
+      };
+      const countObs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { startCount(); countObs.unobserve(e.target); } });
+      }, { threshold: 0.5 });
+      countObs.observe(counterEl);
+    }
+
+    // Typewriter effect for Ponte
+    document.querySelectorAll('.typewriter-text').forEach(el => {
+      const text = el.textContent.trim();
+      el.textContent = '';
+      [...text].forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.className = 'char';
+        if (char === ' ') span.innerHTML = '&nbsp;';
+        el.appendChild(span);
+      });
     });
-  });
 
-  const typeText = async (el) => {
-    const chars = el.querySelectorAll('.char');
-    for (let i = 0; i < chars.length; i++) {
-      await new Promise(r => setTimeout(r, 25)); // Velocità di battuta
-      chars[i].classList.add('visible');
-    }
-  };
+    const typeText = async (el) => {
+      const chars = el.querySelectorAll('.char');
+      for (let i = 0; i < chars.length; i++) {
+        await new Promise(r => setTimeout(r, 25)); // Velocità di battuta
+        chars[i].classList.add('visible');
+      }
+    };
 
-  const ponteSection = document.querySelector('.ponte');
-  const typeObserver = new IntersectionObserver(async entries => {
-    if (entries[0].isIntersecting) {
-      typeObserver.unobserve(ponteSection);
-      const title = ponteSection.querySelector('.ponte-title');
-      const sub = ponteSection.querySelector('.ponte-sub');
-      
-      await typeText(title);
-      await new Promise(r => setTimeout(r, 500)); // Pausa tra le due frasi
-      await typeText(sub);
-    }
-  }, { threshold: 0.3 });
+    const ponteSection = document.querySelector('.ponte');
+    const typeObserver = new IntersectionObserver(async entries => {
+      if (entries[0].isIntersecting) {
+        typeObserver.unobserve(ponteSection);
+        const title = ponteSection.querySelector('.ponte-title');
+        const sub = ponteSection.querySelector('.ponte-sub');
 
-  if (ponteSection) typeObserver.observe(ponteSection);
+        await typeText(title);
+        await new Promise(r => setTimeout(r, 500)); // Pausa tra le due frasi
+        await typeText(sub);
+      }
+    }, { threshold: 0.3 });
 
-  // Articoli Content
-  const articles = {
-    1: {
-      category: 'Riflessione',
-      title: 'Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da lì.',
-      content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p><p>Il dolore cronico è reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. È come un sistema d'allarme che continua a suonare anche dopo che l'incendio è stato spento da tempo.</p><p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore.</p>`
-    },
-    2: {
-      category: 'Domande frequenti',
-      title: 'Ha senso prendere appuntamento? Rispondo onestamente.',
-      content: `<p>Spesso le persone aspettano che il dolore diventi insopportabile prima di chiamare. O peggio, temono che il loro problema sia "troppo piccolo" per disturbare.</p><p>La verità è che la prevenzione non è solo una parola di moda: è efficienza. Risolvere una tensione muscolare iniziale richiede una frazione del tempo necessario per trattare una lombalgia acuta che ti blocca a letto.</p><p>Se senti che qualcosa non va, anche se è solo un fastidio ciclico, parliamone. A volte bastano due consigli e una seduta per evitare settimane di stop forzato.</p>`
-    },
-    3: {
-      category: 'Approccio',
-      title: 'Cosa succede davvero nel primo appuntamento.',
-      content: `<p>Dimentica il lettino nei primi dieci minuti. La prima cosa che faremo è sederci e parlare. Voglio sapere come dormi, cosa mangi, quanto stress hai al lavoro e cosa ti impedisce di fare il tuo dolore.</p><p>Solo dopo passeremo alla valutazione fisica. Questo perché un dolore alla spalla può nascere da una postura scorretta in ufficio, ma può anche essere alimentato da un periodo di forte tensione emotiva o da un vecchio infortunio mai curato bene.</p><p>Il primo appuntamento serve a tracciare la mappa. Il trattamento è il viaggio.</p>`
-    },
-    4: {
-      category: 'Postura',
-      title: 'La postura perfetta non esiste. Ecco cosa conta davvero.',
-      content: `<p>Siamo cresciuti con l'idea che esista una "posizione giusta" per stare seduti o in piedi. La ricerca scientifica moderna ci dice invece che la postura migliore è... la prossima.</p><p>Il corpo umano è fatto per muoversi. Il dolore non nasce da una schiena curva, ma dal mantenere la stessa posizione (anche quella "dritta") per troppo tempo. L'immobilità è il vero nemico, non la gobba.</p><p>Invece di sforzarti di stare dritto come un soldato, impara ad ascoltare quando il tuo corpo ti chiede di cambiare posizione.</p>`
-    },
-    5: {
-      category: 'Benessere',
-      title: 'Il respiro: il primo strumento di cura a tua disposizione.',
-      content: `<p>Semplice, gratuito, immediato. Eppure quasi nessuno respira bene. Spesso usiamo solo la parte alta del torace, mantenendo i muscoli del collo in tensione costante.</p><p>La respirazione diaframmatica non serve solo a rilassarsi: è un massaggio viscerale e un segnale biochimico che diciamo al nostro sistema nervoso che siamo al sicuro. Questo abbassa istantaneamente la soglia del dolore.</p><p>Dedico sempre una parte delle mie sedute al respiro, perché è l'unico strumento che il paziente può portarsi a casa e usare ovunque, in ogni momento.</p>`
-    },
-    6: {
-      category: 'Sport',
-      title: 'Sport e infortuni: quando fermarsi e quando continuare.',
-      content: `<p>Il binomio "ho dolore = devo stare fermo" è uno dei miti più difficili da sfatare. In realtà, il movimento guidato è spesso la cura migliore per un infortunio.</p><p>Il segreto sta nel trovare il "carico ottimale": quel livello di attività che non peggiora il sintomo ma permette al tessuto di rigenerarsi e rinforzarsi. Fermarsi completamente, spesso, indebolisce il corpo e allunga i tempi di recupero.</p><p>Il mio lavoro con gli sportivi è capire fin dove possiamo spingerci oggi per essere più forti domani, senza mai forzare i tempi biologici della guarigione.</p>`
-    }
-  };
+    if (ponteSection) typeObserver.observe(ponteSection);
 
-  // Modal e Archive
-  const modal = document.getElementById('article-modal');
-  const archiveModal = document.getElementById('archive-modal');
-  const archiveList = document.getElementById('archive-list');
-  const modalCat = document.getElementById('modal-category');
-  const modalTitle = document.getElementById('modal-title');
-  const modalContent = document.getElementById('modal-content');
+    // Articoli Content
+    const articles = {
+      1: {
+        category: 'Riflessione',
+        title: 'Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da lì.',
+        content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p><p>Il dolore cronico è reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. È come un sistema d'allarme che continua a suonare anche dopo che l'incendio è stato spento da tempo.</p><p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore.</p>`
+      },
+      2: {
+        category: 'Domande frequenti',
+        title: 'Ha senso prendere appuntamento? Rispondo onestamente.',
+        content: `<p>Spesso le persone aspettano che il dolore diventi insopportabile prima di chiamare. O peggio, temono che il loro problema sia "troppo piccolo" per disturbare.</p><p>La verità è che la prevenzione non è solo una parola di moda: è efficienza. Risolvere una tensione muscolare iniziale richiede una frazione del tempo necessario per trattare una lombalgia acuta che ti blocca a letto.</p><p>Se senti che qualcosa non va, anche se è solo un fastidio ciclico, parliamone. A volte bastano due consigli e una seduta per evitare settimane di stop forzato.</p>`
+      },
+      3: {
+        category: 'Approccio',
+        title: 'Cosa succede davvero nel primo appuntamento.',
+        content: `<p>Dimentica il lettino nei primi dieci minuti. La prima cosa che faremo è sederci e parlare. Voglio sapere come dormi, cosa mangi, quanto stress hai al lavoro e cosa ti impedisce di fare il tuo dolore.</p><p>Solo dopo passeremo alla valutazione fisica. Questo perché un dolore alla spalla può nascere da una postura scorretta in ufficio, ma può anche essere alimentato da un periodo di forte tensione emotiva o da un vecchio infortunio mai curato bene.</p><p>Il primo appuntamento serve a tracciare la mappa. Il trattamento è il viaggio.</p>`
+      },
+      4: {
+        category: 'Postura',
+        title: 'La postura perfetta non esiste. Ecco cosa conta davvero.',
+        content: `<p>Siamo cresciuti con l'idea che esista una "posizione giusta" per stare seduti o in piedi. La ricerca scientifica moderna ci dice invece che la postura migliore è... la prossima.</p><p>Il corpo umano è fatto per muoversi. Il dolore non nasce da una schiena curva, ma dal mantenere la stessa posizione (anche quella "dritta") per troppo tempo. L'immobilità è il vero nemico, non la gobba.</p><p>Invece di sforzarti di stare dritto come un soldato, impara ad ascoltare quando il tuo corpo ti chiede di cambiare posizione.</p>`
+      },
+      5: {
+        category: 'Benessere',
+        title: 'Il respiro: il primo strumento di cura a tua disposizione.',
+        content: `<p>Semplice, gratuito, immediato. Eppure quasi nessuno respira bene. Spesso usiamo solo la parte alta del torace, mantenendo i muscoli del collo in tensione costante.</p><p>La respirazione diaframmatica non serve solo a rilassarsi: è un massaggio viscerale e un segnale biochimico che diciamo al nostro sistema nervoso che siamo al sicuro. Questo abbassa istantaneamente la soglia del dolore.</p><p>Dedico sempre una parte delle mie sedute al respiro, perché è l'unico strumento che il paziente può portarsi a casa e usare ovunque, in ogni momento.</p>`
+      },
+      6: {
+        category: 'Sport',
+        title: 'Sport e infortuni: quando fermarsi e quando continuare.',
+        content: `<p>Il binomio "ho dolore = devo stare fermo" è uno dei miti più difficili da sfatare. In realtà, il movimento guidato è spesso la cura migliore per un infortunio.</p><p>Il segreto sta nel trovare il "carico ottimale": quel livello di attività che non peggiora il sintomo ma permette al tessuto di rigenerarsi e rinforzarsi. Fermarsi completamente, spesso, indebolisce il corpo e allunga i tempi di recupero.</p><p>Il mio lavoro con gli sportivi è capire fin dove possiamo spingerci oggi per essere più forti domani, senza mai forzare i tempi biologici della guarigione.</p>`
+      }
+    };
 
-  window.openArticle = function(id) {
-    const art = articles[id];
-    if (!art) return;
-    modalCat.textContent = art.category;
-    modalTitle.textContent = art.title;
-    modalContent.innerHTML = art.content;
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    if (typeof lenis !== 'undefined') lenis.stop();
-  };
+    // Modal e Archive
+    const modal = document.getElementById('article-modal');
+    const archiveModal = document.getElementById('archive-modal');
+    const archiveList = document.getElementById('archive-list');
+    const modalCat = document.getElementById('modal-category');
+    const modalTitle = document.getElementById('modal-title');
+    const modalContent = document.getElementById('modal-content');
 
-  window.closeArticle = function() {
-    modal.classList.remove('active');
-    if (!archiveModal.classList.contains('active')) {
-      document.body.style.overflow = '';
-      if (typeof lenis !== 'undefined') lenis.start();
-    }
-  };
-
-  window.openArchive = function() {
-    archiveList.innerHTML = '';
-    const articleKeys = Object.keys(articles);
-    articleKeys.forEach(id => {
+    window.openArticle = function (id) {
       const art = articles[id];
-      const card = document.createElement('div');
-      card.className = 'storia-card';
-      card.innerHTML = `
+      if (!art) return;
+      modalCat.textContent = art.category;
+      modalTitle.textContent = art.title;
+      modalContent.innerHTML = art.content;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (typeof lenis !== 'undefined') lenis.stop();
+    };
+
+    window.closeArticle = function () {
+      modal.classList.remove('active');
+      if (!archiveModal.classList.contains('active')) {
+        document.body.style.overflow = '';
+        if (typeof lenis !== 'undefined') lenis.start();
+      }
+    };
+
+    window.openArchive = function () {
+      archiveList.innerHTML = '';
+      const articleKeys = Object.keys(articles);
+      articleKeys.forEach(id => {
+        const art = articles[id];
+        const card = document.createElement('div');
+        card.className = 'storia-card';
+        card.innerHTML = `
         <div class="storia-img"><div class="ph" style="height:140px; background:var(--bg3);"></div></div>
         <div class="storia-body" style="padding:20px;">
           <span class="storia-pill">${art.category}</span>
           <div class="storia-title" style="font-size:1rem;">${art.title}</div>
         </div>
       `;
-      card.onclick = () => { openArticle(id); };
-      archiveList.appendChild(card);
-    });
-    archiveModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    if (typeof lenis !== 'undefined') lenis.stop();
-  };
-
-  // Update News Counts
-  const updateNewsCounts = () => {
-    const count = Object.keys(articles).length;
-    const headerCount = document.getElementById('news-count-header');
-    const archiveCount = document.getElementById('news-count-archive');
-    if (headerCount) headerCount.textContent = `${count} NEWS`;
-    if (archiveCount) archiveCount.textContent = count;
-  };
-  updateNewsCounts();
-
-  window.closeArchive = function() {
-    archiveModal.classList.remove('active');
-    document.body.style.overflow = '';
-    if (typeof lenis !== 'undefined') lenis.start();
-    document.querySelector('.archive-inner').scrollTop = 0;
-    document.querySelector('.archive-inner').classList.remove('scrolled');
-  };
-
-  // Funzione per gestire l'effetto border sullo scroll dei modal
-  window.handleModalScroll = function(el) {
-    if (el.scrollTop > 10) {
-      el.classList.add('scrolled');
-    } else {
-      el.classList.remove('scrolled');
-    }
-  };
-
-  modal.addEventListener('click', (e) => { if (e.target === modal) closeArticle(); });
-  archiveModal.addEventListener('click', (e) => { if (e.target === archiveModal) closeArchive(); });
-
-  // Mobile Menu Logic
-  const mobileMenuBtn = document.getElementById('mobile-menu');
-  const navLinksUl = document.getElementById('nav-links');
-  if (mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenuBtn.classList.toggle('active');
-      navLinksUl.classList.toggle('active');
-    });
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenuBtn.classList.remove('active');
-        navLinksUl.classList.remove('active');
+        card.onclick = () => { openArticle(id); };
+        archiveList.appendChild(card);
       });
+      archiveModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (typeof lenis !== 'undefined') lenis.stop();
+    };
+
+    // Update News Counts
+    const updateNewsCounts = () => {
+      const count = Object.keys(articles).length;
+      const headerCount = document.getElementById('news-count-header');
+      const archiveCount = document.getElementById('news-count-archive');
+      if (headerCount) headerCount.textContent = `${count} NEWS`;
+      if (archiveCount) archiveCount.textContent = count;
+    };
+    updateNewsCounts();
+
+    window.closeArchive = function () {
+      archiveModal.classList.remove('active');
+      document.body.style.overflow = '';
+      if (typeof lenis !== 'undefined') lenis.start();
+      document.querySelector('.archive-inner').scrollTop = 0;
+      document.querySelector('.archive-inner').classList.remove('scrolled');
+    };
+
+    // Funzione per gestire l'effetto border sullo scroll dei modal
+    window.handleModalScroll = function (el) {
+      if (el.scrollTop > 10) {
+        el.classList.add('scrolled');
+      } else {
+        el.classList.remove('scrolled');
+      }
+    };
+
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeArticle(); });
+    archiveModal.addEventListener('click', (e) => { if (e.target === archiveModal) closeArchive(); });
+
+    // Mobile Menu Logic
+    const mobileMenuBtn = document.getElementById('mobile-menu');
+    const navLinksUl = document.getElementById('nav-links');
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('active');
+        navLinksUl.classList.toggle('active');
+      });
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenuBtn.classList.remove('active');
+          navLinksUl.classList.remove('active');
+        });
+      });
+    }
+
+    // PROGRESS BAR Logic
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      const bar = document.getElementById("progressBar");
+      if (bar) bar.style.width = scrolled + "%";
     });
-  }
 
-  // PROGRESS BAR Logic
-  window.addEventListener('scroll', () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
-    const bar = document.getElementById("progressBar");
-    if(bar) bar.style.width = scrolled + "%";
-  });
+    // COOKIE BANNER Logic
+    const cookieBanner = document.getElementById('cookie-banner');
+    const trustindexContainer = document.getElementById('trustindex-container');
 
-  // COOKIE BANNER Logic
-  const cookieBanner = document.getElementById('cookie-banner');
-  const trustindexContainer = document.getElementById('trustindex-container');
-
-  // Funzione per caricare script di terze parti (es. Trustindex per le recensioni)
-  function loadThirdPartyScripts() {
-    if (trustindexContainer && !document.getElementById('trustindex-script')) {
-      trustindexContainer.innerHTML = ''; // Rimuove il messaggio di avviso
-      const script = document.createElement('script');
-      script.id = 'trustindex-script';
-      script.defer = true;
-      script.async = true;
-      script.src = 'https://cdn.trustindex.io/loader.js?a6abdf067269292a4c867201a01';
-      trustindexContainer.appendChild(script);
-    }
-  }
-
-  // Verifica stato cookie al caricamento
-  const cookieStatus = localStorage.getItem('cookiesAccepted');
-  if (cookieStatus === 'true') {
-    loadThirdPartyScripts();
-  } else if (!cookieStatus) {
-    if (cookieBanner) {
-      setTimeout(() => {
-        cookieBanner.classList.add('show');
-      }, 1500); // Mostra il banner
-    }
-  }
-
-  window.acceptCookies = function() {
-    localStorage.setItem('cookiesAccepted', 'true');
-    cookieBanner.classList.remove('show');
-    loadThirdPartyScripts(); // Carica le recensioni ora che c'è il consenso
-  };
-  
-  window.rejectCookies = function() {
-    localStorage.setItem('cookiesAccepted', 'false');
-    cookieBanner.classList.remove('show');
-  };
-
-  // --- SUPABASE & ADMIN LOGIC ---
-  const SUPABASE_URL = 'https://yqevubcpaloxwjxvqchc.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxZXZ1YmNwYWxveHdqeHZxY2hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MzczMDYsImV4cCI6MjA4OTMxMzMwNn0.26eD-teceo9UVlXUFycP9DCBO77ZmN92ljnTlWtt4jQ';
-  const supabaseAdmin = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  let dbArticles = [];
-  let dbSettings = {};
-  let clicks = 0;
-
-  window.adminLoginTrigger = function() {
-    clicks++;
-    if (clicks >= 5) {
-      clicks = 0;
-      const pass = prompt("Inserisci la password amministratore:");
-      if (pass === "UmbertoAllasia.") { // Password corretta
-        openAdminPanel();
-      } else if (pass !== null) {
-        alert("Password errata.");
+    // Funzione per caricare script di terze parti (es. Trustindex per le recensioni)
+    function loadThirdPartyScripts() {
+      if (trustindexContainer && !document.getElementById('trustindex-script')) {
+        trustindexContainer.innerHTML = ''; // Rimuove il messaggio di avviso
+        const script = document.createElement('script');
+        script.id = 'trustindex-script';
+        script.defer = true;
+        script.async = true;
+        script.src = 'https://cdn.trustindex.io/loader.js?a6abdf067269292a4c867201a01';
+        trustindexContainer.appendChild(script);
       }
     }
-  };
 
-  async function fetchAllData() {
-    await fetchArticles();
-    await fetchSettings();
-  }
-
-  async function fetchArticles() {
-    const { data, error } = await supabaseAdmin
-      .from('articles')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (!error && data && data.length > 0) {
-      dbArticles = data;
-      renderArticles();
-      updateNewsCountsExternal();
-    } else {
-      dbArticles = Object.keys(articles).map(id => ({ id, ...articles[id] }));
-      renderArticles();
+    // Verifica stato cookie al caricamento
+    const cookieStatus = localStorage.getItem('cookiesAccepted');
+    if (cookieStatus === 'true') {
+      loadThirdPartyScripts();
+    } else if (!cookieStatus) {
+      if (cookieBanner) {
+        setTimeout(() => {
+          cookieBanner.classList.add('show');
+        }, 1500); // Mostra il banner
+      }
     }
-  }
 
-  async function fetchSettings() {
-    const { data, error } = await supabaseAdmin.from('site_settings').select('*');
-    if (!error && data) {
-      data.forEach(s => {
-        dbSettings[s.key] = s.value;
-        const el = document.getElementById('dyn-' + s.key.replace(/_/g, '-'));
-        if (el) el.innerHTML = s.value;
+    window.acceptCookies = function () {
+      localStorage.setItem('cookiesAccepted', 'true');
+      cookieBanner.classList.remove('show');
+      loadThirdPartyScripts(); // Carica le recensioni ora che c'è il consenso
+    };
+
+    window.rejectCookies = function () {
+      localStorage.setItem('cookiesAccepted', 'false');
+      cookieBanner.classList.remove('show');
+    };
+
+    // --- SUPABASE & ADMIN LOGIC ---
+    const SUPABASE_URL = 'https://yqevubcpaloxwjxvqchc.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxZXZ1YmNwYWxveHdqeHZxY2hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MzczMDYsImV4cCI6MjA4OTMxMzMwNn0.26eD-teceo9UVlXUFycP9DCBO77ZmN92ljnTlWtt4jQ';
+    const supabaseAdmin = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let dbArticles = [];
+    let dbSettings = {};
+    let clicks = 0;
+
+    window.adminLoginTrigger = function () {
+      clicks++;
+      if (clicks >= 5) {
+        clicks = 0;
+        const pass = prompt("Inserisci la password amministratore:");
+        if (pass === "UmbertoAllasia.") { // Password corretta
+          openAdminPanel();
+        } else if (pass !== null) {
+          alert("Password errata.");
+        }
+      }
+    };
+
+    async function fetchAllData() {
+      await fetchArticles();
+      await fetchSettings();
+    }
+
+    async function fetchArticles() {
+      const { data, error } = await supabaseAdmin
+        .from('articles')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        dbArticles = data;
+        renderArticles();
+        updateNewsCountsExternal();
+      } else {
+        dbArticles = Object.keys(articles).map(id => ({ id, ...articles[id] }));
+        renderArticles();
+      }
+    }
+
+    async function fetchSettings() {
+      const { data, error } = await supabaseAdmin.from('site_settings').select('*');
+      if (!error && data) {
+        data.forEach(s => {
+          dbSettings[s.key] = s.value;
+          const el = document.getElementById('dyn-' + s.key.replace(/_/g, '-'));
+          if (el) el.innerHTML = s.value;
+        });
+      }
+    }
+
+    // Rimosso saveSettings manuale, si usa solo visual save
+
+    // --- VISUAL EDIT MODE ---
+    let isVisualEditMode = false;
+
+    window.enterVisualEditMode = function () {
+      isVisualEditMode = true;
+      closeAdminPanel();
+      document.getElementById('visual-edit-toolbar').classList.add('active');
+
+      // Rendi editabili tutti i campi dinamici
+      const targets = document.querySelectorAll('[id^="dyn-"]');
+      targets.forEach(el => {
+        el.contentEditable = "true";
+        el.style.pointerEvents = "auto";
+        // Disabilita i link interni per permettere l'editing senza navigare
+        const links = el.querySelectorAll('a');
+        links.forEach(l => l.style.pointerEvents = "none");
       });
-    }
-  }
+    };
 
-  // Rimosso saveSettings manuale, si usa solo visual save
+    window.exitVisualEditMode = function () {
+      isVisualEditMode = false;
+      document.getElementById('visual-edit-toolbar').classList.remove('active');
+      const targets = document.querySelectorAll('[id^="dyn-"]');
+      targets.forEach(el => {
+        el.contentEditable = "false";
+        el.style.pointerEvents = "";
+        const links = el.querySelectorAll('a');
+        links.forEach(l => l.style.pointerEvents = "");
+      });
+      fetchSettings(); // Ripristina i testi originali
+    };
 
-  // --- VISUAL EDIT MODE ---
-  let isVisualEditMode = false;
-  
-  window.enterVisualEditMode = function() {
-    isVisualEditMode = true;
-    closeAdminPanel();
-    document.getElementById('visual-edit-toolbar').classList.add('active');
-    
-    // Rendi editabili tutti i campi dinamici
-    const targets = document.querySelectorAll('[id^="dyn-"]');
-    targets.forEach(el => {
-      el.contentEditable = "true";
-      el.style.pointerEvents = "auto";
-      // Disabilita i link interni per permettere l'editing senza navigare
-      const links = el.querySelectorAll('a');
-      links.forEach(l => l.style.pointerEvents = "none");
-    });
-  };
+    window.saveVisualChanges = async function () {
+      const targets = document.querySelectorAll('[id^="dyn-"]');
+      const updates = [];
 
-  window.exitVisualEditMode = function() {
-    isVisualEditMode = false;
-    document.getElementById('visual-edit-toolbar').classList.remove('active');
-    const targets = document.querySelectorAll('[id^="dyn-"]');
-    targets.forEach(el => {
-      el.contentEditable = "false";
-      el.style.pointerEvents = "";
-      const links = el.querySelectorAll('a');
-      links.forEach(l => l.style.pointerEvents = "");
-    });
-    fetchSettings(); // Ripristina i testi originali
-  };
+      targets.forEach(el => {
+        const key = el.id.replace('dyn-', '').replace(/-/g, '_');
+        updates.push({ key: key, value: el.innerHTML });
+      });
 
-  window.saveVisualChanges = async function() {
-    const targets = document.querySelectorAll('[id^="dyn-"]');
-    const updates = [];
-    
-    targets.forEach(el => {
-      const key = el.id.replace('dyn-', '').replace(/-/g, '_');
-      updates.push({ key: key, value: el.innerHTML });
-    });
+      for (const u of updates) {
+        const { error } = await supabaseAdmin.from('site_settings').upsert(u);
+        if (error) { alert("Errore durante il salvataggio di: " + u.key); return; }
+      }
 
-    for (const u of updates) {
-      const { error } = await supabaseAdmin.from('site_settings').upsert(u);
-      if (error) { alert("Errore durante il salvataggio di: " + u.key); return; }
-    }
+      alert("Tutte le modifiche sono state pubblicate online!");
+      exitVisualEditMode();
+    };
 
-    alert("Tutte le modifiche sono state pubblicate online!");
-    exitVisualEditMode();
-  };
+    window.showAdminTab = function (tab) {
+      document.getElementById('view-news').style.display = tab === 'news' ? 'block' : 'none';
+      document.getElementById('view-settings').style.display = tab === 'settings' ? 'block' : 'none';
+      document.getElementById('tab-news').style.opacity = tab === 'news' ? '1' : '0.5';
+      document.getElementById('tab-settings').style.opacity = tab === 'settings' ? '1' : '0.5';
+    };
 
-  window.showAdminTab = function(tab) {
-    document.getElementById('view-news').style.display = tab === 'news' ? 'block' : 'none';
-    document.getElementById('view-settings').style.display = tab === 'settings' ? 'block' : 'none';
-    document.getElementById('tab-news').style.opacity = tab === 'news' ? '1' : '0.5';
-    document.getElementById('tab-settings').style.opacity = tab === 'settings' ? '1' : '0.5';
-  };
+    function renderArticles() {
+      const container = document.getElementById('storie-container');
+      if (container) {
+        container.innerHTML = '';
+        dbArticles.slice(0, 3).forEach(art => {
+          const card = document.createElement('div');
+          card.className = 'storia-card fade-up vis';
+          card.onclick = () => openArticleDB(art.id);
 
-  function renderArticles() {
-    const container = document.getElementById('storie-container');
-    if (container) {
-      container.innerHTML = '';
-      dbArticles.slice(0, 3).forEach(art => {
-        const card = document.createElement('div');
-        card.className = 'storia-card fade-up vis';
-        card.onclick = () => openArticleDB(art.id);
-        
-        let imageHtml = `
+          let imageHtml = `
           <div class="ph" style="height:200px;">
             <span class="ph-label" style="font-family:var(--font-serif);font-style:italic;font-size:0.85rem;color:var(--text-mid);opacity:0.5;">[ ${art.category} ]</span>
           </div>
         `;
-        
-        if (art.image_url) {
-          imageHtml = `<img src="${art.image_url}" alt="${art.title}" style="height:200px; width:100%; object-fit:cover;">`;
-        }
 
-        card.innerHTML = `
+          if (art.image_url) {
+            imageHtml = `<img src="${art.image_url}" alt="${art.title}" style="height:200px; width:100%; object-fit:cover;">`;
+          }
+
+          card.innerHTML = `
           <div class="storia-img">${imageHtml}</div>
           <div class="storia-body">
             <span class="storia-pill">${art.category}</span>
@@ -2375,164 +3036,165 @@
             <p class="storia-excerpt">${art.excerpt || (art.content.replace(/<[^>]*>/g, '').substring(0, 100) + '...')}</p>
           </div>
         `;
-        container.appendChild(card);
-      });
-    }
-  }
-
-  window.openArticleDB = function(id) {
-    const art = dbArticles.find(a => a.id == id);
-    if (!art) return;
-    document.getElementById('modal-category').textContent = art.category;
-    document.getElementById('modal-title').textContent = art.title;
-    
-    // Gestione Immagine nel Modal
-    const imgContainer = document.getElementById('modal-image-container');
-    const imgEl = document.getElementById('modal-image');
-    if (art.image_url) {
-      imgEl.src = art.image_url;
-      imgContainer.style.display = 'block';
-    } else {
-      imgContainer.style.display = 'none';
+          container.appendChild(card);
+        });
+      }
     }
 
-    document.getElementById('modal-content').innerHTML = art.content;
-    document.getElementById('article-modal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-    if (typeof lenis !== 'undefined') lenis.stop();
-  };
+    window.openArticleDB = function (id) {
+      const art = dbArticles.find(a => a.id == id);
+      if (!art) return;
+      document.getElementById('modal-category').textContent = art.category;
+      document.getElementById('modal-title').textContent = art.title;
 
-  function updateNewsCountsExternal() {
-    const count = dbArticles.length;
-    const headerCount = document.getElementById('news-count-header');
-    const archiveCount = document.getElementById('news-count-archive');
-    if (headerCount) headerCount.textContent = `${count} NEWS`;
-    if (archiveCount) archiveCount.textContent = count;
-  }
+      // Gestione Immagine nel Modal
+      const imgContainer = document.getElementById('modal-image-container');
+      const imgEl = document.getElementById('modal-image');
+      if (art.image_url) {
+        imgEl.src = art.image_url;
+        imgContainer.style.display = 'block';
+      } else {
+        imgContainer.style.display = 'none';
+      }
 
-  // Admin Panel UI
-  const adminPanel = document.getElementById('admin-panel');
-  function openAdminPanel() {
-    adminPanel.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    if (typeof lenis !== 'undefined') lenis.stop();
-    renderAdminList();
-  }
+      document.getElementById('modal-content').innerHTML = art.content;
+      document.getElementById('article-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (typeof lenis !== 'undefined') lenis.stop();
+    };
 
-  window.closeAdminPanel = function() {
-    adminPanel.classList.remove('active');
-    document.body.style.overflow = '';
-    if (typeof lenis !== 'undefined') lenis.start();
-  };
+    function updateNewsCountsExternal() {
+      const count = dbArticles.length;
+      const headerCount = document.getElementById('news-count-header');
+      const archiveCount = document.getElementById('news-count-archive');
+      if (headerCount) headerCount.textContent = `${count} NEWS`;
+      if (archiveCount) archiveCount.textContent = count;
+    }
 
-  function renderAdminList() {
-    const list = document.getElementById('admin-article-list');
-    list.innerHTML = '<h3>Articoli Esistenti</h3>';
-    dbArticles.forEach(art => {
-      const item = document.createElement('div');
-      item.className = 'admin-list-item';
-      item.innerHTML = `
+    // Admin Panel UI
+    const adminPanel = document.getElementById('admin-panel');
+    function openAdminPanel() {
+      adminPanel.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (typeof lenis !== 'undefined') lenis.stop();
+      renderAdminList();
+    }
+
+    window.closeAdminPanel = function () {
+      adminPanel.classList.remove('active');
+      document.body.style.overflow = '';
+      if (typeof lenis !== 'undefined') lenis.start();
+    };
+
+    function renderAdminList() {
+      const list = document.getElementById('admin-article-list');
+      list.innerHTML = '<h3>Articoli Esistenti</h3>';
+      dbArticles.forEach(art => {
+        const item = document.createElement('div');
+        item.className = 'admin-list-item';
+        item.innerHTML = `
         <span>${art.title}</span>
         <div>
           <span class="admin-btn-edit" onclick="editArticle(${art.id})">Modifica</span>
           <span class="admin-btn-delete" onclick="deleteArticle(${art.id})">Elimina</span>
         </div>
       `;
-      list.appendChild(item);
-    });
-  }
+        list.appendChild(item);
+      });
+    }
 
-  window.addNewArticle = function() {
-    document.getElementById('edit-id').value = '';
-    document.getElementById('edit-title').value = '';
-    document.getElementById('edit-category').value = '';
-    document.getElementById('edit-excerpt').value = '';
-    document.getElementById('edit-content').value = '';
-    document.getElementById('edit-image').value = '';
-    const editor = document.getElementById('editor-view');
-    editor.style.display = 'block';
-    setTimeout(() => {
-      editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
-  };
-
-  window.editArticle = function(id) {
-    const art = dbArticles.find(a => a.id == id);
-    if (!art) return;
-    document.getElementById('edit-id').value = art.id;
-    document.getElementById('edit-title').value = art.title;
-    document.getElementById('edit-category').value = art.category;
-    document.getElementById('edit-excerpt').value = art.excerpt || '';
-    document.getElementById('edit-content').value = art.content;
-    document.getElementById('edit-image').value = art.image_url || '';
-    const editor = document.getElementById('editor-view');
-    editor.style.display = 'block';
-    setTimeout(() => {
-      editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
-  };
-
-  window.saveArticle = async function() {
-    const id = document.getElementById('edit-id').value;
-    const articleData = {
-      title: document.getElementById('edit-title').value,
-      category: document.getElementById('edit-category').value,
-      excerpt: document.getElementById('edit-excerpt').value,
-      content: document.getElementById('edit-content').value,
-      image_url: document.getElementById('edit-image').value
+    window.addNewArticle = function () {
+      document.getElementById('edit-id').value = '';
+      document.getElementById('edit-title').value = '';
+      document.getElementById('edit-category').value = '';
+      document.getElementById('edit-excerpt').value = '';
+      document.getElementById('edit-content').value = '';
+      document.getElementById('edit-image').value = '';
+      const editor = document.getElementById('editor-view');
+      editor.style.display = 'block';
+      setTimeout(() => {
+        editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
     };
 
-    if (id) {
-      const { error } = await supabaseAdmin.from('articles').update(articleData).eq('id', id);
-      if (error) alert("Errore nel salvataggio");
-    } else {
-      const { error } = await supabaseAdmin.from('articles').insert([articleData]);
-      if (error) alert("Errore nell'inserimento");
-    }
+    window.editArticle = function (id) {
+      const art = dbArticles.find(a => a.id == id);
+      if (!art) return;
+      document.getElementById('edit-id').value = art.id;
+      document.getElementById('edit-title').value = art.title;
+      document.getElementById('edit-category').value = art.category;
+      document.getElementById('edit-excerpt').value = art.excerpt || '';
+      document.getElementById('edit-content').value = art.content;
+      document.getElementById('edit-image').value = art.image_url || '';
+      const editor = document.getElementById('editor-view');
+      editor.style.display = 'block';
+      setTimeout(() => {
+        editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    };
 
-    document.getElementById('editor-view').style.display = 'none';
-    fetchArticles();
-  };
+    window.saveArticle = async function () {
+      const id = document.getElementById('edit-id').value;
+      const articleData = {
+        title: document.getElementById('edit-title').value,
+        category: document.getElementById('edit-category').value,
+        excerpt: document.getElementById('edit-excerpt').value,
+        content: document.getElementById('edit-content').value,
+        image_url: document.getElementById('edit-image').value
+      };
 
-  window.deleteArticle = async function(id) {
-    if (confirm("Sei sicuro di voler eliminare questo articolo?")) {
-      const { error } = await supabaseAdmin.from('articles').delete().eq('id', id);
-      if (error) alert("Errore nell'eliminazione");
-      fetchArticles();
-    }
-  };
-
-  // Carica tutto all'avvio
-  fetchAllData();
-</script>
-<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-<script>
-  // SMOOTH CONTROL (Lenis)
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-    smoothTouch: false
-  });
-
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
-
-  // Forza i link ad un'ancora a usare lo smooth scroll di Lenis
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const target = this.getAttribute('href');
-      if (target && target !== '#') {
-        e.preventDefault();
-        lenis.scrollTo(target);
+      if (id) {
+        const { error } = await supabaseAdmin.from('articles').update(articleData).eq('id', id);
+        if (error) alert("Errore nel salvataggio");
+      } else {
+        const { error } = await supabaseAdmin.from('articles').insert([articleData]);
+        if (error) alert("Errore nell'inserimento");
       }
+
+      document.getElementById('editor-view').style.display = 'none';
+      fetchArticles();
+    };
+
+    window.deleteArticle = async function (id) {
+      if (confirm("Sei sicuro di voler eliminare questo articolo?")) {
+        const { error } = await supabaseAdmin.from('articles').delete().eq('id', id);
+        if (error) alert("Errore nell'eliminazione");
+        fetchArticles();
+      }
+    };
+
+    // Carica tutto all'avvio
+    fetchAllData();
+  </script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script>
+    // SMOOTH CONTROL (Lenis)
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      smoothTouch: false
     });
-  });
-</script>
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Forza i link ad un'ancora a usare lo smooth scroll di Lenis
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = this.getAttribute('href');
+        if (target && target !== '#') {
+          e.preventDefault();
+          lenis.scrollTo(target);
+        }
+      });
+    });
+  </script>
 </body>
+
 </html>
