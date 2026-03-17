@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
 
 <head>
@@ -418,7 +418,6 @@
       <div style="display: flex; gap: 20px; border-bottom: 1px solid var(--line); margin-bottom: 30px; padding-bottom: 10px;">
         <div id="tab-news" onclick="showAdminTab('news')" style="cursor:pointer; font-weight:600; font-size:0.9rem; color:var(--accent);">Articoli & News</div>
         <div id="tab-pazienti" onclick="showAdminTab('pazienti')" style="cursor:pointer; font-weight:600; font-size:0.9rem; color:var(--text-mid); opacity:0.6;">Pazienti / Iscritti</div>
-        <div id="tab-calendario" onclick="showAdminTab('calendario')" style="cursor:pointer; font-weight:600; font-size:0.9rem; color:var(--text-mid); opacity:0.6;">Calendario</div>
       </div>
 
       <div class="admin-body">
@@ -438,14 +437,7 @@
         <div id="view-pazienti" style="display:none;">
           <h3 style="margin-bottom: 10px; font-family: var(--font-serif);">Rubrica Pazienti</h3>
           <p style="font-size: 0.85rem; color: var(--text-mid); margin-bottom: 24px;">Questi contatti sono sincronizzati automaticamente con il tuo CRM Brevo.</p>
-        <!-- SEZIONE CALENDARIO -->
-        <div id="view-calendario" style="display:none;">
-          <h3 style="margin-bottom: 10px; font-family: var(--font-serif);">Gestione Appuntamenti</h3>
-          <p style="font-size: 0.85rem; color: var(--text-mid); margin-bottom: 24px;">Da qui puoi vedere e gestire le tue disponibilità su Google Calendar.</p>
-          <div style="width:100%; height:600px; border-radius:16px; overflow:hidden; border:1px solid var(--line); background:#fff;">
-            <iframe src="https://calendar.google.com/calendar/u/0/embed?src=leonardo.marsala2002@gmail.com&ctz=Europe/Rome" style="border: 0" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
-          </div>
-        </div>
+          <div id="admin-subscribers-list">
             <!-- Popolato da JS -->
           </div>
         </div>
