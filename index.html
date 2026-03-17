@@ -650,6 +650,18 @@
       margin-bottom: 48px;
     }
 
+    .news-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: var(--warm);
+      color: var(--accent);
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+    }
+
     .storie-grid {
       display: grid;
       grid-template-columns: 1.6fr 1fr 1fr;
@@ -1505,7 +1517,10 @@
         <div class="pill-tag">Pensieri & Storie</div>
         <h2 class="s-title" style="margin-bottom:0;">Quello che ho <em>imparato</em><br>dalle persone.</h2>
       </div>
-      <a href="javascript:void(0)" onclick="openArchive()" class="btn-ghost" style="margin-bottom:8px;">Leggi tutto →</a>
+      <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end;">
+        <span class="news-badge" id="news-count-header">0 NEWS</span>
+        <a href="javascript:void(0)" onclick="openArchive()" class="btn-ghost" style="margin-bottom:8px;">Leggi tutto →</a>
+      </div>
     </div>
     <div class="storie-grid" id="storie-container">
       <div class="storia-card fade-up" onclick="openArticle(1)">
@@ -1554,7 +1569,7 @@
     <div class="archive-header-sticky">
       <div class="archive-close" onclick="closeArchive()">✕</div>
       <div class="pill-tag" style="margin:0 auto 16px;">Archivio</div>
-      <h2 class="s-title" style="margin-bottom:0;">Tutti i <em>pensieri.</em></h2>
+      <h2 class="s-title" style="margin-bottom:0;">Tutti i <em id="news-count-archive">0</em> <em>pensieri.</em></h2>
     </div>
     <div style="padding: 20px 60px 60px;">
       <div class="archive-grid-list" id="archive-list">
@@ -1934,7 +1949,8 @@
 
   window.openArchive = function() {
     archiveList.innerHTML = '';
-    Object.keys(articles).forEach(id => {
+    const articleKeys = Object.keys(articles);
+    articleKeys.forEach(id => {
       const art = articles[id];
       const card = document.createElement('div');
       card.className = 'storia-card';
@@ -1952,6 +1968,16 @@
     document.body.style.overflow = 'hidden';
     if (typeof lenis !== 'undefined') lenis.stop();
   };
+
+  // Update News Counts
+  const updateNewsCounts = () => {
+    const count = Object.keys(articles).length;
+    const headerCount = document.getElementById('news-count-header');
+    const archiveCount = document.getElementById('news-count-archive');
+    if (headerCount) headerCount.textContent = `${count} NEWS`;
+    if (archiveCount) archiveCount.textContent = count;
+  };
+  updateNewsCounts();
 
   window.closeArchive = function() {
     archiveModal.classList.remove('active');
