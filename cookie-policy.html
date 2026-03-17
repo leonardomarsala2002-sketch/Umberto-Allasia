@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookie Policy - Il Fisioterapista San Marino</title>
+  <style>
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      line-height: 1.6;
+      color: #2C2420;
+      background: #FEFCF9;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1, h2 {
+      font-family: 'Lora', Georgia, serif;
+      color: #B07D55;
+    }
+    a {
+      color: #B07D55;
+    }
+    .btn-revoke {
+      background: #B07D55;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-revoke:hover {
+      background: #C9A07A;
+    }
+  </style>
+</head>
+<body>
+  <h1>Informativa sui Cookie</h1>
+  <p><em>Ultimo aggiornamento: Marzo 2026</em></p>
+
+  <p>Il presente documento fornisce indicazioni in merito all'uso dei cookie e tecnologie assimilabili presenti nel sito "Il Fisioterapista - San Marino" conformemente alla Legge n. 171/2018 (RSM) e al Provvedimento generale del Garante italiano ed europeo (GDPR).</p>
+
+  <h2>Cosa sono i cookie?</h2>
+  <p>I cookie sono stringhe di testo di piccole dimensioni che i siti visitati dall'utente inviano al suo dispositivo, dove vengono memorizzati, per poi essere ritrasmessi agli stessi siti alla successiva visita. Svolgono varie funzioni, tra cui la memorizzazione delle impostazioni o il tracciamento ai fini di analisi e marketing.</p>
+
+  <h2>Tipi di cookie utilizzati dal nostro sito:</h2>
+  <ul>
+    <li><strong>Cookie Tecnici e di Navigazione:</strong> Sono cookie essenziali per il funzionamento del sito. Consentono la navigazione e la fruizione del sito web, nonché il salvataggio della sessione utente. Per questi cookie non è richiesto il consenso esplicito dell'utente.</li>
+    <li><strong>Cookie di Statistica e Analisi (opzionali):</strong> Utilizziamo strumenti di profilazione e di analisi statistica (es. Google Analytics in forma anonimizzata) che permettono di comprendere come gli utenti interagiscono con il sito, valutare e migliorare il nostro servizio.</li>
+  </ul>
+
+  <h2>Diritti dell'utente</h2>
+  <p>L'utente può in ogni momento gestire le preferenze relative ai cookie e revocare un consenso prestato in precedenza.</p>
+  
+  <p><strong>Puoi rimuovere il tuo consenso su questo sito cliccando il tasto qui sotto:</strong></p>
+  <button class="btn-revoke" onclick="revokeCookies()">Revoca Consenso Cookie</button>
+  <p id="revoke-msg" style="color: green; font-weight: bold; display:none;">Consenso revocato. Il banner riapparirà alla prossima ricarica della pagina.</p>
+
+  <h2>Come disabilitare i cookie nel browser</h2>
+  <p>Puoi rifiutare o configurare l'uso dei cookie in qualsiasi momento intervenendo sulle impostazioni del tuo browser web. Tuttavia, qualora scegliessi questa opzione, la funzionalità di alcune aree del sito potrebbe ridursi.</p>
+  <ul>
+    <li><a href="https://support.google.com/chrome/answer/95647" target="_blank">Chrome</a></li>
+    <li><a href="https://support.mozilla.org/it/kb/protezione-antitracciamento-avanzata-firefox-desktop" target="_blank">Firefox</a></li>
+    <li><a href="https://help.apple.com/safari/mac/9.0/#/sfri11471" target="_blank">Safari</a></li>
+    <li><a href="https://support.microsoft.com/it-it/windows/eliminare-e-gestire-i-cookie-168dab11-0753-043d-7c16-ede5947fc64d" target="_blank">Edge</a></li>
+  </ul>
+
+  <p><br><a href="index.html">← Torna alla Home</a></p>
+
+  <script>
+    function revokeCookies() {
+      localStorage.removeItem('cookiesAccepted');
+      document.getElementById('revoke-msg').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1194,6 +1194,75 @@
       border-bottom-right-radius: 3px;
       transition: width 0.1s ease-out;
     }
+
+    /* Cookie Banner */
+    #cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(44, 36, 32, 0.98);
+      color: #fff;
+      padding: 20px 48px;
+      z-index: 99999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+      transform: translateY(100%);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      font-size: 0.88rem;
+    }
+    #cookie-banner.show {
+      transform: translateY(0);
+    }
+    #cookie-banner p {
+      margin: 0;
+      max-width: 800px;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    #cookie-banner a {
+      color: var(--accent-soft);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    #cookie-banner a:hover {
+      color: #fff;
+    }
+    .cookie-btns {
+      display: flex;
+      gap: 12px;
+      flex-shrink: 0;
+      margin-left: 30px;
+    }
+    .cookie-btn-accept {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .cookie-btn-accept:hover {
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+    }
+    @media (max-width: 900px) {
+      #cookie-banner {
+        flex-direction: column;
+        padding: 20px 24px;
+        text-align: center;
+        gap: 16px;
+      }
+      .cookie-btns {
+        margin-left: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1557,11 +1626,22 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 Il Fisioterapista · San Marino</span>
-      <span>Privacy Policy · Cookie</span>
+      <span>© 2026 Il Fisioterapista · San Marino</span>
+      <span>
+        <a href="privacy-policy.html" target="_blank" style="color:#7A6E66; text-decoration:none; margin-right:12px;">Privacy Policy</a>
+        <a href="cookie-policy.html" target="_blank" style="color:#7A6E66; text-decoration:none;">Cookie Policy</a>
+      </span>
     </div>
   </div>
 </footer>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <p>Utilizziamo i cookie per offrirti la migliore esperienza sul sito, in conformità con la Legge n. 171/2018 (RSM) e il GDPR. <br>Puoi scoprire di più o disattivarli nell'informativa. <a href="cookie-policy.html" target="_blank">Leggi la Cookie Policy</a> | <a href="privacy-policy.html" target="_blank">Privacy Policy</a></p>
+  <div class="cookie-btns">
+    <button class="cookie-btn-accept" onclick="acceptCookies()">Accetta tutti</button>
+  </div>
+</div>
 
 <script>
   const obs = new IntersectionObserver(entries => {
@@ -1853,6 +1933,18 @@
     const bar = document.getElementById("progressBar");
     if(bar) bar.style.width = scrolled + "%";
   });
+
+  // COOKIE BANNER Logic
+  const cookieBanner = document.getElementById('cookie-banner');
+  if (cookieBanner && !localStorage.getItem('cookiesAccepted')) {
+    setTimeout(() => {
+      cookieBanner.classList.add('show');
+    }, 1500); // Mostra il banner dopo 1.5s
+  }
+  window.acceptCookies = function() {
+    localStorage.setItem('cookiesAccepted', 'true');
+    cookieBanner.classList.remove('show');
+  };
 </script>
 <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script>
