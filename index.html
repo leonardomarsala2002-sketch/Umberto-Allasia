@@ -903,8 +903,41 @@
       width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;
     }
     .admin-actions { display: flex; gap: 12px; margin-top: 30px; }
-    .btn-admin-save { background: var(--accent); color: #fff; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: 600; }
+    .btn-admin-save { background: var(--accent); color: #fff; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+    .btn-admin-save:hover { background: var(--accent-soft); transform: translateY(-2px); }
+    .btn-admin-visual { background: #2c2420; color: #fff; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: 600; margin-top: 10px; width: 100%; display: block; border: 1px solid rgba(255,255,255,0.1); }
     .btn-admin-cancel { background: #eee; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; }
+    
+    /* Visual Edit Toolbar */
+    .edit-toolbar {
+      position: fixed;
+      bottom: 20px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--text);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      z-index: 30000;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .edit-toolbar.active { transform: translateX(-50%) translateY(0); }
+    .edit-toolbar span { font-size: 0.85rem; font-weight: 600; opacity: 0.8; }
+    .btn-save-visual { background: var(--accent); color: #fff; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 600; }
+    .btn-exit-visual { background: rgba(255,255,255,0.1); color: #fff; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; }
+
+    [contenteditable="true"] {
+      outline: 2px dashed var(--accent);
+      outline-offset: 4px;
+      border-radius: 4px;
+      cursor: text !important;
+    }
+    [contenteditable="true"]:hover {
+      background: rgba(176, 125, 85, 0.05);
+    }
     .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee; }
     .admin-list-item:hover { background: #f9f9f9; }
     .admin-btn-edit { color: var(--accent); cursor: pointer; font-weight: 600; font-size: 0.85rem; }
@@ -1769,6 +1802,11 @@
           <textarea id="set-hero-body" rows="4"></textarea>
         </div>
         <button class="btn-admin-save" onclick="saveSettings()">Salva Testi Sito</button>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px dashed #eee;">
+          <p style="font-size: 0.85rem; margin-bottom: 15px; color: var(--text-mid);">Vuoi modificare i testi navigando direttamente nel sito?</p>
+          <button class="btn-admin-visual" onclick="enterVisualEditMode()">✨ Attiva Modifica Visiva</button>
+        </div>
       </div>
 
       <div id="editor-view" style="display:none; margin-top:40px; border-top:2px solid #eee; padding-top:30px;">
@@ -1802,6 +1840,13 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- VISUAL EDIT TOOLBAR -->
+<div id="visual-edit-toolbar" class="edit-toolbar">
+  <span>MODALITÀ MODIFICA ATTIVA</span>
+  <button class="btn-save-visual" onclick="saveVisualChanges()">Registra Modifiche</button>
+  <button class="btn-exit-visual" onclick="exitVisualEditMode()">Esci senza salvare</button>
 </div>
 
 <!-- FOOTER -->
@@ -2263,8 +2308,53 @@
       const { error } = await supabaseAdmin.from('site_settings').upsert(s);
       if (error) { alert("Errore nel salvataggio dei testi"); return; }
     }
-    alert("Testi salvati con successo! Ricarica la pagina per vederli.");
+    alert("Testi salvati con successo!");
     fetchSettings();
+  };
+
+  // --- VISUAL EDIT MODE ---
+  let isVisualEditMode = false;
+  
+  window.enterVisualEditMode = function() {
+    isVisualEditMode = true;
+    closeAdminPanel();
+    document.getElementById('visual-edit-toolbar').classList.add('active');
+    
+    // Rendi editabili tutti i campi dinamici
+    const targets = document.querySelectorAll('[id^="dyn-"]');
+    targets.forEach(el => {
+      el.contentEditable = "true";
+    });
+    
+    alert("Modalità Visiva Attiva! Ora puoi cliccare su qualsiasi testo del sito e scriverci sopra. Al termine, clicca 'Registra Modifiche' in basso.");
+  };
+
+  window.exitVisualEditMode = function() {
+    isVisualEditMode = false;
+    document.getElementById('visual-edit-toolbar').classList.remove('active');
+    const targets = document.querySelectorAll('[id^="dyn-"]');
+    targets.forEach(el => {
+      el.contentEditable = "false";
+    });
+    fetchSettings(); // Ripristina i testi orginali
+  };
+
+  window.saveVisualChanges = async function() {
+    const targets = document.querySelectorAll('[id^="dyn-"]');
+    const updates = [];
+    
+    targets.forEach(el => {
+      const key = el.id.replace('dyn-', '').replace(/-/g, '_');
+      updates.push({ key: key, value: el.innerHTML });
+    });
+
+    for (const u of updates) {
+      const { error } = await supabaseAdmin.from('site_settings').upsert(u);
+      if (error) { alert("Errore durante il salvataggio di: " + u.key); return; }
+    }
+
+    alert("Tutte le modifiche sono state pubblicate online!");
+    exitVisualEditMode();
   };
 
   window.showAdminTab = function(tab) {
