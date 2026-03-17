@@ -2014,11 +2014,12 @@
       }
     }
     /* Fix per bloccare lo scrolling del body quando i modal sono aperti */
+    html.modal-open,
     body.modal-open {
       overflow: hidden !important;
-      height: 100vh !important;
-      position: fixed;
-      width: 100%;
+      height: 100% !important;
+      width: 100% !important;
+      position: fixed !important;
     }
   </style>
 </head>
@@ -2792,15 +2793,13 @@
       modalTitle.textContent = art.title;
       modalContent.innerHTML = art.content;
       modal.classList.add('active');
-      document.body.classList.add('modal-open'); 
-      if (typeof lenis !== 'undefined') lenis.stop();
+      lockScroll();
     };
 
     window.closeArticle = function () {
       modal.classList.remove('active');
       if (!archiveModal.classList.contains('active')) {
-        document.body.classList.remove('modal-open');
-        if (typeof lenis !== 'undefined') lenis.start();
+        unlockScroll();
       }
     };
 
@@ -2832,8 +2831,7 @@
         archiveList.appendChild(card);
       });
       archiveModal.classList.add('active');
-      document.body.classList.add('modal-open');
-      if (typeof lenis !== 'undefined') lenis.stop();
+      lockScroll();
     };
 
     // Update News Counts
@@ -2848,8 +2846,7 @@
 
     window.closeArchive = function () {
       archiveModal.classList.remove('active');
-      document.body.classList.remove('modal-open');
-      if (typeof lenis !== 'undefined') lenis.start();
+      unlockScroll();
       document.querySelector('.archive-inner').scrollTop = 0;
       document.querySelector('.archive-inner').classList.remove('scrolled');
     };
@@ -2931,50 +2928,54 @@
       cookieBanner.classList.remove('show');
     };
 
-    // --- MONITORAGGIO POPUP ---
+    // --- GESTIONE AVANZATA SCROLL LOCK ---
     let scrollPos = 0;
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (node.nodeType === 1 && (node.classList.contains('ti-widget') || node.id.includes('ti-') || node.className.includes('ti-'))) {
-            const popup = node.querySelector('.ti-popup, .ti-modal, [class*="ti-v-fixed"], .ti-widget-lightbox');
-            if (popup) {
-              if (!document.body.classList.contains('modal-open')) {
-                scrollPos = window.scrollY;
-                document.body.style.top = `-${scrollPos}px`;
-                document.body.classList.add('modal-open');
-              }
-              if (typeof lenis !== 'undefined') lenis.stop();
-            }
-          }
-        });
-      });
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
+    
+    function lockScroll() {
+      if (document.body.classList.contains('modal-open')) return;
+      scrollPos = window.scrollY;
+      document.body.classList.add('modal-open');
+      document.documentElement.classList.add('modal-open');
+      document.body.style.top = `-${scrollPos}px`;
+      if (typeof lenis !== 'undefined') lenis.stop();
+    }
 
-    window.addEventListener('click', (e) => {
-        // Piccola attesa per lasciare che il widget di Google si carichi/apra
-        setTimeout(() => {
-            const trustPopup = document.querySelector('.ti-popup.ti-show, .ti-modal.ti-show, [class*="ti-v-fixed"], .ti-widget-lightbox[style*="display: block"]');
-            const isAnyModalActive = document.querySelector('.article-modal.active') || document.querySelector('.archive-modal.active') || trustPopup;
+    function unlockScroll() {
+      if (!document.body.classList.contains('modal-open')) return;
+      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove('modal-open');
+      document.body.style.top = '';
+      window.scrollTo(0, scrollPos);
+      if (typeof lenis !== 'undefined') lenis.start();
+    }
+
+    // Monitoraggio continuo per popup di terze parti (Trustindex)
+    setInterval(() => {
+        const trustPopup = document.querySelector('.ti-widget-lightbox, .ti-v-fixed, .ti-modal.ti-show');
+        const isTrustVisible = trustPopup && getComputedStyle(trustPopup).display !== 'none';
+        
+        const isOurModalVisible = document.querySelector('.article-modal.active') || 
+                                 document.querySelector('.archive-modal.active') ||
+                                 document.querySelector('.admin-modal.active');
+        
+        if (isTrustVisible || isOurModalVisible) {
+            lockScroll();
             
-            if (isAnyModalActive) {
-                if (!document.body.classList.contains('modal-open')) {
-                    scrollPos = window.scrollY;
-                    document.body.style.top = `-${scrollPos}px`;
-                    document.body.classList.add('modal-open');
+            // Tentativo di mostrare solo la recensione corrente nel widget Trustindex
+            if (isTrustVisible) {
+                const reviews = document.querySelectorAll('.ti-widget-lightbox-review-container .ti-review-item');
+                if (reviews.length > 1) {
+                    // Se Trustindex mostra più recensioni, cerchiamo di focalizzare quella attiva
+                    // Nota: Questo è un intervento sperimentale sul widget esterno
+                    reviews.forEach(r => {
+                        if (r.getBoundingClientRect().width === 0) return; // Salta se nascosto
+                    });
                 }
-                if (typeof lenis !== 'undefined') lenis.stop();
-            } else {
-                if (document.body.classList.contains('modal-open')) {
-                    document.body.classList.remove('modal-open');
-                    document.body.style.top = '';
-                    window.scrollTo(0, scrollPos);
-                }
-                if (typeof lenis !== 'undefined') lenis.start();
             }
-        }, 150);
-    });
+        } else {
+            unlockScroll();
+        }
+    }, 250);
 
 
     // --- SUPABASE & ADMIN LOGIC ---
@@ -3559,7 +3560,9 @@
     });
 
     function raf(time) {
-      lenis.raf(time);
+      if (!document.body.classList.contains('modal-open')) {
+        lenis.raf(time);
+      }
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
