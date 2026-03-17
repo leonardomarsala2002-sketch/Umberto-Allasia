@@ -1649,7 +1649,12 @@
       <span class="storia-pill modal-pill" id="modal-category"></span>
       <h2 class="modal-title" id="modal-title" style="margin-bottom:0;"></h2>
     </div>
-    <div class="modal-body" id="modal-content" style="padding: 20px 50px 60px;"></div>
+    <div class="modal-body" style="padding: 20px 50px 60px;">
+      <div id="modal-image-container" style="margin-bottom: 24px; display: none;">
+        <img id="modal-image" src="" alt="News Image" style="width: 100%; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+      </div>
+      <div id="modal-content"></div>
+    </div>
   </div>
 </div>
 
@@ -1767,6 +1772,11 @@
         <div class="admin-form-group">
           <label>Contenuto (HTML ammesso)</label>
           <textarea id="edit-content" rows="10"></textarea>
+        </div>
+        <div class="admin-form-group">
+          <label>URL Immagine (link diretto)</label>
+          <input type="text" id="edit-image" placeholder="https://esempio.com/foto.jpg">
+          <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 4px;">Puoi usare siti come ImgBB o simili per caricare la foto e incollare qui il link diretto.</p>
         </div>
         <div class="admin-actions">
           <button class="btn-admin-save" onclick="saveArticle()">Salva Modifiche</button>
@@ -2219,12 +2229,19 @@
         const card = document.createElement('div');
         card.className = 'storia-card fade-up vis';
         card.onclick = () => openArticleDB(art.id);
-        card.innerHTML = `
-          <div class="storia-img">
-            <div class="ph" style="height:200px;">
-              <span class="ph-label" style="font-family:var(--font-serif);font-style:italic;font-size:0.85rem;color:var(--text-mid);opacity:0.5;">[ ${art.category} ]</span>
-            </div>
+        
+        let imageHtml = `
+          <div class="ph" style="height:200px;">
+            <span class="ph-label" style="font-family:var(--font-serif);font-style:italic;font-size:0.85rem;color:var(--text-mid);opacity:0.5;">[ ${art.category} ]</span>
           </div>
+        `;
+        
+        if (art.image_url) {
+          imageHtml = `<img src="${art.image_url}" alt="${art.title}" style="height:200px; width:100%; object-fit:cover;">`;
+        }
+
+        card.innerHTML = `
+          <div class="storia-img">${imageHtml}</div>
           <div class="storia-body">
             <span class="storia-pill">${art.category}</span>
             <div class="storia-title">${art.title}</div>
@@ -2241,6 +2258,17 @@
     if (!art) return;
     document.getElementById('modal-category').textContent = art.category;
     document.getElementById('modal-title').textContent = art.title;
+    
+    // Gestione Immagine nel Modal
+    const imgContainer = document.getElementById('modal-image-container');
+    const imgEl = document.getElementById('modal-image');
+    if (art.image_url) {
+      imgEl.src = art.image_url;
+      imgContainer.style.display = 'block';
+    } else {
+      imgContainer.style.display = 'none';
+    }
+
     document.getElementById('modal-content').innerHTML = art.content;
     document.getElementById('article-modal').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -2293,6 +2321,7 @@
     document.getElementById('edit-category').value = '';
     document.getElementById('edit-excerpt').value = '';
     document.getElementById('edit-content').value = '';
+    document.getElementById('edit-image').value = '';
     document.getElementById('editor-view').style.display = 'block';
   };
 
@@ -2304,6 +2333,7 @@
     document.getElementById('edit-category').value = art.category;
     document.getElementById('edit-excerpt').value = art.excerpt || '';
     document.getElementById('edit-content').value = art.content;
+    document.getElementById('edit-image').value = art.image_url || '';
     document.getElementById('editor-view').style.display = 'block';
   };
 
@@ -2313,7 +2343,8 @@
       title: document.getElementById('edit-title').value,
       category: document.getElementById('edit-category').value,
       excerpt: document.getElementById('edit-excerpt').value,
-      content: document.getElementById('edit-content').value
+      content: document.getElementById('edit-content').value,
+      image_url: document.getElementById('edit-image').value
     };
 
     if (id) {
