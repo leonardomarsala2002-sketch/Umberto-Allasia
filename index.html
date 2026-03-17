@@ -2058,9 +2058,8 @@
           Tratto persone. E ogni persona porta con sé una storia che merita di essere ascoltata davvero.
         </p>
         <div class="hero-actions">
-          <a href="https://calendar.app.google/imdtMmvzyEDhdwj78" target="_blank" class="btn-warm">Prenota una chiamata
-            gratuita</a>
-          <a href="#approccio" class="btn-ghost">Scopri come lavoro →</a>
+          <a href="javascript:void(0)" onclick="scrollToNewsletter()" class="btn-warm">Iscriviti alla newsletter</a>
+          <a href="#approccio" class="btn-ghost" id="dyn-hero-secondary">Scopri come lavoro →</a>
         </div>
       </div>
 
@@ -2246,51 +2245,18 @@
         </div>
       </div>
       <div class="storie-grid" id="storie-container">
-        <div class="storia-card fade-up" onclick="openArticle(1)">
-          <div class="storia-img">
-            <div class="ph" style="height:280px;">
-              <span class="ph-label"
-                style="font-family:var(--font-serif);font-style:italic;font-size:.85rem;color:var(--text-mid);opacity:.5;">[
-                Immagine articolo ]</span>
-            </div>
-          </div>
-          <div class="storia-body">
-            <span class="storia-pill">Riflessione</span>
-            <div class="storia-title">Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da
-              lì.</div>
-            <p class="storia-excerpt">Vent'anni di pazienti mi hanno insegnato che il confine tra corpo e mente è molto
-              più sottile di quanto crediamo...</p>
-          </div>
+        <!-- Generato da DB -->
+      </div>
+
+      <!-- NEW CTA IN STORIES -->
+      <div class="fade-up" style="margin-top: 60px; background: var(--bg3); padding: 40px; border-radius: 30px; text-align: center; border: 1px solid var(--line);">
+        <h3 style="font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 12px;">Ti piace leggere queste storie?</h3>
+        <p style="color: var(--text-mid); margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto;">Iscriviti alla mia newsletter per ricevere i nuovi articoli e consigli sulla salute direttamente nella tua casella email.</p>
+        <div style="display: flex; gap: 12px; max-width: 400px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
+          <input type="email" id="story-newsletter-input" placeholder="tua@email.com" style="flex: 1; min-width: 250px; padding: 14px 20px; border-radius: 50px; border: 1px solid var(--line); outline: none;">
+          <button onclick="storySubscribe()" class="btn-submit" style="width: auto; padding: 14px 30px; margin-top: 0;">Unisciti →</button>
         </div>
-        <div class="storia-card fade-up" onclick="openArticle(2)">
-          <div class="storia-img">
-            <div class="ph" style="height:200px;">
-              <span class="ph-label"
-                style="font-family:var(--font-serif);font-style:italic;font-size:.85rem;color:var(--text-mid);opacity:.5;">[
-                Immagine articolo ]</span>
-            </div>
-          </div>
-          <div class="storia-body">
-            <span class="storia-pill">Domande frequenti</span>
-            <div class="storia-title">Ha senso prendere appuntamento? Rispondo onestamente.</div>
-            <p class="storia-excerpt">La domanda che mi fanno in molti, spesso dopo aver aspettato troppo a lungo...</p>
-          </div>
-        </div>
-        <div class="storia-card fade-up" onclick="openArticle(3)">
-          <div class="storia-img">
-            <div class="ph" style="height:200px;">
-              <span class="ph-label"
-                style="font-family:var(--font-serif);font-style:italic;font-size:.85rem;color:var(--text-mid);opacity:.5;">[
-                Immagine articolo ]</span>
-            </div>
-          </div>
-          <div class="storia-body">
-            <span class="storia-pill">Approccio</span>
-            <div class="storia-title">Cosa succede davvero nel primo appuntamento.</div>
-            <p class="storia-excerpt">Niente camice subito. Niente scheda. Prima parliamo — e questo cambia già tutto...
-            </p>
-          </div>
-        </div>
+        <p id="story-nl-msg" style="font-size: 0.85rem; margin-top: 15px; color: var(--green-soft); height: 1.2em;"></p>
       </div>
     </div>
   </section>
@@ -3259,6 +3225,38 @@
       } else {
         msg.textContent = "Errore o già iscritto.";
         msg.style.opacity = "1";
+      }
+    };
+
+    window.storySubscribe = async function() {
+      const el = document.getElementById('story-newsletter-input');
+      const msg = document.getElementById('story-nl-msg');
+      const email = el.value.trim();
+      if (!email || !email.includes('@')) return;
+
+      const { error } = await supabaseAdmin.from('subscribers').upsert({ email: email });
+      if (!error) {
+        msg.textContent = "Iscrizione avvenuta con successo! Benvenuto.";
+        el.value = "";
+        sendWelcomeEmail(email);
+        setTimeout(() => { msg.textContent = ""; }, 4000);
+      } else {
+        msg.textContent = "Sei già iscritto o c'è un errore.";
+      }
+    };
+
+    window.scrollToNewsletter = function() {
+      const footer = document.querySelector('footer');
+      if (footer) {
+        footer.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          const input = document.getElementById('newsletter-input');
+          if (input) {
+            input.focus();
+            input.parentElement.style.boxShadow = "0 0 0 3px var(--accent-soft)";
+            setTimeout(() => { input.parentElement.style.boxShadow = ""; }, 2000);
+          }
+        }, 800);
       }
     };
 
