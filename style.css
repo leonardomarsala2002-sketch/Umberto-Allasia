@@ -412,3 +412,5 @@ footer { background: var(--text); padding: 64px 48px 40px; }
 header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; left: 0 !important; right: 0 !important; }
 
 @media (max-width: 1100px) { .hero, .hero-image, .hero img, .hero-bg, .hero-section { display: block !important; visibility: visible !important; opacity: 1 !important; min-height: 250px; } }
+
+@media (max-width: 1100px) { .hero-img-col { display: block !important; width: 100% !important; margin-top: 30px !important; } .hero-photo-wrap { max-width: 300px !important; margin: 0 auto !important; } .hero-float-card, .hero-float-card2 { position: relative !important; inset: auto !important; margin: 10px auto !important; width: fit-content !important; } }
