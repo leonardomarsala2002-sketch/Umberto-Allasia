@@ -402,3 +402,4 @@ footer { background: var(--text); padding: 64px 48px 40px; }
     font-size: 0.88rem;
   }
 }
+#cookie-banner:not(.show) { visibility: hidden; }
