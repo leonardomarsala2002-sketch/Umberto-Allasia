@@ -1854,6 +1854,101 @@
       .fg-row {
         grid-template-columns: 1fr;
       }
+
+      /* ── STORIE MOBILE ────────────────────────────────────── */
+      .storie-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+
+      .storie-header > div:last-child {
+        align-items: flex-start !important;
+        text-align: left !important;
+        flex-direction: row !important;
+        gap: 12px;
+        align-items: center !important;
+      }
+
+      .news-badge {
+        margin-bottom: 0;
+      }
+
+      /* Card storie su mobile: immagine più bassa, padding ridotto */
+      .storia-img .ph,
+      .storia-img img {
+        height: 160px !important;
+      }
+
+      .storia-body {
+        padding: 18px 20px 24px;
+      }
+
+      .storia-title {
+        font-size: 1rem;
+      }
+
+      /* CTA newsletter sotto le storie */
+      #storie .fade-up[style*="margin-top: 60px"] {
+        padding: 28px 20px;
+        border-radius: 20px;
+        margin-top: 40px !important;
+      }
+
+      /* Modal articolo su mobile */
+      .article-modal {
+        padding: 0;
+        align-items: flex-end;
+      }
+
+      .modal-inner {
+        max-height: 92vh;
+        border-radius: 32px 32px 0 0;
+      }
+
+      .modal-header-sticky {
+        padding: 36px 24px 16px;
+      }
+
+      .modal-body {
+        padding: 16px 24px 48px !important;
+      }
+
+      .modal-title {
+        font-size: 1.6rem;
+      }
+
+      /* Modal archivio su mobile */
+      .archive-modal {
+        padding: 0;
+        align-items: flex-end;
+      }
+
+      .archive-inner {
+        max-height: 88vh;
+        border-radius: 32px 32px 0 0;
+      }
+
+      .archive-header-sticky {
+        padding: 40px 24px 16px;
+      }
+
+      .archive-inner > div:last-child {
+        padding: 16px 20px 48px !important;
+      }
+
+      .archive-grid-list {
+        grid-template-columns: 1fr;
+      }
+
+      .archive-close {
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+      }
     }
 
     /* Festa */
