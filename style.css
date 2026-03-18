@@ -2083,14 +2083,18 @@
 
     @media (max-width: 900px) {
       #cookie-banner {
+        /* Fluttua dentro lo schermo invece di stare incollato al fondo */
+        bottom: 20px;
+        left: 16px;
+        right: 16px;
+        width: auto;
+        border-radius: 18px;
         flex-direction: column;
         align-items: stretch;
-        padding: 16px 20px;
+        padding: 16px 18px;
         text-align: left;
         gap: 12px;
-        overflow: visible;
-        padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
-        /* Su mobile: usa opacity invece di transform per evitare bug iOS */
+        /* Animazione semplice con opacity invece di transform */
         transform: none !important;
         opacity: 0;
         pointer-events: none;
@@ -2105,10 +2109,6 @@
       #cookie-banner p {
         font-size: 0.82rem;
         line-height: 1.5;
-        display: block; /* Rimuovi il line-clamp, il testo è già corto */
-        overflow: visible;
-        -webkit-line-clamp: unset;
-        line-clamp: unset;
       }
 
       .cookie-btns {
