@@ -403,3 +403,5 @@ footer { background: var(--text); padding: 64px 48px 40px; }
   }
 }
 #cookie-banner:not(.show) { visibility: hidden; }
+
+#cookie-banner:not(.show) { display: none !important; padding: 0 !important; margin: 0 !important; }
