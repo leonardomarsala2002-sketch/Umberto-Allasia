@@ -2088,22 +2088,27 @@
         padding: 16px 20px;
         text-align: left;
         gap: 12px;
-        /* Ridò il max-height: i bottoni devono essere sempre visibili */
         overflow: visible;
-        /* Spazio sicuro per la home bar iOS */
         padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+        /* Su mobile: usa opacity invece di transform per evitare bug iOS */
+        transform: none !important;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+      }
+
+      #cookie-banner.show {
+        opacity: 1;
+        pointer-events: all;
       }
 
       #cookie-banner p {
-        font-size: 0.78rem;
-        line-height: 1.4;
-        /* Mostra solo 2 righe su mobile */
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        max-width: 100%;
+        font-size: 0.82rem;
+        line-height: 1.5;
+        display: block; /* Rimuovi il line-clamp, il testo è già corto */
+        overflow: visible;
+        -webkit-line-clamp: unset;
+        line-clamp: unset;
       }
 
       .cookie-btns {
@@ -2119,7 +2124,7 @@
         flex: 1;
         text-align: center;
         padding: 12px 10px;
-        font-size: 0.85rem;
+        font-size: 0.88rem;
       }
     }
     /* Fix per bloccare lo scrolling del body quando i modal sono aperti */
