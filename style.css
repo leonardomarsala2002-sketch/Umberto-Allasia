@@ -408,3 +408,5 @@ footer { background: var(--text); padding: 64px 48px 40px; }
 
 .edit-toolbar:not(.active) { visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }
 
+
+header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; left: 0 !important; right: 0 !important; }
