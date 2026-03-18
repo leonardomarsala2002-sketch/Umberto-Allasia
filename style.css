@@ -2004,7 +2004,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background: rgba(44, 36, 32, 0.98);
+      background: #221a16; /* Marrone scurissimo caldo per verifica visiva */
       color: #fff;
       padding: 20px 48px;
       z-index: 99999;
