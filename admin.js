@@ -1,34 +1,34 @@
-ï»¿    // Articoli Content
+    // Articoli Content
     const articles = {
       1: {
         category: 'Riflessione',
-        title: 'PerchÃ© il dolore cronico non Ã¨ "tutto nella testa" â€” ma a volte ci passa anche da lÃ¬.',
-        content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p><p>Il dolore cronico Ã¨ reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. Ãˆ come un sistema d'allarme che continua a suonare anche dopo che l'incendio Ã¨ stato spento da tempo.</p><p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore.</p>`
+        title: 'Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da lì.',
+        content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p><p>Il dolore cronico è reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. È come un sistema d'allarme che continua a suonare anche dopo che l'incendio è stato spento da tempo.</p><p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore.</p>`
       },
       2: {
         category: 'Domande frequenti',
         title: 'Ha senso prendere appuntamento? Rispondo onestamente.',
-        content: `<p>Spesso le persone aspettano che il dolore diventi insopportabile prima di chiamare. O peggio, temono che il loro problema sia "troppo piccolo" per disturbare.</p><p>La veritÃ  Ã¨ che la prevenzione non Ã¨ solo una parola di moda: Ã¨ efficienza. Risolvere una tensione muscolare iniziale richiede una frazione del tempo necessario per trattare una lombalgia acuta che ti blocca a letto.</p><p>Se senti che qualcosa non va, anche se Ã¨ solo un fastidio ciclico, parliamone. A volte bastano due consigli e una seduta per evitare settimane di stop forzato.</p>`
+        content: `<p>Spesso le persone aspettano che il dolore diventi insopportabile prima di chiamare. O peggio, temono che il loro problema sia "troppo piccolo" per disturbare.</p><p>La verità è che la prevenzione non è solo una parola di moda: è efficienza. Risolvere una tensione muscolare iniziale richiede una frazione del tempo necessario per trattare una lombalgia acuta che ti blocca a letto.</p><p>Se senti che qualcosa non va, anche se è solo un fastidio ciclico, parliamone. A volte bastano due consigli e una seduta per evitare settimane di stop forzato.</p>`
       },
       3: {
         category: 'Approccio',
         title: 'Cosa succede davvero nel primo appuntamento.',
-        content: `<p>Dimentica il lettino nei primi dieci minuti. La prima cosa che faremo Ã¨ sederci e parlare. Voglio sapere come dormi, cosa mangi, quanto stress hai al lavoro e cosa ti impedisce di fare il tuo dolore.</p><p>Solo dopo passeremo alla valutazione fisica. Questo perchÃ© un dolore alla spalla puÃ² nascere da una postura scorretta in ufficio, ma puÃ² anche essere alimentato da un periodo di forte tensione emotiva o da un vecchio infortunio mai curato bene.</p><p>Il primo appuntamento serve a tracciare la mappa. Il trattamento Ã¨ il viaggio.</p>`
+        content: `<p>Dimentica il lettino nei primi dieci minuti. La prima cosa che faremo è sederci e parlare. Voglio sapere come dormi, cosa mangi, quanto stress hai al lavoro e cosa ti impedisce di fare il tuo dolore.</p><p>Solo dopo passeremo alla valutazione fisica. Questo perché un dolore alla spalla può nascere da una postura scorretta in ufficio, ma può anche essere alimentato da un periodo di forte tensione emotiva o da un vecchio infortunio mai curato bene.</p><p>Il primo appuntamento serve a tracciare la mappa. Il trattamento è il viaggio.</p>`
       },
       4: {
         category: 'Postura',
         title: 'La postura perfetta non esiste. Ecco cosa conta davvero.',
-        content: `<p>Siamo cresciuti con l'idea che esista una "posizione giusta" per stare seduti o in piedi. La ricerca scientifica moderna ci dice invece che la postura migliore Ã¨... la prossima.</p><p>Il corpo umano Ã¨ fatto per muoversi. Il dolore non nasce da una schiena curva, ma dal mantenere la stessa posizione (anche quella "dritta") per troppo tempo. L'immobilitÃ  Ã¨ il vero nemico, non la gobba.</p><p>Invece di sforzarti di stare dritto come un soldato, impara ad ascoltare quando il tuo corpo ti chiede di cambiare posizione.</p>`
+        content: `<p>Siamo cresciuti con l'idea che esista una "posizione giusta" per stare seduti o in piedi. La ricerca scientifica moderna ci dice invece che la postura migliore è... la prossima.</p><p>Il corpo umano è fatto per muoversi. Il dolore non nasce da una schiena curva, ma dal mantenere la stessa posizione (anche quella "dritta") per troppo tempo. L'immobilità è il vero nemico, non la gobba.</p><p>Invece di sforzarti di stare dritto come un soldato, impara ad ascoltare quando il tuo corpo ti chiede di cambiare posizione.</p>`
       },
       5: {
         category: 'Benessere',
         title: 'Il respiro: il primo strumento di cura a tua disposizione.',
-        content: `<p>Semplice, gratuito, immediato. Eppure quasi nessuno respira bene. Spesso usiamo solo la parte alta del torace, mantenendo i muscoli del collo in tensione costante.</p><p>La respirazione diaframmatica non serve solo a rilassarsi: Ã¨ un massaggio viscerale e un segnale biochimico che diciamo al nostro sistema nervoso che siamo al sicuro. Questo abbassa istantaneamente la soglia del dolore.</p><p>Dedico sempre una parte delle mie sedute al respiro, perchÃ© Ã¨ l'unico strumento che il paziente puÃ² portarsi a casa e usare ovunque, in ogni momento.</p>`
+        content: `<p>Semplice, gratuito, immediato. Eppure quasi nessuno respira bene. Spesso usiamo solo la parte alta del torace, mantenendo i muscoli del collo in tensione costante.</p><p>La respirazione diaframmatica non serve solo a rilassarsi: è un massaggio viscerale e un segnale biochimico che diciamo al nostro sistema nervoso che siamo al sicuro. Questo abbassa istantaneamente la soglia del dolore.</p><p>Dedico sempre una parte delle mie sedute al respiro, perché è l'unico strumento che il paziente può portarsi a casa e usare ovunque, in ogni momento.</p>`
       },
       6: {
         category: 'Sport',
         title: 'Sport e infortuni: quando fermarsi e quando continuare.',
-        content: `<p>Il binomio "ho dolore = devo stare fermo" Ã¨ uno dei miti piÃ¹ difficili da sfatare. In realtÃ , il movimento guidato Ã¨ spesso la cura migliore per un infortunio.</p><p>Il segreto sta nel trovare il "carico ottimale": quel livello di attivitÃ  che non peggiora il sintomo ma permette al tessuto di rigenerarsi e rinforzarsi. Fermarsi completamente, spesso, indebolisce il corpo e allunga i tempi di recupero.</p><p>Il mio lavoro con gli sportivi Ã¨ capire fin dove possiamo spingerci oggi per essere piÃ¹ forti domani, senza mai forzare i tempi biologici della guarigione.</p>`
+        content: `<p>Il binomio "ho dolore = devo stare fermo" è uno dei miti più difficili da sfatare. In realtà, il movimento guidato è spesso la cura migliore per un infortunio.</p><p>Il segreto sta nel trovare il "carico ottimale": quel livello di attività che non peggiora il sintomo ma permette al tessuto di rigenerarsi e rinforzarsi. Fermarsi completamente, spesso, indebolisce il corpo e allunga i tempi di recupero.</p><p>Il mio lavoro con gli sportivi è capire fin dove possiamo spingerci oggi per essere più forti domani, senza mai forzare i tempi biologici della guarigione.</p>`
       }
     };
 
@@ -78,7 +78,7 @@
         <div class="storia-body" style="padding:20px;">
           <span class="storia-pill">${art.category}</span>
           <div class="storia-title" style="font-size:1rem;">${art.title}</div>
-          <div class="btn-ghost" style="margin-top:10px; font-size:0.8rem;">Leggi di piÃ¹ â†’</div>
+          <div class="btn-ghost" style="margin-top:10px; font-size:0.8rem;">Leggi di più ?</div>
         </div>
       `;
         card.onclick = () => { openArticleDB(id); };
@@ -255,7 +255,7 @@
             <span class="storia-pill">${art.category}</span>
             <div class="storia-title">${art.title}</div>
             <p class="storia-excerpt">${art.excerpt || (art.content.replace(/<[^>]*>/g, '').substring(0, 100) + '...')}</p>
-            <div class="btn-ghost" style="margin-top:15px;">Leggi di piÃ¹ â†’</div>
+            <div class="btn-ghost" style="margin-top:15px;">Leggi di più ?</div>
           </div>
         `;
           container.appendChild(card);
@@ -388,7 +388,7 @@
     };
 
     // --- NEWSLETTER LOGIC ---
-    const CALENDAR_URL = "https://calendar.app.google/imdtMmvzyEDhdwj78";
+    const CALENDAR_URL = "https://calendar.app.google/roTDcAzyEayNB4Tg6";
 
     async function sendWelcomeEmail(targetEmail) {
       const apiKey = dbSettings.brevo_api_key;
@@ -438,7 +438,7 @@
                     </div>
                   </div>
                   <div style="background: #2C2420; padding: 20px; text-align: center;">
-                    <p style="font-size: 12px; color: #EDE4D8; margin: 0; opacity: 0.8;">San Marino â€” Str. Ca' Vagnetto, 3</p>
+                    <p style="font-size: 12px; color: #EDE4D8; margin: 0; opacity: 0.8;">San Marino — Str. Ca' Vagnetto, 3</p>
                   </div>
                 </div>
               </div>
@@ -561,7 +561,7 @@
         sendWelcomeEmail(email); // Invia email di benvenuto
         setTimeout(() => { msg.style.opacity = "0"; }, 3000);
       } else {
-        msg.textContent = "Errore o giÃ  iscritto.";
+        msg.textContent = "Errore o già iscritto.";
         msg.style.opacity = "1";
       }
     };
@@ -579,14 +579,14 @@
         sendWelcomeEmail(email);
         setTimeout(() => { msg.textContent = ""; }, 4000);
       } else {
-        msg.textContent = "Sei giÃ  iscritto o c'Ã¨ un errore.";
+        msg.textContent = "Sei già iscritto o c'è un errore.";
       }
     };
 
     window.scrollToNewsletter = function() {
       const footer = document.querySelector('footer');
       if (footer) {
-        // Se Lenis Ã¨ attivo, lo usiamo per uno scroll perfetto
+        // Se Lenis è attivo, lo usiamo per uno scroll perfetto
         if (typeof lenis !== 'undefined') {
           lenis.scrollTo(footer, {
             offset: -100,
@@ -594,7 +594,7 @@
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
           });
         } else {
-          // Fallback se Lenis non Ã¨ caricato
+          // Fallback se Lenis non è caricato
           footer.scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -665,7 +665,7 @@
                     </div>
                   </div>
                   <div style="background: #FBF7F2; padding: 20px; text-align: center; border-top: 1px solid #E2D8CC;">
-                    <p style="font-size: 11px; color: #A8998F; margin: 0;">Ricevi questa comunicazione perchÃ© sei iscritto alla newsletter di ilfisioterapista.sm</p>
+                    <p style="font-size: 11px; color: #A8998F; margin: 0;">Ricevi questa comunicazione perché sei iscritto alla newsletter di ilfisioterapista.sm</p>
                   </div>
                 </div>
               </div>
@@ -685,3 +685,4 @@
 
     // Carica tutto all'avvio
     fetchAllData();
+
