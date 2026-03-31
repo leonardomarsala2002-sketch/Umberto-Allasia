@@ -562,7 +562,21 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
 
 /* ── MEDIA MOBILE & TABLET ────────────────────────────────────────── */
 @media (max-width: 991px) {
+  /* Reset Globale Sillabazione Mobile */
+  * {
+    hyphens: none !important;
+    -webkit-hyphens: none !important;
+    -ms-hyphens: none !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+
   /* Ponte Senza Spezzare Parole */
+  .word-span {
+    display: inline-block !important;
+    white-space: nowrap !important;
+    vertical-align: top;
+  }
   .ponte-inner {
     max-width: 100% !important;
     padding: 0 16px !important;

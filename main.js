@@ -192,7 +192,8 @@
     }
 
     // Typewriter effect for Ponte - Group letters in words to prevent breaking
-    document.querySelectorAll('.typewriter-text').forEach(el => {
+    window.initTypewriter = function(el) {
+      if (!el) return;
       const text = el.textContent.trim();
       el.innerHTML = '';
       const words = text.split(' ');
@@ -217,7 +218,9 @@
           el.appendChild(space);
         }
       });
-    });
+    };
+
+    document.querySelectorAll('.typewriter-text').forEach(el => window.initTypewriter(el));
 
     const typeText = async (el) => {
       const chars = el.querySelectorAll('.char');

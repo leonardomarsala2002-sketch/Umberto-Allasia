@@ -190,7 +190,13 @@
         data.forEach(s => {
           dbSettings[s.key] = s.value;
           const el = document.getElementById('dyn-' + s.key.replace(/_/g, '-'));
-          if (el) el.innerHTML = s.value;
+          if (el) {
+            el.innerHTML = s.value;
+            // Se l'elemento ha la classe typewriter-text, reinizializza
+            if (el.classList.contains('typewriter-text') && typeof window.initTypewriter === 'function') {
+              window.initTypewriter(el);
+            }
+          }
         });
       }
     }
