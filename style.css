@@ -445,10 +445,10 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
   transition: transform 0.3s, box-shadow 0.3s;
   display: flex;
   flex-direction: column;
-  min-height: 290px; /* Ridotto di un ulteriore 10% */
+  min-height: 260px; /* Estremamente compatto e minimale */
   justify-content: space-between;
   overflow: hidden;
-  padding: 24px 20px; /* Margini interni leggermente più snelli */
+  padding: 20px; /* Margini interni ancora più snelli per il nuovo formato */
 }
 
 #booking-collect {
@@ -459,7 +459,7 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 16px; /* Padding compatto per il box email */
+  padding: 12px; /* Pad ancora più ridotto per le scritte */
   border-radius: 20px;
   transform: translateY(105%); 
   visibility: hidden; 
