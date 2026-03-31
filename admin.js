@@ -3,17 +3,17 @@
       1: {
         category: 'Riflessione',
         title: 'Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da lì.',
-        content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p><p>Il dolore cronico è reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. È come un sistema d'allarme che continua a suonare anche dopo che l'incendio è stato spento da tempo.</p><p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore.</p>`
+        content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p><p>Il dolore cronico è reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. È come un sistema d'allarme che continua a suonare anche dopo che l'incendio è stato spento da tempo.</p><p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore e all'esercizio.</p>`
       },
       2: {
         category: 'Domande frequenti',
         title: 'Ha senso prendere appuntamento? Rispondo onestamente.',
-        content: `<p>Spesso le persone aspettano che il dolore diventi insopportabile prima di chiamare. O peggio, temono che il loro problema sia "troppo piccolo" per disturbare.</p><p>La verità è che la prevenzione non è solo una parola di moda: è efficienza. Risolvere una tensione muscolare iniziale richiede una frazione del tempo necessario per trattare una lombalgia acuta che ti blocca a letto.</p><p>Se senti che qualcosa non va, anche se è solo un fastidio ciclico, parliamone. A volte bastano due consigli e una seduta per evitare settimane di stop forzato.</p>`
+        content: `<p>Molte persone arrivano dopo aver aspettato a lungo.</p><p>Spesso mi dicono di aver provato a gestire il problema da sole, oppure di aver rimandato, sperando che passasse.</p><p>Durante la seduta, una parte importante del mio lavoro è spiegarti cosa sta succedendo. Dare un senso al sintomo, collegarlo alla tua storia, ai tuoi gesti quotidiani, a quello che stai vivendo.</p><p>E questo, molto spesso, cambia già qualcosa. Riduce la preoccupazione, alleggerisce quella sensazione di incertezza, aiuta a capire che il problema può essere affrontato.</p><p>Capita frequentemente che chi arriva mi dica: “forse avrei dovuto muovermi prima”, più per la frustrazione di non aver trovato soluzioni che per la gravità del dolore in sé.</p><p>Non si tratta di arrivare prima o dopo. Si tratta di iniziare a capire.</p>`
       },
       3: {
         category: 'Approccio',
-        title: 'Cosa succede davvero nel primo appuntamento.',
-        content: `<p>Dimentica il lettino nei primi dieci minuti. La prima cosa che faremo è sederci e parlare. Voglio sapere come dormi, cosa mangi, quanto stress hai al lavoro e cosa ti impedisce di fare il tuo dolore.</p><p>Solo dopo passeremo alla valutazione fisica. Questo perché un dolore alla spalla può nascere da una postura scorretta in ufficio, ma può anche essere alimentato da un periodo di forte tensione emotiva o da un vecchio infortunio mai curato bene.</p><p>Il primo appuntamento serve a tracciare la mappa. Il trattamento è il viaggio.</p>`
+        title: 'Cosa succede davvero nel primo appuntamento',
+        content: `<p>La prima cosa che faremo è sederci e conoscerci.</p><p>Fin da subito sarai parte attiva della seduta. Non mi interessa solo capire che dolore hai, ma soprattutto come quel dolore entra nella tua vita.</p><p>Ti chiederò quando si presenta durante la giornata, in quali momenti è più intenso e quanto interferisce con ciò che fai ogni giorno: lavoro, studio, tempo libero.</p><p>Voglio comprendere cosa ti limita davvero, cosa hai dovuto modificare o evitare a causa del sintomo.</p><p>Allo stesso tempo, daremo spazio anche a un aspetto spesso trascurato: come ti fa sentire questo problema.</p><p>Portarsi dietro un dolore non è solo una questione fisica, ma anche emotiva. Spesso è un percorso bidirezionale.</p><p>Solo dopo passeremo alla valutazione fisica.</p><p>Perché un dolore non nasce mai per caso: può essere legato a posture scorrette, a vecchi infortuni o a periodi di particolare stress.</p><p>Il primo appuntamento serve a tracciare una mappa.</p><p>Il percorso che faremo insieme è il viaggio.</p>`
       },
       4: {
         category: 'Postura',
@@ -47,13 +47,13 @@
       modalTitle.textContent = art.title;
       modalContent.innerHTML = art.content;
       modal.classList.add('active');
-      lockScroll();
+      if (typeof window.lockScroll === 'function') window.lockScroll();
     };
 
     window.closeArticle = function () {
       modal.classList.remove('active');
       if (!archiveModal.classList.contains('active')) {
-        unlockScroll();
+        if (typeof window.unlockScroll === 'function') window.unlockScroll();
       }
     };
 
@@ -85,7 +85,7 @@
         archiveList.appendChild(card);
       });
       archiveModal.classList.add('active');
-      lockScroll();
+      if (typeof window.lockScroll === 'function') window.lockScroll();
     };
 
     // Update News Counts
@@ -100,7 +100,7 @@
 
     window.closeArchive = function () {
       archiveModal.classList.remove('active');
-      unlockScroll();
+      if (typeof window.unlockScroll === 'function') window.unlockScroll();
       document.querySelector('.archive-inner').scrollTop = 0;
       document.querySelector('.archive-inner').classList.remove('scrolled');
     };
@@ -139,13 +139,13 @@
         openAdminPanel();
       } else {
         document.getElementById('login-modal').classList.add('active');
-        lockScroll();
+        if (typeof window.lockScroll === 'function') window.lockScroll();
       }
     };
 
     window.closeLoginModal = function () {
       document.getElementById('login-modal').classList.remove('active');
-      unlockScroll();
+      if (typeof window.unlockScroll === 'function') window.unlockScroll();
     };
 
     window.handleLogin = async function () {
@@ -317,8 +317,8 @@
 
       document.getElementById('modal-content').innerHTML = art.content;
       document.getElementById('article-modal').classList.add('active');
-      document.body.classList.add('modal-open'); // Blocca lo scroll CSS
-      if (typeof lenis !== 'undefined') lenis.stop();
+      if (typeof window.lockScroll === 'function') window.lockScroll();
+
     };
 
     function updateNewsCountsExternal() {

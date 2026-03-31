@@ -326,7 +326,7 @@
     // --- GESTIONE AVANZATA SCROLL LOCK ---
     let scrollPos = 0;
     
-    function lockScroll() {
+    window.lockScroll = function() {
       if (document.body.classList.contains('modal-open')) return;
       scrollPos = window.scrollY;
       document.body.classList.add('modal-open');
@@ -335,7 +335,7 @@
       if (typeof lenis !== 'undefined') lenis.stop();
     }
 
-    function unlockScroll() {
+    window.unlockScroll = function() {
       if (!document.body.classList.contains('modal-open')) return;
       document.body.classList.remove('modal-open');
       document.documentElement.classList.remove('modal-open');
