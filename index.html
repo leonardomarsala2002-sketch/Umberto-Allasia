@@ -388,33 +388,40 @@
         </div>
 
         <div class="booking-box fade-up">
-          <h3 id="dyn-booking-title">Prenota una chiamata gratuita</h3>
-          <p id="dyn-booking-text">Verifica la mia disponibilità reale e scegli il momento più comodo per te.</p>
+          <h3 id="dyn-booking-title">Prenota il tuo appuntamento</h3>
+          <p id="dyn-booking-text">Scegli la modalità più adatta alle tue esigenze per iniziare il tuo percorso.</p>
 
-          <div
-            style="margin: 32px 0; padding: 24px; background: #fff; border-radius: 20px; border: 1px solid var(--line); text-align: center;">
-            <div style="font-size: 2rem; margin-bottom: 12px;">📅</div>
-            <div
-              style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--green-soft); letter-spacing: 0.1em; margin-bottom: 8px;">
-              Disponibilità Live</div>
-            <p style="font-size: 0.95rem; color: var(--text-mid); margin-bottom: 24px; line-height: 1.5;">Il calendario
-              è sincronizzato in tempo reale con i miei appuntamenti.</p>
-            
-            <div id="booking-collect" style="margin-bottom: 20px; display: none; text-align: left; background: var(--bg2); padding: 15px; border-radius: 12px;">
-              <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; display: block;">Lascia la tua mail per ricevere i miei consigli sulla salute:</label>
-              <div style="display: flex; gap: 8px;">
-                <input type="email" id="book-email" placeholder="tua@email.com" style="flex: 1; padding: 8px 12px; border-radius: 50px; border: 1px solid #ddd; outline: none; font-size: 0.9rem;">
-                <button onclick="subscribeAndRedirect()" class="btn-submit" style="padding: 8px 15px; font-size: 0.8rem;">Continua</button>
+          <div class="booking-options">
+            <!-- Opzione 1: Chiamata -->
+            <div class="booking-option-card" id="option-call">
+              <div class="option-icon">📞</div>
+              <h4 id="dyn-opt-call-title">Chiamata Conoscitiva</h4>
+              <p id="dyn-opt-call-text">15 minuti per conoscerci, inquadrare il problema e capire come posso aiutarti. Gratuita.</p>
+              <div id="booking-collect" style="margin-bottom: 20px; display: none; text-align: left; background: var(--bg2); padding: 15px; border-radius: 12px;">
+                <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; display: block;">Lascia la tua mail per i consigli sulla salute:</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="email" id="book-email" placeholder="tua@email.com" style="flex: 1; padding: 8px 12px; border-radius: 50px; border: 1px solid #ddd; outline: none; font-size: 0.9rem;">
+                  <button onclick="subscribeAndRedirect()" class="btn-submit" style="padding: 8px 15px; font-size: 0.8rem;">Continua</button>
+                </div>
               </div>
-              <p style="font-size: 0.7rem; color: var(--text-light); margin-top: 8px; cursor: pointer;" onclick="directRedirect()">O continua senza iscriverti →</p>
+              <button id="main-book-btn" onclick="handleCallOption()" class="btn-submit" style="width: 100%; border: none;">Prenota Chiamata</button>
             </div>
 
-            <button id="main-book-btn" onclick="showEmailCollect()" class="btn-submit" style="width: 100%; border: none;">Scegli data e ora</button>
+            <!-- Opzione 2: Visita in Studio -->
+            <div class="booking-option-card locked" id="option-visit">
+              <div class="lock-overlay" id="visit-lock">
+                <span>Primo contatto richiesto</span>
+              </div>
+              <div class="option-icon">🏠</div>
+              <h4 id="dyn-opt-visit-title">Visita in Studio</h4>
+              <p id="dyn-opt-visit-text">Valutazione completa e primo trattamento fisioterapico presso lo studio a San Marino.</p>
+              <button id="visit-book-btn" onclick="handleVisitOption()" class="btn-submit" style="width: 100%; border: none;" disabled>Prenota Visita</button>
+            </div>
           </div>
 
-          <p style="font-size: 0.85rem; color: var(--text-light); text-align: center;">Verrai indirizzato alla pagina
-            ufficiale di Google Calendar per confermare la prenotazione.</p>
-
+          <p style="font-size: 0.8rem; color: var(--text-light); text-align: center; margin-top: 24px;">
+            Sincronizzato con Google Calendar · Conferma immediata
+          </p>
         </div>
       </div>
     </div>

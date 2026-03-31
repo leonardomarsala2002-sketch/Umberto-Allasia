@@ -533,13 +533,30 @@
       }
     };
 
-    window.showEmailCollect = function() {
+    window.handleCallOption = function() {
       document.getElementById('main-book-btn').style.display = 'none';
       document.getElementById('booking-collect').style.display = 'block';
     };
 
     window.directRedirect = function() {
+      localStorage.setItem('has_contacted', 'true');
+      if (typeof unlockVisitOption === 'function') unlockVisitOption();
       window.open(CALENDAR_URL, '_blank');
+    };
+
+    window.handleVisitOption = function() {
+      window.open(CALENDAR_URL, '_blank');
+    };
+
+    window.unlockVisitOption = function() {
+      const card = document.getElementById('option-visit');
+      const btn = document.getElementById('visit-book-btn');
+      const lock = document.getElementById('visit-lock');
+      if (card && btn) {
+        card.classList.remove('locked');
+        btn.disabled = false;
+        if (lock) lock.style.display = 'none';
+      }
     };
 
     window.subscribeAndRedirect = async function() {
@@ -551,6 +568,8 @@
           sendWelcomeEmail(email); // Invia email di benvenuto
         }
       }
+      localStorage.setItem('has_contacted', 'true');
+      if (typeof unlockVisitOption === 'function') unlockVisitOption();
       window.open(CALENDAR_URL, '_blank');
     };
 
@@ -677,3 +696,6 @@
 
     // Carica tutto all'avvio
     fetchAllData();
+    if (localStorage.getItem('has_contacted') === 'true') {
+      setTimeout(unlockVisitOption, 500);
+    }
