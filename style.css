@@ -592,39 +592,45 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
     padding: 24px 16px;
   }
 
-  /* News Modal Mobili */
-  .modal-inner {
-    max-width: 96% !important;
-    border-radius: 24px 24px 0 0;
+  /* News Modal Mobili - Tutto Schermo */
+  .modal-inner, .archive-inner {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
     padding: 0;
   }
-  .modal-header-sticky {
-    padding: 40px 20px 15px !important;
+  .modal-header-sticky, .archive-header-sticky {
+    padding: 50px 20px 20px !important;
     text-align: center;
+    background: #fff !important;
   }
-  .close-modal {
-    top: 12px; 
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
-    background: var(--bg3);
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    width: auto;
-    height: auto;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    border: 1px solid var(--line);
+  .close-modal, .archive-close {
+    position: absolute !important;
+    top: 15px !important; 
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    background: var(--bg3) !important;
+    padding: 8px 20px !important;
+    border-radius: 50px !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    width: auto !important;
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    border: 1px solid var(--line) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    color: var(--text) !important;
   }
-  .close-modal::before {
-    content: "← Torna indietro";
+  .close-modal::before, .archive-close::before {
+    content: "← Torna indietro" !important;
   }
-  .close-modal span { display: none; } /* Nascondi la X se vogliamo solo il testo */
+  .close-modal span, .archive-close span { display: none !important; } 
 
   .modal-body {
     padding: 0 16px 40px !important; /* Più largo su mobile */
