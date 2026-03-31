@@ -14,21 +14,6 @@
         category: 'Approccio',
         title: 'Cosa succede davvero nel primo appuntamento',
         content: `<p>La prima cosa che faremo è sederci e conoscerci.</p><p>Fin da subito sarai parte attiva della seduta. Non mi interessa solo capire che dolore hai, ma soprattutto come quel dolore entra nella tua vita.</p><p>Ti chiederò quando si presenta durante la giornata, in quali momenti è più intenso e quanto interferisce con ciò che fai ogni giorno: lavoro, studio, tempo libero.</p><p>Voglio comprendere cosa ti limita davvero, cosa hai dovuto modificare o evitare a causa del sintomo.</p><p>Allo stesso tempo, daremo spazio anche a un aspetto spesso trascurato: come ti fa sentire questo problema.</p><p>Portarsi dietro un dolore non è solo una questione fisica, ma anche emotiva. Spesso è un percorso bidirezionale.</p><p>Solo dopo passeremo alla valutazione fisica.</p><p>Perché un dolore non nasce mai per caso: può essere legato a posture scorrette, a vecchi infortuni o a periodi di particolare stress.</p><p>Il primo appuntamento serve a tracciare una mappa.</p><p>Il percorso che faremo insieme è il viaggio.</p>`
-      },
-      4: {
-        category: 'Postura',
-        title: 'La postura perfetta non esiste. Ecco cosa conta davvero.',
-        content: `<p>Siamo cresciuti con l'idea che esista una "posizione giusta" per stare seduti o in piedi. La ricerca scientifica moderna ci dice invece che la postura migliore è... la prossima.</p><p>Il corpo umano è fatto per muoversi. Il dolore non nasce da una schiena curva, ma dal mantenere la stessa posizione (anche quella "dritta") per troppo tempo. L'immobilità è il vero nemico, non la gobba.</p><p>Invece di sforzarti di stare dritto come un soldato, impara ad ascoltare quando il tuo corpo ti chiede di cambiare posizione.</p>`
-      },
-      5: {
-        category: 'Benessere',
-        title: 'Il respiro: il primo strumento di cura a tua disposizione.',
-        content: `<p>Semplice, gratuito, immediato. Eppure quasi nessuno respira bene. Spesso usiamo solo la parte alta del torace, mantenendo i muscoli del collo in tensione costante.</p><p>La respirazione diaframmatica non serve solo a rilassarsi: è un massaggio viscerale e un segnale biochimico che diciamo al nostro sistema nervoso che siamo al sicuro. Questo abbassa istantaneamente la soglia del dolore.</p><p>Dedico sempre una parte delle mie sedute al respiro, perché è l'unico strumento che il paziente può portarsi a casa e usare ovunque, in ogni momento.</p>`
-      },
-      6: {
-        category: 'Sport',
-        title: 'Sport e infortuni: quando fermarsi e quando continuare.',
-        content: `<p>Il binomio "ho dolore = devo stare fermo" è uno dei miti più difficili da sfatare. In realtà, il movimento guidato è spesso la cura migliore per un infortunio.</p><p>Il segreto sta nel trovare il "carico ottimale": quel livello di attività che non peggiora il sintomo ma permette al tessuto di rigenerarsi e rinforzarsi. Fermarsi completamente, spesso, indebolisce il corpo e allunga i tempi di recupero.</p><p>Il mio lavoro con gli sportivi è capire fin dove possiamo spingerci oggi per essere più forti domani, senza mai forzare i tempi biologici della guarigione.</p>`
       }
     };
 
