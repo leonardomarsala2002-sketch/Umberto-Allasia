@@ -119,7 +119,7 @@
 
     // --- SUPABASE & ADMIN LOGIC ---
     const SUPABASE_URL = 'https://yqevubcpaloxwjxvqchc.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxZXZ1YmNwYmttZHB4dmNocSIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzczNzM3MzA2LCJleHAiOjIwODkzMTMzMDZ9.26eD-teceo9UVlXUFycP9DCBO77ZmN92ljnTlWtt4jQ';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxZXZ1YmNwYWxveHdqeHZxY2hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MzczMDYsImV4cCI6MjA4OTMxMzMwNn0.26eD-teceo9UVlXUFycP9DCBO77ZmN92ljnTlWtt4jQ';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // Gestione Sessione
