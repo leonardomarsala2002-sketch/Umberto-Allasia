@@ -559,3 +559,78 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
 .booking-option-card {
   width: 100%;
 }
+
+/* ── MEDIA MOBILE ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Ponte Senza Spezzare Parole */
+  .ponte-inner {
+    max-width: 100%;
+    padding: 0 16px;
+  }
+  .ponte-title {
+    hyphens: none !important;
+    word-break: normal !important;
+    font-size: 1.35rem !important;
+    line-height: 1.3 !important;
+    text-align: center;
+    white-space: normal;
+  }
+  .ponte-sub {
+    hyphens: none !important;
+    font-size: 0.9rem !important;
+    opacity: 0.85;
+  }
+
+  /* Booking cards più larghe */
+  .section {
+    padding: 60px 16px; 
+  }
+  .booking-box {
+    padding: 40px 16px; 
+  }
+  .booking-option-card {
+    padding: 24px 16px;
+  }
+
+  /* News Modal Mobili */
+  .modal-inner {
+    max-width: 96% !important;
+    border-radius: 24px 24px 0 0;
+    padding: 0;
+  }
+  .modal-header-sticky {
+    padding: 40px 20px 15px !important;
+    text-align: center;
+  }
+  .close-modal {
+    top: 12px; 
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    background: var(--bg3);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--line);
+  }
+  .close-modal::before {
+    content: "← Torna indietro";
+  }
+  .close-modal span { display: none; } /* Nascondi la X se vogliamo solo il testo */
+
+  .modal-body {
+    padding: 0 16px 40px !important; /* Più largo su mobile */
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 100% !important;
+  }
+  .modal-pill { margin: 0 auto 12px !important; display: table !important; }
+}
