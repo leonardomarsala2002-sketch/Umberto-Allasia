@@ -15,8 +15,8 @@
       nav.style.padding = scrollTop > 40 ? '12px 48px' : '20px 48px';
       
       // Mappatura completa delle sezioni e dei loro colori
-      const sections = ['home', 'approccio', 'percorso', 'come-lavoro', 'storie', 'recensioni', 'prenota'];
-      const beige2 = ['percorso', 'storie']; // var(--bg2)
+      const sections = ['home', 'ponte', 'approccio', 'percorso', 'come-lavoro', 'storie', 'recensioni', 'prenota'];
+      const beige2 = ['ponte', 'percorso', 'storie']; // var(--bg2)
       const beige3 = ['recensioni']; // var(--bg3)
       let current = "home";
 
