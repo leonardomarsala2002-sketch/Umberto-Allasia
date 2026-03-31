@@ -535,19 +535,16 @@
 
     window.handleCallOption = function(e) {
       if (e) e.stopPropagation();
-      document.getElementById('main-book-btn').style.display = 'none';
-      document.getElementById('booking-collect').style.display = 'block';
+      document.getElementById('booking-collect').classList.add('active');
     };
 
     // Chiudi la card se si clicca fuori
     window.addEventListener('click', function(e) {
       const collect = document.getElementById('booking-collect');
-      const btn = document.getElementById('main-book-btn');
       const card = document.getElementById('option-call');
       
-      if (collect && collect.style.display === 'block' && !card.contains(e.target)) {
-        collect.style.display = 'none';
-        btn.style.display = 'block';
+      if (collect && collect.classList.contains('active') && !card.contains(e.target)) {
+        collect.classList.remove('active');
       }
     });
 

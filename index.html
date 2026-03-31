@@ -397,15 +397,16 @@
               <div class="option-icon">📞</div>
               <h4 id="dyn-opt-call-title">Chiamata Conoscitiva</h4>
               <p id="dyn-opt-call-text">15 minuti per conoscerci, inquadrare il problema e capire come posso aiutarti. Gratuita.</p>
-              <div id="booking-collect" style="margin-bottom: 20px; display: none; text-align: left; background: var(--bg2); padding: 15px; border-radius: 12px;">
-                <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; display: block;">Lascia la tua mail per i consigli sulla salute:</label>
-                <div style="display: flex; gap: 8px;">
-                  <input type="email" id="book-email" placeholder="tua@email.com" style="flex: 1; padding: 8px 12px; border-radius: 50px; border: 1px solid #ddd; outline: none; font-size: 0.9rem;">
-                  <button onclick="subscribeAndRedirect()" class="btn-submit" style="padding: 8px 15px; font-size: 0.8rem;">Continua</button>
+              <div id="booking-collect">
+                <div onclick="event.stopPropagation(); document.getElementById('booking-collect').classList.remove('active');" style="position:absolute; top:20px; right:20px; cursor:pointer; font-size:1.2rem; opacity:0.5;">✕</div>
+                <div class="fg" style="margin-bottom: 12px; text-align: left;">
+                  <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; display: block;">Tua Email</label>
+                  <input type="email" id="book-email" placeholder="esempio@mail.com" style="width: 100%; padding: 12px; border-radius: 50px; border: 1px solid var(--line); outline: none;">
                 </div>
+                <button onclick="subscribeAndRedirect()" class="btn-submit" style="width: 100%; border: none;">Prenota Chiamata</button>
                 <p style="font-size: 0.72rem; color: var(--text-light); margin-top: 10px; cursor: pointer; text-align: center; opacity: 0.8;" onclick="directRedirect()">O prosegui senza lasciare l'email →</p>
               </div>
-              <button id="main-book-btn" onclick="handleCallOption(event)" class="btn-submit" style="width: 100%; border: none;">Prenota Chiamata</button>
+              <button id="main-book-btn" onclick="handleCallOption(event)" class="btn-submit" style="width: 100%; border: none;">Scegli data e ora</button>
             </div>
 
             <!-- Opzione 2: Visita in Studio -->
