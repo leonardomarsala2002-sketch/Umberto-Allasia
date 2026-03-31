@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Articolo – Il Fisioterapista San Marino</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="style.css?v=2.4">
+  <style>
+    :root {
+      --article-max-width: 800px;
+    }
+
+    body {
+      background-color: var(--bg1);
+      padding-top: 100px; /* Spazio per la nav fissa */
+    }
+
+    .article-page {
+      max-width: var(--article-max-width);
+      margin: 0 auto;
+      padding: 40px 20px 100px;
+    }
+
+    .article-header {
+      margin-bottom: 50px;
+      text-align: left;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-mid);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 30px;
+      transition: color 0.3s ease;
+    }
+
+    .btn-back:hover {
+      color: var(--accent);
+    }
+
+    .article-pill {
+      display: inline-block;
+      background: var(--bg2);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .article-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .article-meta {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      font-style: italic;
+    }
+
+    .article-hero-img {
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 32px;
+      margin-bottom: 50px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    }
+
+    .article-body {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--text-dark);
+    }
+
+    .article-body p {
+      margin-bottom: 25px;
+    }
+    
+    .article-footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .cta-box {
+      background: var(--bg2);
+      padding: 50px;
+      border-radius: 32px;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .cta-box p {
+      color: var(--text-mid);
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 768px) {
+      body { padding-top: 80px; }
+      .article-page { padding-top: 20px; }
+      .article-title { font-size: 2rem; }
+      .cta-box { padding: 30px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV (Semplificata per l'articolo) -->
+  <nav style="background: rgba(254, 252, 249, 0.95); backdrop-filter: blur(10px);">
+    <a href="index.html" class="nav-logo" style="text-decoration: none; color: inherit;">Il <span>Fisioterapista</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#storie">Torna alle Storie</a></li>
+      <li><a href="https://calendar.app.google/roTDcAzyEayNB4Tg6" target="_blank" class="nav-cta">Prenota una chiamata</a></li>
+    </ul>
+  </nav>
+
+  <main class="article-page">
+    <div id="article-loading" style="text-align: center; padding: 100px 0;">
+       <p style="color: var(--text-mid);">Caricamento storia...</p>
+    </div>
+
+    <article id="article-container" style="display: none;">
+      <header class="article-header">
+        <a href="index.html#storie" class="btn-back">← Torna indietro</a>
+        <div>
+          <span class="article-pill" id="article-category">Categoria</span>
+          <h1 class="article-title" id="article-title">Caricamento Titolo...</h1>
+          <div class="article-meta">Di Umberto Allasia · San Marino</div>
+        </div>
+      </header>
+
+      <div id="article-image-wrap">
+        <img id="article-image" src="" alt="Immagine Articolo" class="article-hero-img" style="display: none;">
+      </div>
+
+      <div class="article-body" id="article-content">
+        <!-- Contenuto dinamico -->
+      </div>
+
+      <footer class="article-footer">
+        <div class="cta-box">
+          <h3>Hai dubbi o domande su questo tema?</h3>
+          <p>Ogni storia è diversa. Se senti che questo argomento ti tocca da vicino, possiamo parlarne insieme in una chiamata conoscitiva gratuita.</p>
+          <a href="https://calendar.app.google/roTDcAzyEayNB4Tg6" target="_blank" class="btn-warm">Prenota ora</a>
+        </div>
+      </footer>
+    </article>
+  </main>
+
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script>
+    // SMOOTH SCROLL
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smooth: true
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // --- CONFIGURAZIONE FALLBACK (Stessi testi di admin.js) ---
+    const fallbackArticles = {
+      1: {
+        category: 'Riflessione',
+        title: 'Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da lì.',
+        content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p>
+                  <p>Il dolore cronico è reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. È come un sistema d'allarme che continua a suonare anche dopo che l'incendio è stato spento da tempo.</p>
+                  <p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore e all'esercizio.</p>`
+      },
+      2: {
+        category: 'Domande frequenti',
+        title: 'Ha senso prendere appuntamento? Rispondo onestamente.',
+        content: `<p>Molte persone arrivano dopo aver aspettato a lungo.</p>
+                  <p>Spesso mi dicono di aver provato a gestire il problema da sole, oppure di aver rimandato, sperando che passasse.</p>
+                  <p>Durante la seduta, una parte importante del mio lavoro è spiegarti cosa sta succedendo. Dare un senso al sintomo, collegarlo alla tua storia, ai tuoi gesti quotidiani, a quello che stai vivendo.</p>
+                  <p>E questo, molto spesso, cambia già qualcosa. Riduce la preoccupazione, alleggerisce quella sensazione di incertezza, aiuta a capire che il problema può essere affrontato.</p>
+                  <p>Capita frequentemente che chi arriva mi dica: “forse avrei dovuto muovermi prima”, più per la frustrazione di non aver trovato soluzioni che per la gravità del dolore in sé.</p>
+                  <p>Non si tratta di arrivare prima o dopo. Si tratta di iniziare a capire.</p>`
+      },
+      3: {
+        category: 'Approccio',
+        title: 'Cosa succede davvero nel primo appuntamento',
+        content: `<p>La prima cosa che faremo è sederci e conoscerci.</p>
+                  <p>Fin da subito sarai parte attiva della seduta. Non mi interessa solo capire che dolore hai, ma soprattutto come quel dolore entra nella tua vita.</p>
+                  <p>Ti chiederò quando si presenta durante la giornata, in quali momenti è più intenso e quanto interferisce con ciò che fai ogni giorno: lavoro, studio, tempo libero.</p>
+                  <p>Voglio comprendere cosa ti limita davvero, cosa hai dovuto modificare o evitare a causa del sintomo.</p>
+                  <p>Allo stesso tempo, daremo spazio anche a un aspetto spesso trascurato: come ti fa sentire questo problema.</p>
+                  <p>Portarsi dietro un dolore non è solo una questione fisica, ma anche emotiva. Spesso è un percorso bidirezionale.</p>
+                  <p>Solo dopo passeremo alla valutazione fisica. Perché un dolore non nasce mai per caso: può essere legato a posture scorrette, a vecchi infortuni o a periodi di particolare stress.</p>
+                  <p>Il primo appuntamento serve a tracciare una mappa. Il percorso che faremo insieme è il viaggio.</p>`
+      }
+    };
+
+    // --- SUPABASE CONFIG ---
+    const SUPABASE_URL = 'https://yqevubcpaloxwjxvqchc.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxZXZ1YmNwYWxveHdqeHZxY2hjIiwicm9sZSI6ImFub24iLCJpYXQiOjExNzM3MzczMDYsImV4cCI6MjA4OTMxMzMwNn0.26eD-teceo9UVlXUFycP9DCBO77ZmN92ljnTlWtt4jQ'; // Usiamo una versione anonima, se disponibile
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    async function loadArticle() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+
+      if (!id) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      let articleData = null;
+
+      // 1. Tenta di caricare da Supabase
+      try {
+        const { data, error } = await supabaseClient
+          .from('articles')
+          .select('*')
+          .eq('id', id)
+          .single();
+
+        if (!error && data) {
+          articleData = data;
+        }
+      } catch (e) {
+        console.warn("Database fetch failed, using fallback.");
+      }
+
+      // 2. Se fallisce o non trova l'articolo nel DB, usa fallback
+      if (!articleData) {
+        articleData = fallbackArticles[id];
+      }
+
+      // 3. Se proprio non c'è, torna alla home
+      if (!articleData) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      // 4. Renderizza
+      renderPage(articleData);
+    }
+
+    function renderPage(art) {
+      document.getElementById('article-loading').style.display = 'none';
+      document.getElementById('article-container').style.display = 'block';
+      
+      document.getElementById('article-category').textContent = art.category;
+      document.getElementById('article-title').textContent = art.title;
+      document.title = art.title + " – Umberto Allasia";
+      
+      const img = document.getElementById('article-image');
+      if (art.image_url) {
+        img.src = art.image_url;
+        img.style.display = 'block';
+      }
+      
+      document.getElementById('article-content').innerHTML = art.content;
+      
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+
+    loadArticle();
+  </script>
+</body>
+</html>
