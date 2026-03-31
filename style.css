@@ -516,20 +516,13 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
   display: none;
 }
 
-@media (max-width: 900px) {
-  .booking-options {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .booking-option-card {
-    padding: 24px 16px;
-  }
-  .option-icon { font-size: 2rem; }
-  .booking-option-card h4 { font-size: 1rem; }
+.booking-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 32px;
 }
 
-@media (max-width: 580px) {
-  .booking-options {
-    grid-template-columns: 1fr;
-  }
+.booking-option-card {
+  width: 100%;
 }
