@@ -445,7 +445,7 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
   transition: transform 0.3s, box-shadow 0.3s;
   display: flex;
   flex-direction: column;
-  min-height: 400px; /* Altezza minima costante */
+  min-height: 320px; /* Altezza più compatta */
   justify-content: space-between; /* Spazia bene icona, testo e tasto */
   overflow: hidden;
 }
@@ -458,10 +458,10 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 24px;
+  padding: 20px; /* Padding leggermente ridotto */
   border-radius: 20px;
-  transform: translateY(105%); /* Spostato più giù per sparire del tutto */
-  visibility: hidden; /* Nascondi del tutto */
+  transform: translateY(105%); 
+  visibility: hidden; 
   transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.4s;
 }
 
