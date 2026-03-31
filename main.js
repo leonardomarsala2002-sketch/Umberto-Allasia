@@ -9,7 +9,31 @@
     }
 
     window.addEventListener('scroll', () => {
-      document.querySelector('nav').style.padding = scrollY > 40 ? '12px 48px' : '20px 48px';
+      const nav = document.querySelector('nav');
+      nav.style.padding = scrollY > 40 ? '12px 48px' : '20px 48px';
+      
+      // ScrollSpy logic
+      const sections = ['home', 'studio', 'approccio', 'percorso', 'storie', 'prenota'];
+      let current = "";
+
+      sections.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          // Un piccolo offset di 150px per attivare la sezione un po' prima dell'inizio fisico
+          if (pageYOffset >= (sectionTop - 150)) {
+            current = id;
+          }
+        }
+      });
+
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === `#${current}`) {
+          a.classList.add('active');
+        }
+      });
     });
 
     const cards = document.querySelectorAll('.hero-float-card, .hero-float-card2');

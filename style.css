@@ -35,16 +35,13 @@ nav {
   background: rgba(254,252,249,0.92); backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line); transition: padding 0.3s;
 }
-.nav-logo { font-family: var(--font-serif); font-size: 1.15rem; color: var(--text); cursor: pointer; transition: transform 0.3s; }
-.nav-logo:hover { transform: scale(1.02); }
+.nav-logo { font-family: var(--font-serif); font-size: 1.15rem; color: var(--text); }
 .nav-logo span { color: var(--accent); font-style: italic; }
 .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
-.nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text-mid); transition: color 0.3s; position: relative; padding: 4px 0; }
-.nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px; background: var(--accent); transition: width 0.3s ease; }
-.nav-links a:not(.nav-cta):hover { color: var(--accent); }
-.nav-links a:not(.nav-cta):hover::after { width: 100%; }
-.nav-cta { background: var(--accent) !important; color: #fff !important; padding: 10px 24px; border-radius: 50px; font-size: 0.85rem !important; font-weight: 600 !important; transition: all 0.3s !important; }
-.nav-cta:hover { background: var(--accent-soft) !important; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(176,125,85,0.25); }
+.nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text-mid); transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.nav-cta { background: var(--accent) !important; color: #fff !important; padding: 10px 24px; border-radius: 50px; font-size: 0.85rem !important; font-weight: 600 !important; transition: background 0.2s !important; }
+.nav-cta:hover { background: var(--accent-soft) !important; }
 .menu-toggle { display: none; background: transparent; border: none; cursor: pointer; padding: 4px; }
 .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--text); margin: 5px 0; transition: transform 0.3s, opacity 0.3s; border-radius: 2px; }
 .menu-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
