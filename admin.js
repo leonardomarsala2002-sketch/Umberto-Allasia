@@ -62,7 +62,7 @@
       const articleKeys = dbArticles.map(a => a.id); // Usa dbArticles per l'archivio
       articleKeys.forEach(id => {
         const art = dbArticles.find(a => a.id == id);
-        if (!art) return; // Aggiunto controllo per articoli non trovati
+        if (!art) return;
         const card = document.createElement('div');
         card.className = 'storia-card';
 
@@ -184,16 +184,17 @@
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (!error && data && data.length > 0) {
-        dbArticles = data;
-        renderArticles();
-        if (typeof renderAdminList === 'function') renderAdminList();
-        updateNewsCountsExternal();
-      } else {
-        dbArticles = Object.keys(articles).map(id => ({ id, ...articles[id] }));
-        renderArticles();
-        if (typeof renderAdminList === 'function') renderAdminList();
-      }
+      const dbEntries = (!error && data) ? data : [];
+      const fallbackEntries = Object.keys(articles).map(id => ({ id, ...articles[id] }));
+      
+      const dbTitles = dbEntries.map(a => a.title);
+      const filteredFallbacks = fallbackEntries.filter(f => !dbTitles.includes(f.title));
+      
+      dbArticles = [...dbEntries, ...filteredFallbacks];
+      
+      renderArticles();
+      if (typeof renderAdminList === 'function') renderAdminList();
+      updateNewsCountsExternal();
     }
 
     async function fetchSettings() {
@@ -348,15 +349,16 @@
 
     function renderAdminList() {
       const list = document.getElementById('admin-article-list');
-      list.innerHTML = '<h3>Articoli Esistenti</h3>';
+      list.innerHTML = '<h3>Articoli Esistenti (Database + Backup)</h3>';
       dbArticles.forEach(art => {
+        const isFallback = typeof art.id === 'string' || art.id < 100; // Esempio logico per backup
         const item = document.createElement('div');
         item.className = 'admin-list-item';
         item.innerHTML = `
-        <span>${art.title}</span>
+        <span>${art.title} ${isFallback ? '<small style="opacity:0.5; margin-left:10px;">(Backup)</small>' : ''}</span>
         <div>
           <span class="admin-btn-edit" onclick="editArticle(${art.id})">Modifica</span>
-          <span class="admin-btn-delete" onclick="deleteArticle(${art.id})">Elimina</span>
+          ${!isFallback ? `<span class="admin-btn-delete" onclick="deleteArticle(${art.id})">Elimina</span>` : ''}
         </div>
       `;
         list.appendChild(item);
@@ -405,7 +407,7 @@
         image_url: document.getElementById('edit-image').value
       };
 
-      if (id) {
+      if (id && !isNaN(id)) {
         const { error } = await supabaseClient.from('articles').update(articleData).eq('id', id);
         if (error) alert("Errore nel salvataggio");
       } else {
@@ -421,8 +423,10 @@
       if (confirm("Sei sicuro di voler eliminare questo articolo?")) {
         const { error } = await supabaseClient.from('articles').delete().eq('id', id);
         if (error) alert("Errore");
-        else alert("Fatto!");
-        fetchArticles();
+        else {
+          alert("Fatto!");
+          fetchArticles();
+        }
       }
     };
 
