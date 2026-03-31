@@ -2,33 +2,33 @@
     const articles = {
       1: {
         category: 'Riflessione',
-        title: 'Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da lì.',
-        content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p><p>Il dolore cronico è reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. È come un sistema d'allarme che continua a suonare anche dopo che l'incendio è stato spento da tempo.</p><p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore.</p>`
+        title: 'PerchÃ© il dolore cronico non Ã¨ "tutto nella testa" â€” ma a volte ci passa anche da lÃ¬.',
+        content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p><p>Il dolore cronico Ã¨ reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. Ãˆ come un sistema d'allarme che continua a suonare anche dopo che l'incendio Ã¨ stato spento da tempo.</p><p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore.</p>`
       },
       2: {
         category: 'Domande frequenti',
         title: 'Ha senso prendere appuntamento? Rispondo onestamente.',
-        content: `<p>Spesso le persone aspettano che il dolore diventi insopportabile prima di chiamare. O peggio, temono che il loro problema sia "troppo piccolo" per disturbare.</p><p>La verità è che la prevenzione non è solo una parola di moda: è efficienza. Risolvere una tensione muscolare iniziale richiede una frazione del tempo necessario per trattare una lombalgia acuta che ti blocca a letto.</p><p>Se senti che qualcosa non va, anche se è solo un fastidio ciclico, parliamone. A volte bastano due consigli e una seduta per evitare settimane di stop forzato.</p>`
+        content: `<p>Spesso le persone aspettano che il dolore diventi insopportabile prima di chiamare. O peggio, temono che il loro problema sia "troppo piccolo" per disturbare.</p><p>La veritÃ  Ã¨ che la prevenzione non Ã¨ solo una parola di moda: Ã¨ efficienza. Risolvere una tensione muscolare iniziale richiede una frazione del tempo necessario per trattare una lombalgia acuta che ti blocca a letto.</p><p>Se senti che qualcosa non va, anche se Ã¨ solo un fastidio ciclico, parliamone. A volte bastano due consigli e una seduta per evitare settimane di stop forzato.</p>`
       },
       3: {
         category: 'Approccio',
         title: 'Cosa succede davvero nel primo appuntamento.',
-        content: `<p>Dimentica il lettino nei primi dieci minuti. La prima cosa che faremo è sederci e parlare. Voglio sapere come dormi, cosa mangi, quanto stress hai al lavoro e cosa ti impedisce di fare il tuo dolore.</p><p>Solo dopo passeremo alla valutazione fisica. Questo perché un dolore alla spalla può nascere da una postura scorretta in ufficio, ma può anche essere alimentato da un periodo di forte tensione emotiva o da un vecchio infortunio mai curato bene.</p><p>Il primo appuntamento serve a tracciare la mappa. Il trattamento è il viaggio.</p>`
+        content: `<p>Dimentica il lettino nei primi dieci minuti. La prima cosa che faremo Ã¨ sederci e parlare. Voglio sapere come dormi, cosa mangi, quanto stress hai al lavoro e cosa ti impedisce di fare il tuo dolore.</p><p>Solo dopo passeremo alla valutazione fisica. Questo perchÃ© un dolore alla spalla puÃ² nascere da una postura scorretta in ufficio, ma puÃ² anche essere alimentato da un periodo di forte tensione emotiva o da un vecchio infortunio mai curato bene.</p><p>Il primo appuntamento serve a tracciare la mappa. Il trattamento Ã¨ il viaggio.</p>`
       },
       4: {
         category: 'Postura',
         title: 'La postura perfetta non esiste. Ecco cosa conta davvero.',
-        content: `<p>Siamo cresciuti con l'idea che esista una "posizione giusta" per stare seduti o in piedi. La ricerca scientifica moderna ci dice invece che la postura migliore è... la prossima.</p><p>Il corpo umano è fatto per muoversi. Il dolore non nasce da una schiena curva, ma dal mantenere la stessa posizione (anche quella "dritta") per troppo tempo. L'immobilità è il vero nemico, non la gobba.</p><p>Invece di sforzarti di stare dritto come un soldato, impara ad ascoltare quando il tuo corpo ti chiede di cambiare posizione.</p>`
+        content: `<p>Siamo cresciuti con l'idea che esista una "posizione giusta" per stare seduti o in piedi. La ricerca scientifica moderna ci dice invece che la postura migliore Ã¨... la prossima.</p><p>Il corpo umano Ã¨ fatto per muoversi. Il dolore non nasce da una schiena curva, ma dal mantenere la stessa posizione (anche quella "dritta") per troppo tempo. L'immobilitÃ  Ã¨ il vero nemico, non la gobba.</p><p>Invece di sforzarti di stare dritto come un soldato, impara ad ascoltare quando il tuo corpo ti chiede di cambiare posizione.</p>`
       },
       5: {
         category: 'Benessere',
         title: 'Il respiro: il primo strumento di cura a tua disposizione.',
-        content: `<p>Semplice, gratuito, immediato. Eppure quasi nessuno respira bene. Spesso usiamo solo la parte alta del torace, mantenendo i muscoli del collo in tensione costante.</p><p>La respirazione diaframmatica non serve solo a rilassarsi: è un massaggio viscerale e un segnale biochimico che diciamo al nostro sistema nervoso che siamo al sicuro. Questo abbassa istantaneamente la soglia del dolore.</p><p>Dedico sempre una parte delle mie sedute al respiro, perché è l'unico strumento che il paziente può portarsi a casa e usare ovunque, in ogni momento.</p>`
+        content: `<p>Semplice, gratuito, immediato. Eppure quasi nessuno respira bene. Spesso usiamo solo la parte alta del torace, mantenendo i muscoli del collo in tensione costante.</p><p>La respirazione diaframmatica non serve solo a rilassarsi: Ã¨ un massaggio viscerale e un segnale biochimico che diciamo al nostro sistema nervoso che siamo al sicuro. Questo abbassa istantaneamente la soglia del dolore.</p><p>Dedico sempre una parte delle mie sedute al respiro, perchÃ© Ã¨ l'unico strumento che il paziente puÃ² portarsi a casa e usare ovunque, in ogni momento.</p>`
       },
       6: {
         category: 'Sport',
         title: 'Sport e infortuni: quando fermarsi e quando continuare.',
-        content: `<p>Il binomio "ho dolore = devo stare fermo" è uno dei miti più difficili da sfatare. In realtà, il movimento guidato è spesso la cura migliore per un infortunio.</p><p>Il segreto sta nel trovare il "carico ottimale": quel livello di attività che non peggiora il sintomo ma permette al tessuto di rigenerarsi e rinforzarsi. Fermarsi completamente, spesso, indebolisce il corpo e allunga i tempi di recupero.</p><p>Il mio lavoro con gli sportivi è capire fin dove possiamo spingerci oggi per essere più forti domani, senza mai forzare i tempi biologici della guarigione.</p>`
+        content: `<p>Il binomio "ho dolore = devo stare fermo" Ã¨ uno dei miti piÃ¹ difficili da sfatare. In realtÃ , il movimento guidato Ã¨ spesso la cura migliore per un infortunio.</p><p>Il segreto sta nel trovare il "carico ottimale": quel livello di attivitÃ  che non peggiora il sintomo ma permette al tessuto di rigenerarsi e rinforzarsi. Fermarsi completamente, spesso, indebolisce il corpo e allunga i tempi di recupero.</p><p>Il mio lavoro con gli sportivi Ã¨ capire fin dove possiamo spingerci oggi per essere piÃ¹ forti domani, senza mai forzare i tempi biologici della guarigione.</p>`
       }
     };
 
@@ -78,7 +78,7 @@
         <div class="storia-body" style="padding:20px;">
           <span class="storia-pill">${art.category}</span>
           <div class="storia-title" style="font-size:1rem;">${art.title}</div>
-          <div class="btn-ghost" style="margin-top:10px; font-size:0.8rem;">Leggi di più ?</div>
+          <div class="btn-ghost" style="margin-top:10px; font-size:0.8rem;">Leggi di piÃ¹ ?</div>
         </div>
       `;
         card.onclick = () => { openArticleDB(id); };
@@ -119,25 +119,59 @@
 
     // --- SUPABASE & ADMIN LOGIC ---
     const SUPABASE_URL = 'https://yqevubcpaloxwjxvqchc.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxZXZ1YmNwYWxveHdqeHZxY2hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MzczMDYsImV4cCI6MjA4OTMxMzMwNn0.26eD-teceo9UVlXUFycP9DCBO77ZmN92ljnTlWtt4jQ';
-    const supabaseAdmin = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxZXZ1YmNwYmttZHB4dmNocSIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzczNzM3MzA2LCJleHAiOjIwODkzMTMzMDZ9.26eD-teceo9UVlXUFycP9DCBO77ZmN92ljnTlWtt4jQ';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // Gestione Sessione
+    async function checkSession() {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session) {
+        fetchAllData();
+      }
+    }
+    checkSession();
+
+    // --- ADMIN ACCESS TRIGGER ---
+    let clicks = 0;
+    window.adminLoginTrigger = async function () {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session) {
+        openAdminPanel();
+      } else {
+        document.getElementById('login-modal').classList.add('active');
+        lockScroll();
+      }
+    };
+
+    window.closeLoginModal = function () {
+      document.getElementById('login-modal').classList.remove('active');
+      unlockScroll();
+    };
+
+    window.handleLogin = async function () {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const errorMsg = document.getElementById('login-error');
+
+      errorMsg.style.display = 'none';
+
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        errorMsg.textContent = "Accesso negato. Controlla le credenziali.";
+        errorMsg.style.display = 'block';
+      } else {
+        closeLoginModal();
+        openAdminPanel();
+        fetchAllData();
+      }
+    };
 
     let dbArticles = [];
     let dbSettings = {};
-    let clicks = 0;
-
-    window.adminLoginTrigger = function () {
-      clicks++;
-      if (clicks >= 5) {
-        clicks = 0;
-        const pass = prompt("Inserisci la password amministratore:");
-        if (pass === "UmbertoAllasia.") { // Password corretta
-          openAdminPanel();
-        } else if (pass !== null) {
-          alert("Password errata.");
-        }
-      }
-    };
 
     async function fetchAllData() {
       await fetchArticles();
@@ -145,7 +179,7 @@
     }
 
     async function fetchArticles() {
-      const { data, error } = await supabaseAdmin
+      const { data, error } = await supabaseClient
         .from('articles')
         .select('*')
         .order('created_at', { ascending: false });
@@ -161,7 +195,9 @@
     }
 
     async function fetchSettings() {
-      const { data, error } = await supabaseAdmin.from('site_settings').select('*');
+      const { data, error } = await supabaseClient
+        .from('site_settings')
+        .select('*');
       if (!error && data) {
         data.forEach(s => {
           dbSettings[s.key] = s.value;
@@ -215,7 +251,7 @@
       });
 
       for (const u of updates) {
-        const { error } = await supabaseAdmin.from('site_settings').upsert(u);
+        const { error } = await supabaseClient.from('site_settings').upsert(u);
         if (error) { alert("Errore durante il salvataggio di: " + u.key); return; }
       }
 
@@ -255,7 +291,7 @@
             <span class="storia-pill">${art.category}</span>
             <div class="storia-title">${art.title}</div>
             <p class="storia-excerpt">${art.excerpt || (art.content.replace(/<[^>]*>/g, '').substring(0, 100) + '...')}</p>
-            <div class="btn-ghost" style="margin-top:15px;">Leggi di più ?</div>
+            <div class="btn-ghost" style="margin-top:15px;">Leggi di piÃ¹ ?</div>
           </div>
         `;
           container.appendChild(card);
@@ -368,10 +404,10 @@
       };
 
       if (id) {
-        const { error } = await supabaseAdmin.from('articles').update(articleData).eq('id', id);
+        const { error } = await supabaseClient.from('articles').update(articleData).eq('id', id);
         if (error) alert("Errore nel salvataggio");
       } else {
-        const { error } = await supabaseAdmin.from('articles').insert([articleData]);
+        const { error } = await supabaseClient.from('articles').insert([articleData]);
         if (error) alert("Errore nell'inserimento");
       }
 
@@ -381,7 +417,7 @@
 
     window.deleteArticle = async function (id) {
       if (confirm("Sei sicuro di voler eliminare questo articolo?")) {
-        const { error } = await supabaseAdmin.from('articles').delete().eq('id', id);
+        const { error } = await supabaseClient.from('articles').delete().eq('id', id);
         if (error) alert("Errore nell'eliminazione");
         fetchArticles();
       }
@@ -391,36 +427,19 @@
     const CALENDAR_URL = "https://calendar.app.google/roTDcAzyEayNB4Tg6";
 
     async function sendWelcomeEmail(targetEmail) {
-      const apiKey = dbSettings.brevo_api_key;
-      if (!apiKey) {
-        console.warn("API Key Brevo mancante nelle impostazioni.");
-        return;
-      }
-
-      // PRIMA: Sincronizza il contatto con Brevo CRM
+      // Sincronizza il contatto con Brevo CRM (via Edge Function)
       try {
-        await fetch('https://api.brevo.com/v3/contacts', {
-          method: 'POST',
-          headers: { 'accept': 'application/json', 'api-key': apiKey, 'content-type': 'application/json' },
-          body: JSON.stringify({ email: targetEmail, updateEnabled: true })
+        await supabaseClient.functions.invoke('send-email', {
+          body: { action: 'subscribe', email: targetEmail }
         });
       } catch(e) { console.error("Brevo sync error", e); }
 
-      // DOPO: Invia la mail di benvenuto
+      // Invia la mail di benvenuto (via Edge Function)
       try {
-        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-          method: 'POST',
-          headers: {
-            'accept': 'application/json',
-            'api-key': apiKey,
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify({
-            sender: { 
-              name: dbSettings.email_sender_name || "Umberto Allasia", 
-              email: dbSettings.email_sender_address || "leonardo.marsala2002@gmail.com" 
-            },
-            to: [{ email: targetEmail }],
+        await supabaseClient.functions.invoke('send-email', {
+          body: {
+            action: 'send',
+            to: [targetEmail],
             subject: "Benvenuto! Grazie per esserti iscritto",
             htmlContent: `
               <div style="background-color: #FEFCF9; padding: 40px 20px; font-family: 'Helvetica', Arial, sans-serif;">
@@ -438,17 +457,13 @@
                     </div>
                   </div>
                   <div style="background: #2C2420; padding: 20px; text-align: center;">
-                    <p style="font-size: 12px; color: #EDE4D8; margin: 0; opacity: 0.8;">San Marino — Str. Ca' Vagnetto, 3</p>
+                    <p style="font-size: 12px; color: #EDE4D8; margin: 0; opacity: 0.8;">San Marino â€” Str. Ca' Vagnetto, 3</p>
                   </div>
                 </div>
               </div>
             `
-          })
+          }
         });
-        if (!response.ok) {
-            const err = await response.json();
-            console.error("Brevo API error:", err);
-        }
       } catch (e) {
         console.error("Welcome email error:", e);
       }
@@ -475,7 +490,7 @@
       const container = document.getElementById('admin-subscribers-list');
       container.innerHTML = '<p style="font-size:0.9rem; opacity:0.5;">Caricamento rubrica...</p>';
       
-      const { data, error } = await supabaseAdmin.from('subscribers').select('*').order('created_at', { ascending: false });
+      const { data, error } = await supabaseClient.from('subscribers').select('*').order('created_at', { ascending: false });
       
       if (error || !data) {
         container.innerHTML = '<p>Errore nel caricamento.</p>';
@@ -516,7 +531,7 @@
 
     window.deleteSubscriber = async function(email) {
       if (!confirm(`Vuoi rimuovere ${email} dalla lista?`)) return;
-      const { error } = await supabaseAdmin.from('subscribers').delete().eq('email', email);
+      const { error } = await supabaseClient.from('subscribers').delete().eq('email', email);
       if (!error) {
         alert("Paziente rimosso con successo.");
         renderSubscribersList();
@@ -538,7 +553,7 @@
     window.subscribeAndRedirect = async function() {
       const email = document.getElementById('book-email').value;
       if (email && email.includes('@')) {
-        const { error } = await supabaseAdmin.from('subscribers').upsert({ email: email });
+        const { error } = await supabaseClient.from('subscribers').upsert({ email: email });
         if (!error) {
           console.log("Subscribed:", email);
           sendWelcomeEmail(email); // Invia email di benvenuto
@@ -553,7 +568,7 @@
       const email = el.value.trim();
       if (!email || !email.includes('@')) return;
 
-      const { error } = await supabaseAdmin.from('subscribers').upsert({ email: email });
+      const { error } = await supabaseClient.from('subscribers').upsert({ email: email });
       if (!error) {
         msg.textContent = "Grazie! Iscrizione riuscita.";
         msg.style.opacity = "1";
@@ -561,7 +576,7 @@
         sendWelcomeEmail(email); // Invia email di benvenuto
         setTimeout(() => { msg.style.opacity = "0"; }, 3000);
       } else {
-        msg.textContent = "Errore o già iscritto.";
+        msg.textContent = "Errore o giÃ  iscritto.";
         msg.style.opacity = "1";
       }
     };
@@ -572,21 +587,21 @@
       const email = el.value.trim();
       if (!email || !email.includes('@')) return;
 
-      const { error } = await supabaseAdmin.from('subscribers').upsert({ email: email });
+      const { error } = await supabaseClient.from('subscribers').upsert({ email: email });
       if (!error) {
         msg.textContent = "Iscrizione avvenuta con successo! Benvenuto.";
         el.value = "";
         sendWelcomeEmail(email);
         setTimeout(() => { msg.textContent = ""; }, 4000);
       } else {
-        msg.textContent = "Sei già iscritto o c'è un errore.";
+        msg.textContent = "Sei giÃ  iscritto o c'Ã¨ un errore.";
       }
     };
 
     window.scrollToNewsletter = function() {
       const footer = document.querySelector('footer');
       if (footer) {
-        // Se Lenis è attivo, lo usiamo per uno scroll perfetto
+        // Se Lenis Ã¨ attivo, lo usiamo per uno scroll perfetto
         if (typeof lenis !== 'undefined') {
           lenis.scrollTo(footer, {
             offset: -100,
@@ -594,7 +609,7 @@
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
           });
         } else {
-          // Fallback se Lenis non è caricato
+          // Fallback se Lenis non Ã¨ caricato
           footer.scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -613,10 +628,9 @@
     window.sendNewsletterToAll = async function() {
       const title = document.getElementById('edit-title').value;
       const excerpt = document.getElementById('edit-excerpt').value;
-      const id = document.getElementById('edit-id').value;
       
       // Recupera iscritti dal DB
-      const { data: subs, error } = await supabaseAdmin.from('subscribers').select('email');
+      const { data: subs, error } = await supabaseClient.from('subscribers').select('email');
       if (error || !subs || subs.length === 0) {
         alert("Nessun iscritto trovato a cui inviare l'email.");
         return;
@@ -624,30 +638,14 @@
 
       if (!confirm(`Vuoi inviare una notifica email a ${subs.length} pazienti?`)) return;
 
-      // Recupera API KEY da site_settings o variabile (da inserire)
-      const apiKey = dbSettings.brevo_api_key;
-      if (!apiKey) {
-        alert("Configura prima l'API KEY di Brevo nelle impostazioni (o forniscila nell'admin).");
-        return;
-      }
-
       const emails = subs.map(s => s.email);
       
-      // Logica di invio tramite fetch a Brevo
+      // Invia newsletter (via Edge Function)
       try {
-        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-          method: 'POST',
-          headers: {
-            'accept': 'application/json',
-            'api-key': apiKey,
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify({
-            sender: { 
-              name: dbSettings.email_sender_name || "Umberto Allasia", 
-              email: dbSettings.email_sender_address || "leonardo.marsala2002@gmail.com" 
-            },
-            to: emails.map(e => ({ email: e })),
+        const { data, error: funcError } = await supabaseClient.functions.invoke('send-email', {
+          body: {
+            action: 'send',
+            to: emails,
             subject: "Nuova storia pubblicata: " + title,
             htmlContent: `
               <div style="background-color: #FEFCF9; padding: 40px 20px; font-family: 'Helvetica', Arial, sans-serif;">
@@ -665,24 +663,25 @@
                     </div>
                   </div>
                   <div style="background: #FBF7F2; padding: 20px; text-align: center; border-top: 1px solid #E2D8CC;">
-                    <p style="font-size: 11px; color: #A8998F; margin: 0;">Ricevi questa comunicazione perché sei iscritto alla newsletter di ilfisioterapista.sm</p>
+                    <p style="font-size: 11px; color: #A8998F; margin: 0;">Ricevi questa comunicazione perchÃ© sei iscritto alla newsletter di ilfisioterapista.sm</p>
                   </div>
                 </div>
               </div>
             `
-          })
+          }
         });
 
-        if (response.ok) {
+        if (!funcError) {
           alert("Email inviate con successo a tutti i pazienti!");
         } else {
-          alert("Errore nell'invio delle email tramite Brevo. Controlla la tua API Key.");
+          alert("Errore nell'invio delle email tramite la funzione Supabase.");
+          console.error(funcError);
         }
       } catch (e) {
         alert("Errore tecnico durante l'invio.");
+        console.error(e);
       }
     };
 
     // Carica tutto all'avvio
     fetchAllData();
-
