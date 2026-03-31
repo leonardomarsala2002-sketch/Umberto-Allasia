@@ -271,15 +271,17 @@
       document.getElementById('article-title').textContent = art.title;
       document.title = art.title + " – Umberto Allasia";
       
-      const img = document.getElementById('article-image');
+      const imgWrap = document.getElementById('article-image-wrap');
       if (art.image_url) {
-        img.src = art.image_url;
-        img.style.display = 'block';
+        imgWrap.innerHTML = `<img id="article-image" src="${art.image_url}" alt="${art.title}" class="article-hero-img">`;
+      } else {
+        imgWrap.innerHTML = `
+          <div class="ph" style="height:400px; border-radius:32px; display:flex; align-items:center; justify-content:center; background:var(--bg2); margin-bottom:50px;">
+            <span style="font-family:var(--font-serif); font-style:italic; opacity:0.3; color:var(--text-mid);">[ Immagine Articolo ]</span>
+          </div>`;
       }
       
       document.getElementById('article-content').innerHTML = art.content;
-      
-      // Scroll to top
       window.scrollTo(0, 0);
     }
 
