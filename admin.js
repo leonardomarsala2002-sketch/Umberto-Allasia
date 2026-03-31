@@ -420,7 +420,8 @@
     window.deleteArticle = async function (id) {
       if (confirm("Sei sicuro di voler eliminare questo articolo?")) {
         const { error } = await supabaseClient.from('articles').delete().eq('id', id);
-        if (error) alert("Errore nell'eliminazione");
+        if (error) alert("Errore");
+        else alert("Fatto!");
         fetchArticles();
       }
     };
