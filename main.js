@@ -10,10 +10,13 @@
 
     window.addEventListener('scroll', () => {
       const nav = document.querySelector('nav');
-      nav.style.padding = scrollY > 40 ? '12px 48px' : '20px 48px';
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       
-      // ScrollSpy logic
+      nav.style.padding = scrollTop > 40 ? '12px 48px' : '20px 48px';
+      
+      // Definiamo i tipi di sezione per il colore header
       const sections = ['home', 'approccio', 'percorso', 'come-lavoro', 'storie', 'prenota'];
+      const beigeSections = ['percorso', 'storie']; // Sezioni con var(--bg2) o var(--bg3)
       let current = "";
 
       sections.forEach(id => {
@@ -21,12 +24,23 @@
         if (section) {
           const sectionTop = section.offsetTop;
           const sectionHeight = section.clientHeight;
-          // Un piccolo offset di 150px per attivare la sezione un po' prima dell'inizio fisico
-          if (pageYOffset >= (sectionTop - 150)) {
+          // Attiva la sezione quando l'header ci entra (offset 80px circa)
+          if (scrollTop >= (sectionTop - 80)) {
             current = id;
           }
         }
       });
+
+      // Gestione colore Nav in base alla sezione
+      nav.classList.remove('nav-bg-white', 'nav-bg-beige', 'nav-bg-dark');
+      if (beigeSections.includes(current)) {
+        nav.classList.add('nav-bg-beige');
+      } else if (scrollTop + window.innerHeight >= document.body.offsetHeight - 50) {
+        // Se siamo quasi a fine pagina (Footer)
+        nav.classList.add('nav-bg-dark');
+      } else {
+        nav.classList.add('nav-bg-white');
+      }
 
       document.querySelectorAll('.nav-links a').forEach(a => {
         a.classList.remove('active');

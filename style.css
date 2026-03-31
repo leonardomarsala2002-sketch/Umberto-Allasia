@@ -32,13 +32,22 @@ img { display: block; width: 100%; object-fit: cover; }
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   padding: 20px 48px; display: flex; align-items: center; justify-content: space-between;
-  background: rgba(254,252,249,0.92); backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--line); transition: padding 0.3s;
+  background: transparent; /* Diventerà dinamico tramite classi */
+  border-bottom: 1px solid transparent; 
+  transition: padding 0.3s, background 0.4s, border-color 0.4s, color 0.4s;
 }
-.nav-logo { font-family: var(--font-serif); font-size: 1.15rem; color: var(--text); }
+
+/* Classi di sfondo nav per mimetismo sezioni */
+nav.nav-bg-white { background: var(--bg); border-color: rgba(0,0,0,0.03); }
+nav.nav-bg-beige { background: var(--bg2); border-color: rgba(0,0,0,0.03); }
+nav.nav-bg-dark { background: var(--text); color: #fff; border-color: transparent; }
+
+nav.nav-bg-dark .nav-logo { color: #fff; }
+nav.nav-bg-dark .nav-links a { color: rgba(255,255,255,0.6); }
+.nav-logo { font-family: var(--font-serif); font-size: 1.15rem; color: var(--text); transition: color 0.4s; }
 .nav-logo span { color: var(--accent); font-style: italic; }
 .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
-.nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text-mid); transition: color 0.2s; }
+.nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text-mid); transition: color 0.3s; }
 .nav-links a:hover, .nav-links a.active { color: var(--accent); }
 .nav-cta { background: var(--accent) !important; color: #fff !important; padding: 10px 24px; border-radius: 50px; font-size: 0.85rem !important; font-weight: 600 !important; transition: background 0.2s !important; }
 .nav-cta:hover { background: var(--accent-soft) !important; }
