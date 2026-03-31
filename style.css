@@ -563,9 +563,15 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
 /* ── MEDIA MOBILE ────────────────────────────────────────── */
 @media (max-width: 768px) {
   /* Ponte Senza Spezzare Parole */
-  .ponte-title {
+  *, *::before, *::after {
     hyphens: none !important;
     -webkit-hyphens: none !important;
+    -ms-hyphens: none !important;
     word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+  .ponte-title {
+    text-align: center;
+    font-size: 1.25rem !important;
   }
 }

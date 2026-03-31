@@ -66,7 +66,7 @@
           <div class="btn-ghost" style="margin-top:10px; font-size:0.8rem;">Leggi di più ?</div>
         </div>
       `;
-        card.onclick = () => { window.location.href = `articolo.html?id=${id}`; };
+        card.onclick = () => { openArticleDB(id); };
         archiveList.appendChild(card);
       });
       archiveModal.classList.add('active');
@@ -188,9 +188,14 @@
         .select('*');
       if (!error && data) {
         data.forEach(s => {
-          dbSettings[s.key] = s.value;
+          let val = s.value;
+          // Forza l'aggiornamento della frase ponte se è quella vecchia
+          if (s.key === 'bridge_quote' && val.includes('Esiste dentro una vita')) {
+            val = '"Un sintomo non vive mai da solo. Abita la tua storia, fatta di fatiche, abitudini e momenti difficili."';
+          }
+          dbSettings[s.key] = val;
           const el = document.getElementById('dyn-' + s.key.replace(/_/g, '-'));
-          if (el) el.innerHTML = s.value;
+          if (el) el.innerHTML = val;
         });
       }
     }
@@ -261,7 +266,7 @@
         dbArticles.slice(0, 3).forEach(art => {
           const card = document.createElement('div');
           card.className = 'storia-card fade-up vis';
-          card.onclick = () => { window.location.href = `articolo.html?id=${art.id}`; };
+          card.onclick = () => { openArticleDB(art.id); };
 
           let imageHtml = `
           <div class="ph" style="height:200px;">
