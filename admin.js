@@ -187,10 +187,12 @@
       if (!error && data && data.length > 0) {
         dbArticles = data;
         renderArticles();
+        if (typeof renderAdminList === 'function') renderAdminList();
         updateNewsCountsExternal();
       } else {
         dbArticles = Object.keys(articles).map(id => ({ id, ...articles[id] }));
         renderArticles();
+        if (typeof renderAdminList === 'function') renderAdminList();
       }
     }
 

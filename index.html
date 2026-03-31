@@ -451,7 +451,7 @@
       </div>
 
       <!-- TABS NAVIGATION -->
-      <div style="display: flex; gap: 20px; border-bottom: 1px solid var(--line); margin-bottom: 30px; padding-bottom: 10px;">
+      <div style="display: flex; gap: 30px; border-bottom: 1px solid var(--line); margin-bottom: 40px; padding: 0 40px 10px;">
         <div id="tab-news" onclick="showAdminTab('news')" style="cursor:pointer; font-weight:600; font-size:0.9rem; color:var(--accent);">Articoli & News</div>
         <div id="tab-pazienti" onclick="showAdminTab('pazienti')" style="cursor:pointer; font-weight:600; font-size:0.9rem; color:var(--text-mid); opacity:0.6;">Pazienti / Iscritti</div>
       </div>
@@ -464,15 +464,19 @@
             <p style="font-size: 0.9rem; color: var(--text-mid); margin-bottom: 20px;">Attiva questa modalità per cliccare sulle scritte e modificarle direttamente.</p>
             <button class="btn-admin-visual" onclick="enterVisualEditMode()" style="width: auto; padding: 12px 40px;">🎨 Attiva Modifica Visiva</button>
           </div>
-          <h3 style="margin-bottom: 20px; font-family: var(--font-serif);">Gestione Articoli</h3>
-          <button class="btn-admin-save" style="margin-bottom:24px;" onclick="addNewArticle()">+ Aggiungi Nuova News</button>
+          <div style="padding: 0 40px;">
+            <h3 style="margin-bottom: 20px; font-family: var(--font-serif);">Gestione Articoli</h3>
+            <button class="btn-admin-save" style="margin-bottom:24px;" onclick="addNewArticle()">+ Aggiungi Nuova News</button>
+          </div>
           <div id="admin-article-list"></div>
         </div>
 
         <!-- SEZIONE CRM PAZIENTI -->
         <div id="view-pazienti" style="display:none;">
-          <h3 style="margin-bottom: 10px; font-family: var(--font-serif);">Rubrica Pazienti</h3>
-          <p style="font-size: 0.85rem; color: var(--text-mid); margin-bottom: 24px;">Questi contatti sono sincronizzati automaticamente con il tuo CRM Brevo.</p>
+          <div style="padding: 0 40px;">
+            <h3 style="margin-bottom: 10px; font-family: var(--font-serif);">Rubrica Pazienti</h3>
+            <p style="font-size: 0.85rem; color: var(--text-mid); margin-bottom: 24px;">Questi contatti sono sincronizzati automaticamente con il tuo CRM Brevo.</p>
+          </div>
           <div id="admin-subscribers-list">
             <!-- Popolato da JS -->
           </div>
