@@ -533,10 +533,23 @@
       }
     };
 
-    window.handleCallOption = function() {
+    window.handleCallOption = function(e) {
+      if (e) e.stopPropagation();
       document.getElementById('main-book-btn').style.display = 'none';
       document.getElementById('booking-collect').style.display = 'block';
     };
+
+    // Chiudi la card se si clicca fuori
+    window.addEventListener('click', function(e) {
+      const collect = document.getElementById('booking-collect');
+      const btn = document.getElementById('main-book-btn');
+      const card = document.getElementById('option-call');
+      
+      if (collect && collect.style.display === 'block' && !card.contains(e.target)) {
+        collect.style.display = 'none';
+        btn.style.display = 'block';
+      }
+    });
 
     window.directRedirect = function() {
       localStorage.setItem('has_contacted', 'true');
@@ -565,11 +578,14 @@
         const { error } = await supabaseClient.from('subscribers').upsert({ email: email });
         if (!error) {
           console.log("Subscribed:", email);
-          sendWelcomeEmail(email); // Invia email di benvenuto
+          sendWelcomeEmail(email);
+          localStorage.setItem('has_contacted', 'true');
+          if (typeof unlockVisitOption === 'function') unlockVisitOption();
         }
+      } else {
+        alert("Inserisci un'email valida per proseguire o clicca su 'prosegui senza lasciarla'.");
+        return;
       }
-      localStorage.setItem('has_contacted', 'true');
-      if (typeof unlockVisitOption === 'function') unlockVisitOption();
       window.open(CALENDAR_URL, '_blank');
     };
 
