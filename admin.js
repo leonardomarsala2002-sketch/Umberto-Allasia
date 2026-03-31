@@ -2,7 +2,7 @@
     const articles = {
       1: {
         category: 'Riflessione',
-        title: 'Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da lì.',
+        title: 'Perché il dolore cronico non è "tutto nella testa", ma a volte ci passa anche da lì.',
         content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p><p>Il dolore cronico è reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. È come un sistema d'allarme che continua a suonare anche dopo che l'incendio è stato spento da tempo.</p><p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore e all'esercizio.</p>`
       },
       2: {
