@@ -136,29 +136,13 @@
     .cta-box p {
       color: var(--text-mid);
       margin-bottom: 30px;
-    }    @media (max-width: 768px) {
-      body { padding-top: 60px; }
-      .article-page { padding: 20px 16px 60px; max-width: 100%; width: 100%; }
-      .article-title { font-size: 2rem; text-align: center; }
-      .article-header { text-align: center; margin-bottom: 30px; }
-      .article-meta { text-align: center; }
-      .article-hero-img { border-radius: 0; margin-left: -16px; width: calc(100% + 32px); max-width: none; }
-      .cta-box { padding: 40px 20px; border-radius: 0; margin-left: -16px; width: calc(100% + 32px); }
-      .btn-back {
-        position: absolute;
-        top: 15px; 
-        left: 50%;
-        transform: translateX(-50%);
-        margin-bottom: 0;
-        z-index: 110;
-        background: var(--bg3);
-        border: 1px solid var(--line);
-        font-weight: 700;
-        text-transform: uppercase;
-        font-size: 0.75rem;
-        padding: 8px 24px;
-        white-space: nowrap;
-      }
+    }
+
+    @media (max-width: 768px) {
+      body { padding-top: 80px; }
+      .article-page { padding-top: 20px; }
+      .article-title { font-size: 2rem; }
+      .cta-box { padding: 30px 20px; }
     }
   </style>
 </head>
@@ -166,10 +150,11 @@
 <body>
 
   <!-- NAV (Semplificata per l'articolo) -->
-  <nav style="background: rgba(254, 252, 249, 0.98); backdrop-filter: none; border-bottom: 1px solid var(--line);">
+  <nav style="background: rgba(254, 252, 249, 0.95); backdrop-filter: blur(10px);">
     <a href="index.html" class="nav-logo" style="text-decoration: none; color: inherit;">Il <span>Fisioterapista</span></a>
     <ul class="nav-links">
       <li><a href="index.html#storie">Torna alle Storie</a></li>
+      <li><a href="https://calendar.app.google/roTDcAzyEayNB4Tg6" target="_blank" class="nav-cta">Prenota una chiamata</a></li>
     </ul>
   </nav>
 
@@ -178,7 +163,7 @@
        <p style="color: var(--text-mid);">Caricamento storia...</p>
     </div>
 
-    <article id="article-container" style="display: none; position: relative;">
+    <article id="article-container" style="display: none;">
       <a href="index.html#storie" class="btn-back">← Torna indietro</a>
 
       <div id="article-image-wrap">
@@ -186,7 +171,7 @@
       </div>
 
       <header class="article-header">
-        <div style="text-align: center;">
+        <div>
           <span class="article-pill" id="article-category">Categoria</span>
           <h1 class="article-title" id="article-title">Caricamento Titolo...</h1>
           <div class="article-meta">Di Umberto Allasia · San Marino</div>
@@ -201,7 +186,7 @@
         <div class="cta-box" style="background: var(--bg2); border: none; padding: 60px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
           <h3>Hai dubbi o domande su questo tema?</h3>
           <p>Ogni storia è diversa. Se senti che questo argomento ti tocca da vicino, possiamo parlarne insieme in una chiamata conoscitiva gratuita.</p>
-          <a href="https://calendar.app.google/roTDcAzyEayNB4Tg6" target="_blank" class="btn-submit" style="display:inline-block; text-decoration:none; width:auto; padding:16px 40px;">Prenota ora una chiamata</a>
+          <a href="https://calendar.app.google/roTDcAzyEayNB4Tg6" target="_blank" class="btn-warm">Prenota ora una chiamata</a>
         </div>
       </footer>
     </article>
@@ -222,7 +207,7 @@
     const fallbackArticles = {
       1: {
         category: 'Riflessione',
-        title: 'Perché il dolore cronico non è "tutto nella testa", ma a volte ci passa anche da lì.',
+        title: 'Perché il dolore cronico non è "tutto nella testa" — ma a volte ci passa anche da lì.',
         content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p>
                   <p>Il dolore cronico è reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. È come un sistema d'allarme che continua a suonare anche dopo che l'incendio è stato spento da tempo.</p>
                   <p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore e all'esercizio.</p>`

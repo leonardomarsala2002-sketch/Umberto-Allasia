@@ -191,36 +191,18 @@
       countObs.observe(counterEl);
     }
 
-    // Typewriter effect for Ponte - Group letters in words to prevent breaking
-    window.initTypewriter = function(el) {
-      if (!el) return;
+    // Typewriter effect for Ponte
+    document.querySelectorAll('.typewriter-text').forEach(el => {
       const text = el.textContent.trim();
-      el.innerHTML = '';
-      const words = text.split(' ');
-      words.forEach((word, wIdx) => {
-        const wordSpan = document.createElement('span');
-        wordSpan.className = 'word-span';
-        wordSpan.style.display = 'inline-block';
-        wordSpan.style.whiteSpace = 'nowrap';
-        
-        [...word].forEach(char => {
-          const span = document.createElement('span');
-          span.textContent = char;
-          span.className = 'char';
-          wordSpan.appendChild(span);
-        });
-        
-        el.appendChild(wordSpan);
-        if (wIdx < words.length - 1) {
-          const space = document.createElement('span');
-          space.innerHTML = '&nbsp;';
-          space.className = 'char space';
-          el.appendChild(space);
-        }
+      el.textContent = '';
+      [...text].forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.className = 'char';
+        if (char === ' ') span.innerHTML = '&nbsp;';
+        el.appendChild(span);
       });
-    };
-
-    document.querySelectorAll('.typewriter-text').forEach(el => window.initTypewriter(el));
+    });
 
     const typeText = async (el) => {
       const chars = el.querySelectorAll('.char');

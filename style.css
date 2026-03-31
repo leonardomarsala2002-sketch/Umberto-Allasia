@@ -560,103 +560,12 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
   width: 100%;
 }
 
-/* ── MEDIA MOBILE & TABLET ────────────────────────────────────────── */
-@media (max-width: 991px) {
-  /* Reset Globale Sillabazione Mobile */
-  * {
-    hyphens: none !important;
-    -webkit-hyphens: none !important;
-    -ms-hyphens: none !important;
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-  }
-
+/* ── MEDIA MOBILE ────────────────────────────────────────── */
+@media (max-width: 768px) {
   /* Ponte Senza Spezzare Parole */
-  .word-span {
-    display: inline-block !important;
-    white-space: nowrap !important;
-    vertical-align: top;
-  }
-  .ponte-inner {
-    max-width: 100% !important;
-    padding: 0 16px !important;
-  }
   .ponte-title {
     hyphens: none !important;
+    -webkit-hyphens: none !important;
     word-break: normal !important;
-    overflow-wrap: normal !important;
-    font-size: 1.35rem !important;
-    line-height: 1.3 !important;
-    text-align: center !important;
-    white-space: normal !important;
-    display: block !important;
   }
-  .ponte-sub {
-    hyphens: none !important;
-    font-size: 0.9rem !important;
-    opacity: 0.85;
-    margin-top: 15px !important;
-  }
-
-  /* Booking cards più larghe */
-  .section {
-    padding: 60px 16px !important; 
-  }
-  .booking-box {
-    padding: 40px 16px !important; 
-  }
-  .booking-option-card {
-    padding: 24px 16px !important;
-    min-height: 250px !important;
-  }
-
-  /* News Modal Mobili - Tutto Schermo */
-  .modal-inner, .archive-inner {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    height: 100vh !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-  }
-  .modal-header-sticky, .archive-header-sticky {
-    padding: 55px 20px 25px !important;
-    text-align: center !important;
-    background: #fff !important;
-    border-bottom: 1px solid var(--line) !important;
-  }
-  .close-modal, .archive-close {
-    position: absolute !important;
-    top: 15px !important; 
-    left: 50% !important;
-    right: auto !important;
-    transform: translateX(-50%) !important;
-    background: var(--bg3) !important;
-    padding: 8px 24px !important;
-    border-radius: 50px !important;
-    font-size: 0.8rem !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    width: auto !important;
-    height: auto !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    border: 1px solid var(--line) !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
-    color: var(--text) !important;
-    z-index: 99 !important;
-  }
-  .close-modal::before, .archive-close::before {
-    content: "← Torna indietro" !important;
-  }
-  .close-modal span, .archive-close span { display: none !important; } 
-
-  .modal-body {
-    padding: 0 16px 60px !important;
-    font-size: 1rem !important;
-    line-height: 1.6 !important;
-    max-width: 100% !important;
-  }
-  .modal-pill { margin: 0 auto 12px !important; display: table !important; }
 }
