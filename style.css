@@ -474,39 +474,42 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
 }
 
 .booking-option-card.locked {
-  background: var(--bg3);
+  background: #f8f8f8;
   border-style: dashed;
+  pointer-events: none; /* Impedisce qualsiasi interazione */
+  filter: grayscale(1) opacity(0.6);
 }
 
-.booking-option-card.locked .option-icon,
-.booking-option-card.locked h4,
-.booking-option-card.locked p {
-  opacity: 0.4;
+.booking-option-card.locked .btn-submit {
+  background: #ccc !important;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .lock-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(254, 252, 249, 0.4);
-  backdrop-filter: blur(2px) grayscale(1);
+  background: rgba(254, 252, 249, 0.6);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 20px;
-  z-index: 2;
+  z-index: 5;
   padding: 20px;
 }
 
 .lock-overlay span {
   background: var(--text);
   color: #fff;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border-radius: 50px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .booking-option-card:not(.locked) .lock-overlay {
