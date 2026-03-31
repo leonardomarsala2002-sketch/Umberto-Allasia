@@ -14,29 +14,32 @@
       
       nav.style.padding = scrollTop > 40 ? '12px 48px' : '20px 48px';
       
-      // Definiamo i tipi di sezione per il colore header
-      const sections = ['home', 'approccio', 'percorso', 'come-lavoro', 'storie', 'prenota'];
-      const beigeSections = ['percorso', 'storie']; // Sezioni con var(--bg2) o var(--bg3)
-      let current = "";
+      // Mappatura completa delle sezioni e dei loro colori
+      const sections = ['home', 'approccio', 'percorso', 'come-lavoro', 'storie', 'recensioni', 'prenota'];
+      const beige2 = ['percorso', 'storie']; // var(--bg2)
+      const beige3 = ['recensioni']; // var(--bg3)
+      let current = "home";
 
       sections.forEach(id => {
         const section = document.getElementById(id);
         if (section) {
           const sectionTop = section.offsetTop;
-          const sectionHeight = section.clientHeight;
-          // Attiva la sezione quando l'header ci entra (offset 80px circa)
-          if (scrollTop >= (sectionTop - 80)) {
+          // Cambia colore non appena l'header tocca l'area della sezione
+          if (scrollTop >= (sectionTop - 40)) {
             current = id;
           }
         }
       });
 
-      // Gestione colore Nav in base alla sezione
-      nav.classList.remove('nav-bg-white', 'nav-bg-beige', 'nav-bg-dark');
-      if (beigeSections.includes(current)) {
-        nav.classList.add('nav-bg-beige');
-      } else if (scrollTop + window.innerHeight >= document.body.offsetHeight - 50) {
-        // Se siamo quasi a fine pagina (Footer)
+      // Gestione colore Nav in base alla sezione toccata
+      nav.classList.remove('nav-bg-white', 'nav-bg-beige2', 'nav-bg-beige3', 'nav-bg-dark');
+      
+      if (beige2.includes(current)) {
+        nav.classList.add('nav-bg-beige2');
+      } else if (beige3.includes(current)) {
+        nav.classList.add('nav-bg-beige3');
+      } else if (scrollTop + 100 >= document.body.offsetHeight - 400) {
+        // Se l'header tocca il Footer (andando quasi a fine pagina)
         nav.classList.add('nav-bg-dark');
       } else {
         nav.classList.add('nav-bg-white');
