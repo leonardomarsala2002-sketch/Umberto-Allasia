@@ -13,7 +13,7 @@
       nav.style.padding = scrollY > 40 ? '12px 48px' : '20px 48px';
       
       // ScrollSpy logic
-      const sections = ['home', 'studio', 'approccio', 'percorso', 'storie', 'prenota'];
+      const sections = ['home', 'approccio', 'percorso', 'come-lavoro', 'storie', 'prenota'];
       let current = "";
 
       sections.forEach(id => {
