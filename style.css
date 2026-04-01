@@ -377,15 +377,22 @@ footer { background: var(--text); padding: 64px 48px 40px; }
     margin-left: auto !important;
     margin-right: auto !important;
   }
-  /* Fix specifico per centratura titolo booking */
+  /* Fix specifico e aggressivo per centratura titolo booking */
   #dyn-booking-title {
     display: block !important;
     text-align: center !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    padding: 0 !important;
+    margin: 0 auto 12px !important;
     width: 100% !important;
+    max-width: 100% !important;
+    text-indent: 0 !important;
+    position: relative !important;
+    left: 0 !important;
+    transform: none !important;
+  }
+  #dyn-booking-title::before, #dyn-booking-title::after {
+    content: none !important;
+    display: none !important;
   }
 
   /* Storie su mobile */
