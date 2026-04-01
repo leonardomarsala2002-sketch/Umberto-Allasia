@@ -232,12 +232,12 @@
     const typeObserver = new IntersectionObserver(async entries => {
       if (entries[0].isIntersecting) {
         typeObserver.unobserve(ponteSection);
-        const title = ponteSection.querySelector('.ponte-title');
-        const sub = ponteSection.querySelector('.ponte-sub');
+        const title = document.getElementById('bridge-quote-static');
+        const sub = document.getElementById('bridge-sub-static');
 
-        await typeText(title);
-        await new Promise(r => setTimeout(r, 500)); // Pausa tra le due frasi
-        await typeText(sub);
+        if (title) await typeText(title);
+        await new Promise(r => setTimeout(r, 600)); // Pausa ritmata
+        if (sub) await typeText(sub);
       }
     }, { threshold: 0.3 });
 
