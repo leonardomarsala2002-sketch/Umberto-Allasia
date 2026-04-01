@@ -229,6 +229,14 @@ nav.nav-bg-dark .nav-links a { color: rgba(255,255,255,0.6); }
 /* ── PRENOTA & CONTATTI ─────────────────────────────────── */
 #prenota { background: var(--bg); }
 .prenota-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: start; }
+/* Fix globale centratura titoli booking (anti-scatto database) */
+#dyn-booking-title, #dyn-booking-text { 
+  text-align: center !important; 
+  width: 100% !important; 
+  margin-left: auto !important; 
+  margin-right: auto !important; 
+  display: block !important; 
+}
 .prenota-left .s-title { margin-bottom: 16px; }
 .prenota-left .s-body { margin-bottom: 16px; }
 .contact-list { margin-top: 40px; display: flex; flex-direction: column; gap: 4px; }
