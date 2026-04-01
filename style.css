@@ -116,8 +116,8 @@ nav.nav-bg-dark .nav-links a { color: rgba(255,255,255,0.6); }
 /* ── PONTE ───────────────────────────────────────────────── */
 .ponte { background: var(--bg2); padding: 80px 48px; text-align: center; }
 .ponte-inner { max-width: 720px; margin: 0 auto; }
-.ponte-title { font-family: var(--font-serif); font-size: clamp(1.6rem, 3vw, 2.3rem); font-style: italic; color: var(--text); line-height: 1.5; margin-bottom: 20px; }
-.ponte-sub { line-height: 1.8; }
+.ponte-title { font-family: var(--font-serif); font-size: clamp(1.6rem, 3vw, 2.3rem); font-style: italic; color: var(--text); line-height: 1.5; margin: 0 auto 20px; text-align: center; display: block; width: 100%; }
+.ponte-sub { line-height: 1.8; text-align: center; display: block; width: 100%; margin: 0 auto; }
 .char { display: inline-block; opacity: 0; }
 .char.visible { opacity: 1; }
 
