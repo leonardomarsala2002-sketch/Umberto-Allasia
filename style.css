@@ -369,6 +369,16 @@ footer { background: var(--text); padding: 64px 48px 40px; }
     margin-left: auto !important;
     margin-right: auto !important;
   }
+  /* Fix specifico per centratura titolo booking */
+  #dyn-booking-title {
+    display: block !important;
+    text-align: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
 
   /* Storie su mobile */
   .storie-grid { grid-template-columns: 1fr; }
