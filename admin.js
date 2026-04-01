@@ -197,7 +197,9 @@
             
             // Aggiorniamo SOLO se il testo è effettivamente cambiato
             if (currentText !== newText) {
-              el.innerHTML = val.trim();
+              // Pulizia aggressiva: rimuoviamo spazi bianchi rintanati, &nbsp; e virgolette
+              const sanitizedVal = val.replace(/&nbsp;/g, ' ').replace(/["']/g, '').trim();
+              el.innerHTML = sanitizedVal;
               if (el.classList.contains('typewriter-text') && typeof window.initTypewriter === 'function') {
                 // Se siamo già nella sezione (o l'abbiamo superata), mostralo subito completo
                 const ponte = document.getElementById('ponte');
