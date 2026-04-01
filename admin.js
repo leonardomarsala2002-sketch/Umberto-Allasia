@@ -199,8 +199,10 @@
             if (currentText !== newText) {
               el.innerHTML = val;
               if (el.classList.contains('typewriter-text') && typeof window.initTypewriter === 'function') {
-                // Se è diverso, reinizializza ma non forzare la visibilità immediata per non scattare
-                window.initTypewriter(el, false); 
+                // Se siamo già nella sezione (o l'abbiamo superata), mostralo subito completo
+                const ponte = document.getElementById('ponte');
+                const isVisible = ponte && ponte.getBoundingClientRect().top < window.innerHeight;
+                window.initTypewriter(el, isVisible); 
               }
             }
           }
