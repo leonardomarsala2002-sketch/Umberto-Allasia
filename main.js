@@ -194,14 +194,26 @@
     // Typewriter effect for Ponte
     window.initTypewriter = function(el, showImmediate = false) {
       if (!el) return;
-      const text = el.textContent.trim();
+      const htmlContent = el.innerHTML;
       el.innerHTML = '';
-      [...text].forEach(char => {
-        const span = document.createElement('span');
-        span.textContent = char;
-        span.className = 'char' + (showImmediate ? ' visible' : '');
-        if (char === ' ') span.innerHTML = '&nbsp;';
-        el.appendChild(span);
+      
+      // Creiamo un elemento temporaneo per processare il contenuto
+      const temp = document.createElement('div');
+      temp.innerHTML = htmlContent;
+      
+      [...temp.childNodes].forEach(node => {
+        if (node.nodeType === 3) { // Testo
+          const text = node.textContent;
+          [...text].forEach(char => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.className = 'char' + (showImmediate ? ' visible' : '');
+            if (char === ' ') span.innerHTML = '&nbsp;';
+            el.appendChild(span);
+          });
+        } else if (node.nodeName === 'BR') { // Ritorno a capo
+          el.appendChild(document.createElement('br'));
+        }
       });
     };
 
