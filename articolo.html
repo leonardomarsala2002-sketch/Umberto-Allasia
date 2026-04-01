@@ -151,10 +151,11 @@
 
   <!-- NAV (Semplificata per l'articolo) -->
   <nav style="background: rgba(254, 252, 249, 0.95); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: space-between;">
-    <div style="display: flex; align-items: center; gap: 15px;">
-      <a href="index.html" class="nav-logo" style="text-decoration: none; color: inherit;">Il <span>Fisioterapista</span></a>
-      <a href="index.html#storie" class="nav-back-mobile" style="display: none; font-size: 0.85rem; color: var(--accent); font-weight: 600;">← Indietro</a>
-    </div>
+    <a href="index.html" class="nav-logo" style="text-decoration: none; color: inherit;">Il <span>Fisioterapista</span></a>
+    
+    <!-- Pulsante Indietro Mobile (A DESTRA) -->
+    <a href="index.html#storie" class="nav-back-mobile" style="display: none; font-size: 0.85rem; color: var(--accent); font-weight: 600; text-decoration: none; -webkit-tap-highlight-color: transparent; outline: none;">Indietro</a>
+
     <ul class="nav-links">
       <li><a href="index.html#storie">Torna alle Storie</a></li>
       <li><a href="https://calendar.app.google/roTDcAzyEayNB4Tg6" target="_blank" class="nav-cta">Prenota una chiamata</a></li>
@@ -166,6 +167,12 @@
       .nav-back-mobile { display: block !important; }
       .nav-links { display: none !important; }
       .btn-back-desktop { display: none !important; }
+      
+      /* Rimosso quadrato azzurro su tap */
+      .nav-back-mobile, .nav-logo {
+        -webkit-tap-highlight-color: transparent !important;
+        outline: none !important;
+      }
     }
   </style>
 
