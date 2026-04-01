@@ -197,7 +197,7 @@
             
             // Aggiorniamo SOLO se il testo è effettivamente cambiato
             if (currentText !== newText) {
-              el.innerHTML = val;
+              el.innerHTML = val.trim();
               if (el.classList.contains('typewriter-text') && typeof window.initTypewriter === 'function') {
                 // Se siamo già nella sezione (o l'abbiamo superata), mostralo subito completo
                 const ponte = document.getElementById('ponte');
