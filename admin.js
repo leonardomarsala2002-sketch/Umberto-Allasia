@@ -189,6 +189,10 @@
       if (!error && data) {
         data.forEach(s => {
           let val = s.value;
+          // Forza la nuova frase se nel DB c'è ancora quella vecchia lunga
+          if (s.key === 'bridge_quote' && val.length > 50) {
+            val = '"Un sintomo parla. Anche quando non lo ascolti"';
+          }
           dbSettings[s.key] = val;
           const el = document.getElementById('dyn-' + s.key.replace(/_/g, '-'));
           if (el) {
