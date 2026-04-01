@@ -66,7 +66,7 @@
           <div class="btn-ghost" style="margin-top:10px; font-size:0.8rem;">Leggi di più ?</div>
         </div>
       `;
-        card.onclick = () => { openArticleDB(id); };
+        card.onclick = () => { window.location.href = `articolo.html?id=${id}`; };
         archiveList.appendChild(card);
       });
       archiveModal.classList.add('active');
@@ -271,7 +271,7 @@
         dbArticles.slice(0, 3).forEach(art => {
           const card = document.createElement('div');
           card.className = 'storia-card fade-up vis';
-          card.onclick = () => { openArticleDB(art.id); };
+          card.onclick = () => { window.location.href = `articolo.html?id=${art.id}`; };
 
           let imageHtml = `
           <div class="ph" style="height:200px;">
