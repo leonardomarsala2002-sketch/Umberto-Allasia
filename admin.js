@@ -192,11 +192,16 @@
           dbSettings[s.key] = val;
           const el = document.getElementById('dyn-' + s.key.replace(/_/g, '-'));
           if (el) {
-            el.innerHTML = val;
-            // Se l'elemento ha la classe typewriter-text, reinizializza
-            // IMPORTANTE: Se arriva dal DB/Admin, lo mostriamo subito per evitare che "sparisca" a causa dell'animazione non ancora scattata
-            if (el.classList.contains('typewriter-text') && typeof window.initTypewriter === 'function') {
-              window.initTypewriter(el, true); 
+            const currentText = el.textContent.trim();
+            const newText = val.replace(/["']/g, '').trim(); // Puliamo virgolette per confronto
+            
+            // Aggiorniamo SOLO se il testo è effettivamente cambiato
+            if (currentText !== newText) {
+              el.innerHTML = val;
+              if (el.classList.contains('typewriter-text') && typeof window.initTypewriter === 'function') {
+                // Se è diverso, reinizializza ma non forzare la visibilità immediata per non scattare
+                window.initTypewriter(el, false); 
+              }
             }
           }
         });
