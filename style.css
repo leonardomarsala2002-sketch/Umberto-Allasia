@@ -355,15 +355,17 @@ footer { background: var(--text); padding: 64px 48px 40px; }
     padding: 32px 16px !important; 
     margin-left: auto !important;
     margin-right: auto !important;
+    width: auto !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+    text-align: center !important;
   }
   .booking-options { width: 100% !important; align-items: center !important; }
   .booking-option-card { 
-    margin-left: -10px !important;
-    margin-right: -10px !important;
-    width: calc(100% + 20px) !important;
+    margin-left: -5px !important;
+    margin-right: -5px !important;
+    width: calc(100% + 10px) !important;
     border-radius: 28px !important;
     padding: 30px 20px !important;
     text-align: center !important;
@@ -371,11 +373,14 @@ footer { background: var(--text); padding: 64px 48px 40px; }
     flex-direction: column !important;
     align-items: center !important;
   }
-  .booking-option-card h4, .booking-option-card p, .booking-box h3, .booking-box p {
+  .booking-option-card h4, .booking-option-card p, .booking-box h3, .booking-box p, #dyn-booking-title {
     text-align: center !important;
     width: 100% !important;
     margin-left: auto !important;
     margin-right: auto !important;
+    display: block !important;
+    padding: 0 !important;
+    text-indent: 0 !important;
   }
   /* Fix specifico e aggressivo per centratura titolo booking */
   #dyn-booking-title {
