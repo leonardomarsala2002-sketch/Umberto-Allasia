@@ -351,6 +351,10 @@ footer { background: var(--text); padding: 64px 48px 40px; }
     width: calc(100% + 20px) !important; 
     border-radius: 24px !important;
     padding: 24px 20px !important;
+    text-align: center !important;
+  }
+  .booking-option-card h4, .booking-option-card p, .booking-box h3, .booking-box p {
+    text-align: center !important;
   }
 
   /* Storie su mobile */
