@@ -195,7 +195,12 @@
           }
           dbSettings[s.key] = val;
           const el = document.getElementById('dyn-' + s.key.replace(/_/g, '-'));
-          if (el) el.innerHTML = val;
+          if (el) {
+            el.innerHTML = val;
+            if (el.classList.contains('typewriter-text') && typeof window.initTypewriter === 'function') {
+              window.initTypewriter(el);
+            }
+          }
         });
       }
     }

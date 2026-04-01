@@ -192,9 +192,10 @@
     }
 
     // Typewriter effect for Ponte
-    document.querySelectorAll('.typewriter-text').forEach(el => {
+    window.initTypewriter = function(el) {
+      if (!el) return;
       const text = el.textContent.trim();
-      el.textContent = '';
+      el.innerHTML = '';
       [...text].forEach(char => {
         const span = document.createElement('span');
         span.textContent = char;
@@ -202,9 +203,12 @@
         if (char === ' ') span.innerHTML = '&nbsp;';
         el.appendChild(span);
       });
-    });
+    };
 
-    const typeText = async (el) => {
+    document.querySelectorAll('.typewriter-text').forEach(el => window.initTypewriter(el));
+
+    window.typeText = async (el) => {
+      if (!el) return;
       const chars = el.querySelectorAll('.char');
       for (let i = 0; i < chars.length; i++) {
         await new Promise(r => setTimeout(r, 25)); // Velocità di battuta
