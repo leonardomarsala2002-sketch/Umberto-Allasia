@@ -192,14 +192,14 @@
     }
 
     // Typewriter effect for Ponte
-    window.initTypewriter = function(el) {
+    window.initTypewriter = function(el, showImmediate = false) {
       if (!el) return;
       const text = el.textContent.trim();
       el.innerHTML = '';
       [...text].forEach(char => {
         const span = document.createElement('span');
         span.textContent = char;
-        span.className = 'char';
+        span.className = 'char' + (showImmediate ? ' visible' : '');
         if (char === ' ') span.innerHTML = '&nbsp;';
         el.appendChild(span);
       });

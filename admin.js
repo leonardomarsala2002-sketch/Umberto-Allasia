@@ -189,16 +189,14 @@
       if (!error && data) {
         data.forEach(s => {
           let val = s.value;
-          // Forza l'aggiornamento della frase ponte se è quella vecchia
-          if (s.key === 'bridge_quote' && val.includes('Esiste dentro una vita')) {
-            val = '"Un sintomo non vive mai da solo. Abita la tua storia, fatta di fatiche, abitudini e momenti difficili."';
-          }
           dbSettings[s.key] = val;
           const el = document.getElementById('dyn-' + s.key.replace(/_/g, '-'));
           if (el) {
             el.innerHTML = val;
+            // Se l'elemento ha la classe typewriter-text, reinizializza
+            // IMPORTANTE: Se arriva dal DB/Admin, lo mostriamo subito per evitare che "sparisca" a causa dell'animazione non ancora scattata
             if (el.classList.contains('typewriter-text') && typeof window.initTypewriter === 'function') {
-              window.initTypewriter(el);
+              window.initTypewriter(el, true); 
             }
           }
         });
