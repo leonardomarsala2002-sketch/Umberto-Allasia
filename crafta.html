@@ -10,36 +10,38 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     .page-header { padding: 160px 48px 60px; background: var(--bg2); text-align: center; }
-    .page-content { padding: 80px 48px; max-width: 800px; margin: 0 auto; line-height: 1.8; }
+    .page-content { padding: 80px 48px; max-width: 800px; margin: 0 auto; line-height: 1.8; position: relative; }
     .page-content h2 { font-family: var(--font-serif); font-size: 2rem; margin: 40px 0 24px; color: var(--text); }
     .page-content p { margin-bottom: 24px; color: var(--text-mid); font-weight: 300; font-size: 1.1rem; }
     .page-content ul { margin-bottom: 32px; padding-left: 20px; color: var(--text-mid); font-weight: 300; }
     .page-content li { margin-bottom: 12px; }
 
-    /* Back Card (News Style) */
-    .back-card-container { margin-bottom: 60px; }
-    .back-card { 
-      display: flex; 
-      align-items: center; 
-      gap: 20px; 
-      background: #fff; 
-      border-radius: 24px; 
-      padding: 20px; 
-      text-decoration: none; 
-      box-shadow: 0 10px 30px rgba(44,36,32,0.06); 
-      transition: transform 0.25s, box-shadow 0.25s;
-      border: 1px solid var(--line);
+    /* Sticky Back Button matching article.html */
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-mid);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 10px 20px;
+      background: rgba(254, 252, 249, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 50px;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+      position: sticky;
+      top: 100px;
+      z-index: 100;
+      border: 1px solid rgba(44,36,32,0.1);
     }
-    .back-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(44,36,32,0.12); }
-    .back-card-icon { 
-      width: 50px; height: 50px; 
-      background: var(--bg3); 
-      border-radius: 50%; 
-      display: flex; align-items: center; justify-content: center; 
-      font-size: 1.2rem; color: var(--accent);
+    .btn-back:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: #fff;
+      transform: translateX(-5px);
     }
-    .back-card-text h4 { font-family: var(--font-serif); color: var(--text); margin-bottom: 2px; }
-    .back-card-text p { font-size: 0.85rem; color: var(--text-light); margin: 0; }
 
     /* Image Slots */
     .image-slot { 
@@ -58,10 +60,12 @@
     .image-slot .ph { font-family: var(--font-serif); italic; color: var(--text-light); opacity: 0.5; font-size: 0.9rem; }
     .image-slot img { width: 100%; height: 100%; object-fit: cover; }
 
+    @media (max-width: 1200px) {
+      .btn-back { position: relative; top: 0; margin-bottom: 20px; }
+    }
     @media (max-width: 900px) {
       .page-header { padding: 120px 24px 40px; }
       .page-content { padding: 40px 24px; }
-      .back-card { padding: 16px; gap: 15px; }
     }
   </style>
 </head>
@@ -82,21 +86,12 @@
 
   <div class="page-content">
     
-    <div class="back-card-container">
-      <a href="index.html#percorso" class="back-card">
-        <div class="back-card-icon">←</div>
-        <div class="back-card-text">
-          <h4>Torna al profilo professionale</h4>
-          <p>Umberto Allasia — Fisioterapia & Terapia Manuale</p>
-        </div>
-      </a>
-    </div>
+    <a href="index.html#percorso" class="btn-back">← Torna indietro</a>
 
     <p>Nel corso degli anni, fisioterapisti, terapisti manuali, logopedisti e dentisti hanno mostrato un crescente interesse clinico e pratico per la <strong>regione temporomandibolare e cranio-facciale</strong>.</p>
     
     <div class="image-slot">
       <span class="ph">Immagine Clinica / Metodo CraFTA (Slot 1)</span>
-      <!-- <img src="URL_FOTO_1" alt="CraFTA"> -->
     </div>
 
     <p>Queste professioni hanno anche sviluppato una proficua cooperazione interdisciplinare. In questo contesto, è stata fondata la <strong>CRAFTA® (Cranial Facial Therapy Academy)</strong> da Harry von Piekartz e altri esperti di varie discipline.</p>
@@ -114,7 +109,6 @@
 
     <div class="image-slot">
       <span class="ph">Approccio Interdisciplinare (Slot 2)</span>
-      <!-- <img src="URL_FOTO_2" alt="Approccio CRAFTA"> -->
     </div>
 
     <h2>Obiettivi clinici</h2>
