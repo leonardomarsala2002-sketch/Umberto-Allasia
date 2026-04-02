@@ -10,24 +10,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* Reset & Base */
-    body { background: #FEFCF9; overflow-x: hidden; padding-top: 80px; -webkit-tap-highlight-color: transparent; }
+    body { background: #FEFCF9; overflow-x: hidden; padding-top: 90px; -webkit-tap-highlight-color: transparent; }
     
-    /* NAV ARTICOLO - MORBIDA E INTEGRATA (FOTO 1) */
+    /* NAV ARTICOLO - IDENTICA A HOME E ARTICOLI DEL SITO */
     nav { 
       position: fixed; top: 0; left: 0; width: 100%; height: 80px; 
-      background: rgba(254, 252, 249, 0.95); /* STESSO AVORIO DEL BODY MA SEMI-TRASPARENTE */
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      z-index: 1000;
-      box-shadow: 0 4px 40px rgba(0,0,0,0.02); /* OMBRA QUASI INVISIBILE E MORBIDA */
+      background: #fff; z-index: 1000;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.05); /* OMRA ORIGINALE DEL SITO */
       display: flex; align-items: center; padding: 0 48px; justify-content: space-between;
       transition: all 0.3s ease;
-      border-bottom: 1px solid rgba(0,0,0,0.03); /* MICRO BORDO QUASI INESISTENTE */
     }
     
-    .nav-left { display: flex; align-items: center; }
-    .nav-right { display: flex; align-items: center; gap: 32px; }
-
-    /* LOGO ORIGINALE */
+    /* LOGO ORIGINALE (Scala Desktop) */
     .nav-logo {
         font-family: 'Lora', serif;
         font-size: 1.5rem;
@@ -39,25 +33,15 @@
     .nav-logo span {
         color: var(--accent);
         font-style: italic;
-        margin-left: 2px;
+        margin-left: 4px;
     }
-
-    /* ELEMENTI DESTRA HEADER */
-    .nav-link { color: var(--text); text-decoration: none; font-size: 0.95rem; font-weight: 400; transition: opacity 0.2s; }
-    .nav-link:hover { opacity: 0.7; }
-    
-    .btn-header {
-      background: var(--accent); color: #fff; padding: 12px 24px; 
-      border-radius: 50px; text-decoration: none; font-size: 0.95rem; font-weight: 500;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .btn-header:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(188, 133, 91, 0.2); }
 
     /* BACK BUTTON HEADER (Solo Mobile) */
     .back-pill {
       display: none; align-items: center; gap: 8px; color: var(--accent); 
       text-decoration: none; font-size: 0.95rem; font-weight: 500;
       padding: 10px 12px; border-radius: 50px; border: 1.2px solid transparent;
+      transition: all 0.2s; outline: none; -webkit-tap-highlight-color: transparent;
     }
 
     /* LAYOUT A 3 COLONNE (Desktop) */
@@ -66,15 +50,14 @@
       width: 100%; margin: 0 auto;
     }
 
-    .sidebar-left { display: flex; flex-direction: column; align-items: flex-end; padding-right: 50px; padding-top: 40px; }
+    .sidebar-left { display: flex; flex-direction: column; align-items: flex-end; padding-right: 50px; padding-top: 20px; }
 
-    /* TASTO SIDEBAR (IDENTICO A FOTO 1) */
     .btn-side-sticky {
-      position: sticky; top: 130px; display: inline-flex; align-items: center; gap: 8px;
-      color: var(--text-mid); text-decoration: none; font-size: 0.95rem;
-      padding: 10px 15px; border-radius: 50px; transition: all 0.2s;
+      position: sticky; top: 120px; display: inline-flex; align-items: center; gap: 10px;
+      color: var(--text-mid); text-decoration: none; font-size: 0.9rem;
+      padding: 10px 22px; border-radius: 50px; border: 1.2px solid transparent; transition: all 0.3s;
     }
-    .btn-side-sticky:hover { color: var(--accent); }
+    .btn-side-sticky:hover { border-color: var(--accent); color: var(--accent); background: #fff; }
 
     /* CONTENUTO ARTICOLO */
     .article-body { max-width: 800px; width: 100%; padding-bottom: 100px; }
@@ -101,31 +84,31 @@
     .page-content-text ul { margin-bottom: 32px; padding-left: 20px; color: var(--text-mid); font-weight: 300; }
     .page-content-text li { margin-bottom: 12px; font-size: 1.1rem; }
 
-    /* SCALE MOBILE */
+    .image-slot { 
+      width: 100%; aspect-ratio: 16/9; background: #F3EEE7; border-radius: 30px; 
+      overflow: hidden; margin: 40px 0; border: 1px solid rgba(0,0,0,0.05);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .image-slot span { font-family: var(--font-serif); font-style: italic; color: var(--text-mid); opacity: 0.4; }
+
+    /* MATCH PERFETTO MOBILE */
     @media (max-width: 1200px) {
-      nav { height: 70px; padding: 0 20px !important; }
-      .nav-right { display: none; }
+      nav { height: 75px; padding: 0 20px !important; }
       .nav-logo { font-size: 1.15rem; font-weight: 400; }
+      .nav-logo span { margin-left: 3px; }
       .back-pill { display: flex; font-size: 0.85rem; padding: 10px 5px; }
       .layout-grid { grid-template-columns: 1fr; display: block; padding: 0 24px; }
       .sidebar-left, .sidebar-right { display: none; }
       .article-body { max-width: 100%; }
       .article-title { font-size: 1.8rem; }
+      .hero-img-box { border-radius: 20px; }
     }
   </style>
 </head>
 <body>
   <nav>
-    <div class="nav-left">
-      <a href="index.html#home" class="nav-logo">Il<span>Fisioterapista</span></a>
-    </div>
-
-    <div class="nav-right">
-      <a href="index.html#blog" class="nav-link">Torna alle Storie</a>
-      <a href="https://calendly.com/umbertoallasia" class="btn-header">Prenota una chiamata</a>
-    </div>
-
-    <!-- Back Pill Mobile -->
+    <a href="index.html#home" class="nav-logo">Il<span>Fisioterapista</span></a>
+    <!-- Tasto back mobile -->
     <a href="index.html#percorso" class="back-pill">Indietro</a>
   </nav>
 
