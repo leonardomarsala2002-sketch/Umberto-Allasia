@@ -12,14 +12,24 @@
     /* Reset & Base */
     body { background: #FEFCF9; overflow-x: hidden; padding-top: 0px; -webkit-tap-highlight-color: transparent; }
     
-    /* NAV DINAMICA */
+    /* NAV ETICA E MORBIDA (FOTO 2) */
     nav { 
-      position: fixed; top: 0; left: 0; width: 100%; height: 80px; z-index: 1000;
+      position: fixed; top: 0; left: 0; width: 100%; height: 85px; z-index: 1000;
       display: flex; align-items: center; padding: 0 48px; justify-content: space-between;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      background-color: transparent; box-shadow: none;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background-color: transparent; 
+      box-shadow: none;
+      border-bottom: 1px solid transparent;
     }
-    nav.nav-bg-white { background-color: #fff !important; box-shadow: 0 4px 40px rgba(0,0,0,0.05); height: 70px; }
+    
+    /* Stato scrollato: MORBIDO, non netto */
+    nav.nav-bg-white { 
+      background-color: rgba(254, 252, 249, 0.92) !important; /* Avorio translucido */
+      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      height: 75px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.02); /* OMBRA QUASI INESISTENTE */
+      border-bottom: 1px solid rgba(0,0,0,0.04); /* Micro-linea sottilissima */
+    }
 
     /* LOGO */
     .nav-logo { font-family: 'Lora', serif; font-size: 1.5rem; font-weight: 500; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
@@ -29,15 +39,15 @@
     .back-pill { display: none; align-items: center; color: var(--accent); text-decoration: none; font-size: 0.95rem; font-weight: 500; padding: 10px 5px; }
 
     /* LAYOUT A 3 COLONNE */
-    .layout-grid { display: grid; grid-template-columns: 1fr 800px 1fr; width: 100%; margin: 0 auto; padding-top: 120px; }
+    .layout-grid { display: grid; grid-template-columns: 1fr 800px 1fr; width: 100%; margin: 0 auto; padding-top: 130px; }
     .sidebar-left { display: flex; flex-direction: column; align-items: flex-end; padding-right: 50px; padding-top: 40px; }
 
-    /* TASTO "GHOST" RIPRISTINATO */
+    /* TASTO GHOST */
     .btn-side-sticky {
       position: sticky; top: 130px; display: inline-flex; align-items: center; gap: 8px;
       color: var(--text-mid); text-decoration: none; font-size: 0.9rem;
       padding: 10px 22px; border-radius: 50px; border: 1.2px solid transparent;
-      transition: all 0.3s; cursor: pointer;
+      transition: all 0.3s;
     }
     .btn-side-sticky:hover { border-color: var(--accent); color: var(--accent); background: #fff; }
 
@@ -59,7 +69,7 @@
     /* SCALE MOBILE */
     @media (max-width: 1200px) {
       nav { height: 75px; padding: 0 20px !important; }
-      nav.nav-bg-white { height: 65px; }
+      nav.nav-bg-white { height: 68px; }
       .nav-logo { font-size: 1.15rem; font-weight: 400; }
       .back-pill { display: flex; }
       .layout-grid { grid-template-columns: 1fr; display: block; padding: 0 24px; padding-top: 100px; }
