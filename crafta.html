@@ -19,17 +19,19 @@
       display: flex; align-items: center; padding: 0 48px; justify-content: space-between;
     }
     
-    /* LOGO COPIATO DA STYLE.CSS ORIGINALE */
+    /* LOGO CORRETTO (Rimozioni spazi bianchi HTML e micro-spaziatura) */
     .nav-logo {
         font-family: 'Lora', serif;
         font-size: 1.5rem;
         font-weight: 500;
         color: var(--text);
         text-decoration: none;
+        letter-spacing: -0.01em; /* Più compatto */
     }
     .nav-logo span {
         color: var(--accent);
         font-style: italic;
+        margin-left: 4px; /* Spazio controllato millimetrico */
     }
 
     /* BACK BUTTON HEADER (Solo Mobile) */
@@ -101,8 +103,8 @@
 </head>
 <body>
   <nav>
-    <!-- Logo 1:1 con la Home -->
-    <a href="index.html#home" class="nav-logo">Il <span>Fisioterapista</span></a>
+    <!-- Logo Scritto senza spazi HTML per massima vicinanza -->
+    <a href="index.html#home" class="nav-logo">Il<span>Fisioterapista</span></a>
     
     <a href="index.html#percorso" class="back-pill">Indietro</a>
   </nav>
