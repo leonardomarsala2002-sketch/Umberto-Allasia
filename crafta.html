@@ -19,12 +19,18 @@
       display: flex; align-items: center; padding: 0 48px; justify-content: space-between;
     }
     
-    /* LOGO CORRETTO (Dimensione e Link) */
-    .nav-logo { 
-      font-size: 1.2rem; font-family: var(--font-serif); color: var(--text); 
-      text-decoration: none; display: flex; align-items: center; font-weight: 500;
+    /* LOGO COPIATO DA STYLE.CSS ORIGINALE */
+    .nav-logo {
+        font-family: 'Lora', serif;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--text);
+        text-decoration: none;
     }
-    .nav-logo span { color: var(--accent); font-style: italic; margin-left: 5px; }
+    .nav-logo span {
+        color: var(--accent);
+        font-style: italic;
+    }
 
     /* BACK BUTTON HEADER (Solo Mobile) */
     .back-pill {
@@ -95,7 +101,9 @@
 </head>
 <body>
   <nav>
+    <!-- Logo 1:1 con la Home -->
     <a href="index.html#home" class="nav-logo">Il <span>Fisioterapista</span></a>
+    
     <a href="index.html#percorso" class="back-pill">Indietro</a>
   </nav>
 
