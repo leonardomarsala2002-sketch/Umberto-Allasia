@@ -12,11 +12,13 @@
     /* Reset & Base */
     body { background: #FEFCF9; overflow-x: hidden; padding-top: 90px; -webkit-tap-highlight-color: transparent; }
     
-    /* NAV ARTICOLO - IDENTICA A FOTO 1 */
+    /* NAV ARTICOLO - IDENTICA A HOME E ARTICOLI DEL SITO */
     nav { 
-      position: fixed; top: 0; left: 0; width: 100%; height: 75px; 
-      background: #fff; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.03);
+      position: fixed; top: 0; left: 0; width: 100%; height: 80px; 
+      background: #fff; z-index: 1000;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.05); /* OMRA ORIGINALE DEL SITO */
       display: flex; align-items: center; padding: 0 48px; justify-content: space-between;
+      transition: all 0.3s ease;
     }
     
     /* LOGO ORIGINALE (Scala Desktop) */
@@ -89,10 +91,10 @@
     }
     .image-slot span { font-family: var(--font-serif); font-style: italic; color: var(--text-mid); opacity: 0.4; }
 
-    /* MATCH PERFETTO FOTO 1 (MOBILE) */
+    /* MATCH PERFETTO MOBILE */
     @media (max-width: 1200px) {
-      nav { height: 70px; padding: 0 20px !important; }
-      .nav-logo { font-size: 1.15rem; font-weight: 400; } /* COME FOTO 1 */
+      nav { height: 75px; padding: 0 20px !important; }
+      .nav-logo { font-size: 1.15rem; font-weight: 400; }
       .nav-logo span { margin-left: 3px; }
       .back-pill { display: flex; font-size: 0.85rem; padding: 10px 5px; }
       .layout-grid { grid-template-columns: 1fr; display: block; padding: 0 24px; }
@@ -106,7 +108,7 @@
 <body>
   <nav>
     <a href="index.html#home" class="nav-logo">Il<span>Fisioterapista</span></a>
-    <!-- Tasto back mobile (Sincronizzato con scala ridotta logo) -->
+    <!-- Tasto back mobile -->
     <a href="index.html#percorso" class="back-pill">Indietro</a>
   </nav>
 
