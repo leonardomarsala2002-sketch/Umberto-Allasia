@@ -12,7 +12,7 @@
     /* Reset & Base */
     body { background: #FEFCF9; overflow-x: hidden; padding-top: 100px; -webkit-tap-highlight-color: transparent; }
     
-    /* NAV ARTICOLO - IDENTICA A SCREENSHOT */
+    /* NAV ARTICOLO - IDENTICA A SCREENSHOT 2 */
     nav { 
       position: fixed; top: 0; left: 0; width: 100%; height: 80px; 
       background: #fff; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.03);
@@ -24,14 +24,15 @@
     /* BACK BUTTON HEADER (Solo Mobile) */
     .back-pill {
       display: none;
-      align-items: center; gap: 8px; color: var(--text-mid);
-      text-decoration: none; font-size: 0.85rem; font-weight: 500;
-      padding: 10px 20px; border-radius: 50px; border: 1.2px solid transparent;
+      align-items: center; gap: 8px; 
+      color: var(--accent); /* COLORE ACCENTO COME DA FOTO 2 */
+      text-decoration: none; font-size: 0.95rem; font-weight: 500;
+      padding: 10px 12px; border-radius: 50px; border: 1.2px solid transparent;
       transition: all 0.2s;
       outline: none;
       -webkit-tap-highlight-color: transparent;
     }
-    .back-pill:active { border-color: transparent; background: transparent; } /* RIMOSSO BORDO MARRONE AL CLICK */
+    .back-pill:active { border-color: transparent; background: transparent; }
 
     /* LAYOUT A 3 COLONNE (Per tasto laterale desktop) */
     .layout-grid {
@@ -64,7 +65,7 @@
       overflow: hidden; margin-bottom: 40px; border: 1px solid rgba(0,0,0,0.05);
       display: flex; align-items: center; justify-content: center;
     }
-    .hero-img-box span { font-family: var(--font-serif); italic; color: var(--text-mid); opacity: 0.4; }
+    .hero-img-box span { font-family: var(--font-serif); font-style: italic; color: var(--text-mid); opacity: 0.4; }
 
     .tag-category { 
       display: inline-block; padding: 6px 16px; background: #F9F5F0; 
@@ -87,11 +88,11 @@
       overflow: hidden; margin: 40px 0; border: 1px solid rgba(0,0,0,0.05);
       display: flex; align-items: center; justify-content: center;
     }
-    .image-slot span { font-family: var(--font-serif); italic; color: var(--text-mid); opacity: 0.4; }
+    .image-slot span { font-family: var(--font-serif); font-style: italic; color: var(--text-mid); opacity: 0.4; }
 
     /* MOBILE ADJUSTMENTS */
     @media (max-width: 1200px) {
-      nav { padding: 0 24px; }
+      nav { padding: 0 20px; } /* PADDING RIDOTTO PER SPINGERE AI LATI */
       .back-pill { display: flex; }
       .layout-grid { grid-template-columns: 1fr; display: block; padding: 0 24px; }
       .sidebar-left, .sidebar-right { display: none; }
@@ -104,7 +105,7 @@
 <body>
   <nav>
     <div class="nav-logo">Il <span>Fisioterapista</span></div>
-    <!-- Tasto back mobile (Senza freccia e senza bordo al tocco) -->
+    <!-- Tasto back mobile colorato e a destra -->
     <a href="index.html#percorso" class="back-pill">Indietro</a>
   </nav>
 
@@ -117,7 +118,6 @@
 
     <main class="article-body">
       
-      <!-- Grande immagine stile Blog -->
       <div class="hero-img-box">
         <span>[ Immagine Metodologia CRAFTA® ]</span>
       </div>
@@ -158,7 +158,6 @@
       </div>
     </main>
 
-    <!-- Colonna vuota per bilanciamento -->
     <div class="sidebar-right"></div>
   </div>
 
