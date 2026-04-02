@@ -12,23 +12,23 @@
     /* Reset & Base */
     body { background: #FEFCF9; overflow-x: hidden; padding-top: 0px; -webkit-tap-highlight-color: transparent; }
     
-    /* NAV ETICA E MORBIDA (FOTO 2) */
+    /* NAV ETICA, MORBIDA E SENZA LINEE */
     nav { 
       position: fixed; top: 0; left: 0; width: 100%; height: 85px; z-index: 1000;
       display: flex; align-items: center; padding: 0 48px; justify-content: space-between;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       background-color: transparent; 
       box-shadow: none;
-      border-bottom: 1px solid transparent;
+      border-bottom: none !important;
     }
     
-    /* Stato scrollato: MORBIDO, non netto */
+    /* Stato scrollato: MORBIDO E SENZA LINEE */
     nav.nav-bg-white { 
-      background-color: rgba(254, 252, 249, 0.92) !important; /* Avorio translucido */
+      background-color: rgba(254, 252, 249, 0.92) !important; 
       backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
       height: 75px;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.02); /* OMBRA QUASI INESISTENTE */
-      border-bottom: 1px solid rgba(0,0,0,0.04); /* Micro-linea sottilissima */
+      box-shadow: none !important; /* RIMOZIONE TOTALE OMBRA */
+      border-bottom: none !important; /* RIMOZIONE TOTALE LINEA */
     }
 
     /* LOGO */
