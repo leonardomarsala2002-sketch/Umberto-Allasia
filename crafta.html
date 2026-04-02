@@ -32,12 +32,9 @@
     .page-content ul { margin-bottom: 32px; padding-left: 20px; color: var(--text-mid); font-weight: 300; }
     .page-content li { margin-bottom: 12px; }
 
-    /* STICKY BACK BUTTON - FUORI DAL TESTO A SINISTRA */
+    /* STICKY BACK BUTTON - DESKTOP */
     .btn-back-side {
-      position: absolute;
-      left: -160px; /* Spostato a sinistra fuori dal testo */
-      top: 80px;
-      display: inline-flex;
+      display: none; /* Inizialmente nascosto */
       align-items: center;
       gap: 10px;
       color: var(--text-mid);
@@ -48,22 +45,49 @@
       border-radius: 50px;
       transition: all 0.3s ease;
       z-index: 100;
-      border: 1.2px solid transparent; /* Contorno assente inizialmente */
+      border: 1.2px solid transparent;
       cursor: pointer;
       white-space: nowrap;
     }
     
     .btn-back-side:hover {
-      border-color: var(--accent); /* Contorno appare solo ora */
+      border-color: var(--accent);
       color: var(--accent);
       background: #fff;
-      box-shadow: 0 4px 15px rgba(176, 125, 85, 0.1);
     }
 
-    /* Rendiamo il tasto segui-scroll (Sticky) su desktop */
+    /* NAV MOBILE BACK BUTTON - MOBILE HEADER */
+    .mobile-back-header {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 8px 16px;
+      border-radius: 50px;
+      border: 1.2px solid transparent;
+      transition: all 0.2s;
+      font-weight: 600;
+    }
+    .mobile-back-header:active {
+      border-color: var(--accent);
+      background: rgba(176, 125, 85, 0.05);
+    }
+
     @media (min-width: 1200px) {
-      .btn-back-side { position: sticky; align-self: flex-start; top: 110px; margin-right: 40px; margin-top: 80px; left: auto; }
+      .btn-back-side { display: inline-flex; position: sticky; align-self: flex-start; top: 110px; margin-right: 40px; margin-top: 80px; }
       .article-wrap { display: flex; align-items: flex-start; }
+    }
+
+    @media (max-width: 1199px) {
+      .article-wrap { padding: 0 24px; display: block; }
+      .page-header { padding: 120px 24px 40px; }
+      .page-content { padding: 40px 0; }
+      
+      /* Mostriamo il tasto nell'header su mobile */
+      .mobile-back-header { display: inline-flex; position: absolute; left: 24px; top: 50%; transform: translateY(-50%); }
+      nav .nav-logo { margin-left: 100px; } /* Spostiamo il logo per fare posto al tasto */
     }
 
     /* Image Slots */
@@ -81,20 +105,17 @@
       position: relative;
     }
     .image-slot .ph { font-family: var(--font-serif); italic; color: var(--text-light); opacity: 0.5; font-size: 0.9rem; }
-
-    @media (max-width: 1199px) {
-      .article-wrap { padding: 0 24px; display: block; }
-      .btn-back-side { position: relative; left: 0; top: 0; margin-bottom: 20px; border-color: var(--accent); }
-      .page-header { padding: 120px 24px 40px; }
-      .page-content { padding: 40px 0; }
-    }
   </style>
 </head>
 <body>
-  <nav class="nav-bg-white shadow">
+  <nav class="nav-bg-white shadow" style="position: fixed; top:0; left:0; width:100%; z-index:1000; height: 80px; display: flex; align-items: center; padding: 0 24px;">
+    <!-- Tasto back mobile inserito nell'header -->
+    <a href="index.html#percorso" class="mobile-back-header">← Indietro</a>
+    
     <div class="nav-logo">Il <span>Fisioterapista</span></div>
-    <ul class="nav-links">
-      <li><a href="index.html">Torna alla Home</a></li>
+    
+    <ul class="nav-links" style="margin-left: auto; display: flex; gap: 20px; list-style: none;">
+      <li class="desktop-only"><a href="index.html">Torna alla Home</a></li>
     </ul>
   </nav>
 
