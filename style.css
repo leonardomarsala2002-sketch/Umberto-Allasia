@@ -241,6 +241,20 @@ nav.nav-bg-dark .nav-links a { color: rgba(255,255,255,0.6); }
   transform: none !important;
   align-self: center !important;
 }
+.crafta-link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-color: rgba(176, 125, 85, 0.4);
+  text-underline-offset: 4px;
+  cursor: pointer !important;
+}
+.crafta-link:hover {
+  text-decoration-color: var(--accent);
+  color: var(--accent-soft);
+  transition: all 0.2s;
+}
 .prenota-left .s-title { margin-bottom: 16px; }
 .prenota-left .s-body { margin-bottom: 16px; }
 .contact-list { margin-top: 40px; display: flex; flex-direction: column; gap: 4px; }

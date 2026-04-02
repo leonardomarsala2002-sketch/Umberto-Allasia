@@ -198,7 +198,13 @@
             // Aggiorniamo SOLO se il testo è effettivamente cambiato
             if (currentText !== newText) {
               // Pulizia aggressiva: rimuoviamo spazi bianchi rintanati, &nbsp; e virgolette
-              const sanitizedVal = val.replace(/&nbsp;/g, ' ').replace(/["']/g, '').trim();
+              let sanitizedVal = val.replace(/&nbsp;/g, ' ').replace(/["']/g, '').trim();
+              
+              // Automatismo per link CraFTA
+              if (sanitizedVal.includes('CraFTA')) {
+                sanitizedVal = sanitizedVal.replace(/CraFTA/g, '<a href="crafta.html" class="crafta-link">CraFTA</a>');
+              }
+              
               el.innerHTML = sanitizedVal;
               if (el.classList.contains('typewriter-text') && typeof window.initTypewriter === 'function') {
                 // Se siamo già nella sezione (o l'abbiamo superata), mostralo subito completo
