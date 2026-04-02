@@ -195,19 +195,16 @@
             const currentText = el.textContent.trim();
             const newText = val.replace(/["']/g, '').trim(); // Puliamo virgolette per confronto
             
-            // Aggiorniamo SOLO se il testo è effettivamente cambiato
-            if (currentText !== newText) {
-              // Pulizia aggressiva: rimuoviamo spazi bianchi rintanati, &nbsp; e virgolette
-              let sanitizedVal = val.replace(/&nbsp;/g, ' ').replace(/["']/g, '').trim();
-              
-              // Automatismo per link CraFTA
-              if (sanitizedVal.includes('CraFTA')) {
-                sanitizedVal = sanitizedVal.replace(/CraFTA/g, '<a href="crafta.html" class="crafta-link">CraFTA</a>');
-              }
-              
+            // Applichiamo sempre la pulizia e il link CraFTA
+            let sanitizedVal = val.replace(/&nbsp;/g, ' ').replace(/["']/g, '').trim();
+            if (sanitizedVal.includes('CraFTA')) {
+              sanitizedVal = sanitizedVal.replace(/CraFTA/g, '<a href="crafta.html" class="crafta-link">CraFTA</a>');
+            }
+            
+            // Aggiorniamo SOLO se il testo è effettivamente cambiato (considerando lo stile del link)
+            if (el.innerHTML.trim() !== sanitizedVal) {
               el.innerHTML = sanitizedVal;
               if (el.classList.contains('typewriter-text') && typeof window.initTypewriter === 'function') {
-                // Se siamo già nella sezione (o l'abbiamo superata), mostralo subito completo
                 const ponte = document.getElementById('ponte');
                 const isVisible = ponte && ponte.getBoundingClientRect().top < window.innerHeight;
                 window.initTypewriter(el, isVisible); 
