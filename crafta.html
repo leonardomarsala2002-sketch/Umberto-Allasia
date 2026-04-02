@@ -10,28 +10,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* Reset & Base */
-    body { background: #FEFCF9; overflow-x: hidden; padding-top: 100px; -webkit-tap-highlight-color: transparent; }
+    body { background: #FEFCF9; overflow-x: hidden; padding-top: 90px; -webkit-tap-highlight-color: transparent; }
     
-    /* NAV ARTICOLO - IDENTICA A HOME */
+    /* NAV ARTICOLO - IDENTICA A FOTO 1 */
     nav { 
-      position: fixed; top: 0; left: 0; width: 100%; height: 80px; 
+      position: fixed; top: 0; left: 0; width: 100%; height: 75px; 
       background: #fff; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.03);
       display: flex; align-items: center; padding: 0 48px; justify-content: space-between;
     }
     
-    /* LOGO CORRETTO (Rimozioni spazi bianchi HTML e micro-spaziatura) */
+    /* LOGO ORIGINALE (Scala Desktop) */
     .nav-logo {
         font-family: 'Lora', serif;
         font-size: 1.5rem;
         font-weight: 500;
         color: var(--text);
         text-decoration: none;
-        letter-spacing: -0.01em; /* Più compatto */
+        letter-spacing: -0.01em;
     }
     .nav-logo span {
         color: var(--accent);
         font-style: italic;
-        margin-left: 4px; /* Spazio controllato millimetrico */
+        margin-left: 4px;
     }
 
     /* BACK BUTTON HEADER (Solo Mobile) */
@@ -89,23 +89,24 @@
     }
     .image-slot span { font-family: var(--font-serif); font-style: italic; color: var(--text-mid); opacity: 0.4; }
 
-    /* MOBILE ADJUSTMENTS */
+    /* MATCH PERFETTO FOTO 1 (MOBILE) */
     @media (max-width: 1200px) {
-      nav { padding: 0 20px !important; }
-      .back-pill { display: flex; }
+      nav { height: 70px; padding: 0 20px !important; }
+      .nav-logo { font-size: 1.15rem; font-weight: 400; } /* COME FOTO 1 */
+      .nav-logo span { margin-left: 3px; }
+      .back-pill { display: flex; font-size: 0.85rem; padding: 10px 5px; }
       .layout-grid { grid-template-columns: 1fr; display: block; padding: 0 24px; }
       .sidebar-left, .sidebar-right { display: none; }
       .article-body { max-width: 100%; }
-      .article-title { font-size: 2rem; }
+      .article-title { font-size: 1.8rem; }
       .hero-img-box { border-radius: 20px; }
     }
   </style>
 </head>
 <body>
   <nav>
-    <!-- Logo Scritto senza spazi HTML per massima vicinanza -->
     <a href="index.html#home" class="nav-logo">Il<span>Fisioterapista</span></a>
-    
+    <!-- Tasto back mobile (Sincronizzato con scala ridotta logo) -->
     <a href="index.html#percorso" class="back-pill">Indietro</a>
   </nav>
 
