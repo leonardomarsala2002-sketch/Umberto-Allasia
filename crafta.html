@@ -9,50 +9,52 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --accent: #B07D55; --text: #2C2420; --text-mid: #5A524E; }
+    /* Reset & Base */
+    body { background: #FEFCF9; overflow-x: hidden; }
     
-    body { background: #FEFCF9; }
+    /* Nav identica a Home */
+    nav.nav-bg-white { background: #fff; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
 
-    /* HEADER & NAV */
-    nav { 
-      position: fixed; top: 0; left: 0; width: 100%; height: 80px; 
-      background: #fff; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-      display: flex; align-items: center; padding: 0 48px;
-    }
-    .nav-logo { font-size: 1.4rem; font-family: var(--font-serif); color: var(--accent); }
-    .nav-logo span { color: var(--text); }
-
-    /* HEADER MOBILE BACK (GHOST) */
-    .header-back-pill {
-      display: none; /* Solo mobile */
-      align-items: center; gap: 8px; color: var(--accent);
+    /* Back Button Mobile Header (Ghost) */
+    .mobile-back-btn {
+      display: none; align-items: center; gap: 6px; color: var(--accent);
       text-decoration: none; font-size: 0.85rem; font-weight: 600;
       padding: 8px 16px; border-radius: 50px; border: 1.2px solid transparent;
-      transition: all 0.2s; margin-right: 15px;
+      transition: all 0.2s; position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
     }
-    .header-back-pill:active { border-color: var(--accent); background: rgba(176,125,85,0.05); }
+    .mobile-back-btn:active { border-color: var(--accent); background: rgba(176,125,85,0.05); }
 
     .page-header { padding: 180px 48px 80px; background: #F9F5F0; text-align: center; }
 
-    /* LAYOUT WRAPPER */
-    .main-container { 
-      max-width: 1200px; margin: 0 auto; display: flex; align-items: flex-start; 
-      padding: 80px 48px; position: relative;
+    /* LAYOUT A 3 COLONNE PER CENTRATURA PERFETTA */
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 1fr 800px 1fr;
+      gap: 0;
+      width: 100%;
+      margin: 80px 0;
     }
 
-    /* DESKTOP SIDE BACK (GHOST) */
+    /* Colonna Sinistra (Ospita il tasto Desktop) */
+    .sidebar-left { 
+      display: flex; 
+      flex-direction: column; 
+      align-items: flex-end; 
+      padding-right: 40px;
+    }
+
+    /* DESKTOP BACK BUTTON (GHOST) */
     .btn-back-desktop {
-      position: sticky; top: 120px;
-      display: flex; align-items: center; gap: 10px;
+      position: sticky; top: 110px;
+      display: inline-flex; align-items: center; gap: 10px;
       color: var(--text-mid); text-decoration: none; font-size: 0.9rem;
-      padding: 12px 24px; border-radius: 50px; border: 1.2px solid transparent;
+      padding: 10px 22px; border-radius: 50px; border: 1.2px solid transparent;
       transition: all 0.3s; cursor: pointer; white-space: nowrap;
-      margin-left: -180px; margin-right: 60px; /* Esce fuori a sinistra */
     }
     .btn-back-desktop:hover { border-color: var(--accent); color: var(--accent); background: #fff; box-shadow: 0 5px 20px rgba(176,125,85,0.1); }
 
     .page-content { max-width: 800px; width: 100%; line-height: 1.9; }
-    .page-content h2 { font-family: var(--font-serif); font-size: 2.2rem; margin: 50px 0 24px; color: var(--text); }
+    .page-content h2 { font-family: var(--font-serif); font-size: 2.2rem; margin: 40px 0 24px; color: var(--text); }
     .page-content p { margin-bottom: 24px; color: var(--text-mid); font-size: 1.15rem; font-weight: 300; }
     .page-content ul { margin-bottom: 32px; padding-left: 20px; color: var(--text-mid); font-weight: 300; }
     .page-content li { margin-bottom: 12px; font-size: 1.1rem; }
@@ -65,20 +67,21 @@
     }
     .image-slot span { font-family: var(--font-serif); italic; color: var(--text-mid); opacity: 0.4; }
 
-    /* MOBILE ADJUSTMENTS */
+    /* MOBILE & TABLET */
     @media (max-width: 1200px) {
-      nav { padding: 0 24px; }
-      .header-back-pill { display: flex; }
-      .btn-back-desktop { display: none; }
-      .main-container { padding: 40px 24px; display: block; }
+      .layout-grid { grid-template-columns: 1fr; display: block; padding: 0 24px; margin: 40px 0; }
+      .sidebar-left { display: none; }
+      .mobile-back-btn { display: inline-flex; }
+      nav .nav-logo { margin-left: 100px; }
       .page-header { padding: 140px 24px 60px; }
       .page-content h2 { font-size: 1.8rem; }
     }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html#percorso" class="header-back-pill">← Indietro</a>
+  <nav class="nav-bg-white shadow" style="height: 80px; display: flex; align-items: center; padding: 0 48px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;">
+    <!-- Tasto back mobile -->
+    <a href="index.html#percorso" class="mobile-back-btn">← Indietro</a>
     <div class="nav-logo">Il <span>Fisioterapista</span></div>
   </nav>
 
@@ -89,10 +92,12 @@
     </div>
   </header>
 
-  <div class="main-container">
+  <div class="layout-grid">
     
-    <!-- Tasto Desktop: Sticky e FUORI dal testo a sinistra -->
-    <a href="index.html#percorso" class="btn-back-desktop">← Torna indietro</a>
+    <!-- Colonna Sinistra col Tasto (Desktop) -->
+    <aside class="sidebar-left">
+      <a href="index.html#percorso" class="btn-back-desktop">← Torna indietro</a>
+    </aside>
 
     <article class="page-content">
       <p>Nel corso degli anni, fisioterapisti, terapisti manuali, logopedisti e dentisti hanno mostrato un crescente interesse clinico e pratico per la <strong>regione temporomandibolare e cranio-facciale</strong>.</p>
@@ -127,6 +132,9 @@
         <li>Competenze comunicative specialistiche fondamentali sia nelle sessioni di terapia che nel dialogo interdisciplinare con altri medici specialisti.</li>
       </ul>
     </article>
+
+    <!-- Colonna Destra Vuota (per simmetria) -->
+    <div class="sidebar-right"></div>
   </div>
 
   <footer style="background: var(--text); padding: 60px 40px; text-align: center; color: #fff;">
