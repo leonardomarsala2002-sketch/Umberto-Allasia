@@ -16,32 +16,32 @@
     .page-content ul { margin-bottom: 32px; padding-left: 20px; color: var(--text-mid); font-weight: 300; }
     .page-content li { margin-bottom: 12px; }
 
-    /* Sticky Back Card - Dalle schede news */
-    .btn-back-news {
+    /* PILL BACK BUTTON - IDENTICO ALLE FOTO */
+    .btn-back-pill {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      color: var(--text-mid);
+      gap: 10px;
+      color: var(--accent);
       text-decoration: none;
-      font-size: 0.9rem;
-      padding: 14px 24px;
-      background: #ffffff;
-      border-radius: 20px;
+      font-size: 0.95rem;
+      padding: 12px 28px;
+      background: #fff;
+      border-radius: 50px; /* Pillola perfetta */
       margin-bottom: 40px;
-      transition: transform 0.25s, box-shadow 0.25s;
+      transition: all 0.3s ease;
       position: sticky;
-      top: 100px;
+      top: 110px;
       z-index: 100;
-      box-shadow: 0 4px 15px rgba(44,36,32,0.06);
-      border: 1px solid var(--line);
+      border: 1.2px solid var(--accent); /* Bordo visibile come da foto */
       cursor: pointer;
     }
-    .btn-back-news:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(44,36,32,0.09);
-      color: var(--accent);
+    
+    .btn-back-pill:hover {
+      box-shadow: 0 0 20px rgba(176, 125, 85, 0.15); /* Glow soffuso come da foto 2 */
+      background: var(--bg);
+      border-color: var(--accent);
+      transform: scale(1.02);
     }
-    .btn-back-news span { font-weight: 700; color: var(--accent); }
 
     /* Image Slots */
     .image-slot { 
@@ -62,7 +62,7 @@
     @media (max-width: 900px) {
       .page-header { padding: 120px 24px 40px; }
       .page-content { padding: 40px 24px; }
-      .btn-back-news { position: relative; top: 0; margin-bottom: 20px; }
+      .btn-back-pill { position: relative; top: 0; margin-bottom: 20px; padding: 10px 22px; }
     }
   </style>
 </head>
@@ -83,8 +83,8 @@
 
   <div class="page-content">
     
-    <a href="index.html#percorso" class="btn-back-news">
-      <span>←</span> Torna indietro
+    <a href="index.html#percorso" class="btn-back-pill">
+      ← Torna indietro
     </a>
 
     <p>Nel corso degli anni, fisioterapisti, terapisti manuali, logopedisti e dentisti hanno mostrato un crescente interesse clinico e pratico per la <strong>regione temporomandibolare e cranio-facciale</strong>.</p>
