@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* Reset & Base */
-    body { background: #FEFCF9; overflow-x: hidden; padding-top: 100px; }
+    body { background: #FEFCF9; overflow-x: hidden; padding-top: 100px; -webkit-tap-highlight-color: transparent; }
     
     /* NAV ARTICOLO - IDENTICA A SCREENSHOT */
     nav { 
@@ -23,13 +23,15 @@
 
     /* BACK BUTTON HEADER (Solo Mobile) */
     .back-pill {
-      display: none; /* NASCOSTO SU DESKTOP */
+      display: none;
       align-items: center; gap: 8px; color: var(--text-mid);
       text-decoration: none; font-size: 0.85rem; font-weight: 500;
       padding: 10px 20px; border-radius: 50px; border: 1.2px solid transparent;
       transition: all 0.2s;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
     }
-    .back-pill:hover, .back-pill:active { border-color: var(--accent); color: var(--accent); background: #fff; }
+    .back-pill:active { border-color: transparent; background: transparent; } /* RIMOSSO BORDO MARRONE AL CLICK */
 
     /* LAYOUT A 3 COLONNE (Per tasto laterale desktop) */
     .layout-grid {
@@ -90,7 +92,7 @@
     /* MOBILE ADJUSTMENTS */
     @media (max-width: 1200px) {
       nav { padding: 0 24px; }
-      .back-pill { display: flex; } /* VISIBILE SOLO SU MOBILE */
+      .back-pill { display: flex; }
       .layout-grid { grid-template-columns: 1fr; display: block; padding: 0 24px; }
       .sidebar-left, .sidebar-right { display: none; }
       .article-body { max-width: 100%; }
@@ -102,13 +104,13 @@
 <body>
   <nav>
     <div class="nav-logo">Il <span>Fisioterapista</span></div>
-    <!-- Tasto back in alto a destra su mobile (Nascosto su desktop) -->
-    <a href="index.html#percorso" class="back-pill">← Torna indietro</a>
+    <!-- Tasto back mobile (Senza freccia e senza bordo al tocco) -->
+    <a href="index.html#percorso" class="back-pill">Torna indietro</a>
   </nav>
 
   <div class="layout-grid">
     
-    <!-- Tasto Laterale Desktop (A sinistra fuori dal testo) -->
+    <!-- Tasto Laterale Desktop -->
     <aside class="sidebar-left">
       <a href="index.html#percorso" class="btn-side-sticky">← Torna indietro</a>
     </aside>
