@@ -12,49 +12,40 @@
     /* Reset & Base */
     body { background: #FEFCF9; overflow-x: hidden; padding-top: 100px; -webkit-tap-highlight-color: transparent; }
     
-    /* NAV ARTICOLO - STABILIZZATA */
+    /* NAV ARTICOLO - IDENTICA A HOME */
     nav { 
       position: fixed; top: 0; left: 0; width: 100%; height: 80px; 
       background: #fff; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.03);
       display: flex; align-items: center; padding: 0 48px; justify-content: space-between;
     }
     
-    /* Evita che il logo si avvicini al centro su scroll via JS */
-    .nav-logo { font-size: 1.4rem; font-family: var(--font-serif); color: var(--accent); text-decoration: none; display: flex; align-items: center; }
-    .nav-logo span { color: var(--text); }
+    /* LOGO CORRETTO: Il (Scuro), Fisioterapista (Colorato + Corsivo) */
+    .nav-logo { 
+      font-size: 1.5rem; font-family: var(--font-serif); color: var(--text); 
+      text-decoration: none; display: flex; align-items: center; font-weight: 500;
+    }
+    .nav-logo span { color: var(--accent); font-style: italic; margin-left: 5px; }
 
     /* BACK BUTTON HEADER (Solo Mobile) */
     .back-pill {
-      display: none;
-      align-items: center; gap: 8px; 
-      color: var(--accent); 
+      display: none; align-items: center; gap: 8px; color: var(--accent); 
       text-decoration: none; font-size: 0.95rem; font-weight: 500;
       padding: 10px 12px; border-radius: 50px; border: 1.2px solid transparent;
-      transition: all 0.2s;
-      outline: none;
-      -webkit-tap-highlight-color: transparent;
+      transition: all 0.2s; outline: none; -webkit-tap-highlight-color: transparent;
     }
-    .back-pill:active { border-color: transparent; background: transparent; }
 
     /* LAYOUT A 3 COLONNE (Desktop) */
     .layout-grid {
-      display: grid;
-      grid-template-columns: 1fr 800px 1fr;
-      width: 100%;
-      margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 800px 1fr;
+      width: 100%; margin: 0 auto;
     }
 
-    .sidebar-left { 
-      display: flex; flex-direction: column; align-items: flex-end; 
-      padding-right: 50px; padding-top: 20px;
-    }
+    .sidebar-left { display: flex; flex-direction: column; align-items: flex-end; padding-right: 50px; padding-top: 20px; }
 
     .btn-side-sticky {
-      position: sticky; top: 120px;
-      display: inline-flex; align-items: center; gap: 10px;
+      position: sticky; top: 120px; display: inline-flex; align-items: center; gap: 10px;
       color: var(--text-mid); text-decoration: none; font-size: 0.9rem;
-      padding: 10px 22px; border-radius: 50px; border: 1.2px solid transparent;
-      transition: all 0.3s; cursor: pointer;
+      padding: 10px 22px; border-radius: 50px; border: 1.2px solid transparent; transition: all 0.3s;
     }
     .btn-side-sticky:hover { border-color: var(--accent); color: var(--accent); background: #fff; }
 
@@ -83,7 +74,6 @@
     .page-content-text ul { margin-bottom: 32px; padding-left: 20px; color: var(--text-mid); font-weight: 300; }
     .page-content-text li { margin-bottom: 12px; font-size: 1.1rem; }
 
-    /* Altri slot immagini */
     .image-slot { 
       width: 100%; aspect-ratio: 16/9; background: #F3EEE7; border-radius: 30px; 
       overflow: hidden; margin: 40px 0; border: 1px solid rgba(0,0,0,0.05);
@@ -91,9 +81,9 @@
     }
     .image-slot span { font-family: var(--font-serif); font-style: italic; color: var(--text-mid); opacity: 0.4; }
 
-    /* MOBILE ADJUSTMENTS - FORZATI PER BLOCCARE JS */
+    /* MOBILE ADJUSTMENTS */
     @media (max-width: 1200px) {
-      nav { padding: 0 20px !important; } /* BLOCCA JS E TIENE AI LATI */
+      nav { padding: 0 20px !important; }
       .back-pill { display: flex; }
       .layout-grid { grid-template-columns: 1fr; display: block; padding: 0 24px; }
       .sidebar-left, .sidebar-right { display: none; }
@@ -104,47 +94,33 @@
   </style>
 </head>
 <body>
-  <div id="hero-top"></div> <!-- Punto di ritorno per il logo click -->
+  <div id="hero-top"></div>
 
   <nav>
-    <!-- Logo cliccabile che torna alla hero -->
     <a href="#hero-top" class="nav-logo">Il <span>Fisioterapista</span></a>
-    
-    <!-- Tasto back mobile -->
     <a href="index.html#percorso" class="back-pill">Indietro</a>
   </nav>
 
   <div class="layout-grid">
-    
-    <!-- Tasto Laterale Desktop -->
     <aside class="sidebar-left">
       <a href="index.html#percorso" class="btn-side-sticky">← Torna indietro</a>
     </aside>
 
     <main class="article-body">
-      
       <div class="hero-img-box">
         <span>[ Immagine Metodologia CRAFTA® ]</span>
       </div>
 
       <div class="tag-category">Specializzazione</div>
-      
       <h1 class="article-title">Perché scegliere la metodologia <em>CRAFTA®</em> per il dolore cranio-facciale.</h1>
-      
       <div class="article-meta">Di Umberto Allasia · San Marino</div>
 
       <div class="page-content-text">
         <p>Nel corso degli anni, fisioterapisti, terapisti manuali, logopedisti e dentisti hanno mostrato un crescente interesse clinico e pratico per la <strong>regione temporomandibolare e cranio-facciale</strong>.</p>
-        
         <p>In questo contesto, è stata fondata la <strong>CRAFTA® (Cranial Facial Therapy Academy)</strong>. È un approccio nato per favorire la cooperazione interdisciplinare tra esperti di varie discipline.</p>
-
         <h2>Gruppi Target</h2>
         <p>I corsi e le metodologie CRAFTA sono stati sviluppati per soddisfare gli interessi di fisioterapisti e terapisti manuali, insieme ad altre discipline che trattano questo specifico gruppo di pazienti, tra cui medici generici, dentisti, ortodontisti e logopedisti.</p>
-
-        <div class="image-slot">
-          <span>Approccio Interdisciplinare (Slot 2)</span>
-        </div>
-
+        <div class="image-slot"><span>Approccio Interdisciplinare (Slot 2)</span></div>
         <h2>Gli obiettivi della CRAFTA®</h2>
         <ul>
           <li>Strutturare l'istruzione internazionale e la formazione professionale continua nel trattamento e nella gestione dei pazienti con <strong>disfunzioni temporomandibolari, cranio-facciali e dolore</strong>.</li>
@@ -152,7 +128,6 @@
           <li>Garantire la qualità dell'istruzione e dell'applicazione della terapia cranio-facciale.</li>
           <li>Promuovere il lavoro interdisciplinare e la cooperazione con dentisti, ortopedici, otorinolaringoiatri e neurochirurghi.</li>
         </ul>
-
         <h2>Obiettivi clinici</h2>
         <p>L'obiettivo principale per i pazienti è ricevere un'eccellenza nella valutazione e nel trattamento:</p>
         <ul>
@@ -162,7 +137,6 @@
         </ul>
       </div>
     </main>
-
     <div class="sidebar-right"></div>
   </div>
 
@@ -170,7 +144,6 @@
     <div class="footer-logo" style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--accent);">Il <em>Fisioterapista</em></div>
     <p style="font-size: 0.85rem; opacity: 0.5; margin-top: 24px;">© 2026 Umberto Allasia — San Marino</p>
   </footer>
-  
   <script src="main.js"></script>
 </body>
 </html>
