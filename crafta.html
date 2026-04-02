@@ -1,125 +1,222 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cos'è il CRAFTA® — Umberto Allasia</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Nunito:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=2.4">
   <style>
-    /* Reset & Base */
-    body { background: #FEFCF9; overflow-x: hidden; padding-top: 0px; -webkit-tap-highlight-color: transparent; }
-    
-    /* NAV FISSA, MORBIDA E SENZA LINEE (SEMPRE VISIBILE) */
-    nav { 
-      position: fixed; top: 0; left: 0; width: 100%; height: 80px; z-index: 1000;
-      display: flex; align-items: center; padding: 0 48px; justify-content: space-between;
+    :root {
+      --article-max-width: 800px;
+    }
+
+    body {
+      background-color: var(--bg1);
+      padding-top: 100px; /* Spazio per la nav fissa */
+    }
+
+    .article-page {
+      max-width: var(--article-max-width);
+      margin: 0 auto;
+      padding: 40px 20px 100px;
+    }
+
+    .article-header {
+      margin-bottom: 50px;
+      text-align: left;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-mid);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 10px 15px;
+      background: rgba(254, 252, 249, 0.8);
+      backdrop-filter: blur(5px);
+      border-radius: 50px;
+      margin-bottom: 20px;
       transition: all 0.3s ease;
-      background-color: rgba(254, 252, 249, 0.92); /* AVORIO TRANSLUCIDO DA SUBITO */
-      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-      box-shadow: none !important;
-      border-bottom: none !important;
+      position: sticky;
+      top: 100px;
+      z-index: 100;
+      border: 1px solid transparent;
+    }
+
+    .btn-back:hover {
+      color: var(--accent);
+      border-color: var(--border);
+      background: var(--bg2);
+    }
+
+    @media (min-width: 1200px) {
+      .btn-back {
+        position: fixed;
+        left: calc(50% - var(--article-max-width) / 2 - 150px);
+        top: 120px;
+      }
+    }
+
+    .article-pill {
+      display: inline-block;
+      background: var(--bg2);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .article-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .article-meta {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      font-style: italic;
+    }
+
+    .article-hero-img {
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 32px;
+      margin-bottom: 50px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    }
+
+    .article-body {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--text-dark);
+    }
+
+    .article-body p {
+      margin-bottom: 25px;
     }
     
-    /* LOGO */
-    .nav-logo { font-family: 'Lora', serif; font-size: 1.5rem; font-weight: 500; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
-    .nav-logo span { color: var(--accent); font-style: italic; margin-left: 3px; }
-
-    /* BACK MOBILE */
-    .back-pill { display: none; align-items: center; color: var(--accent); text-decoration: none; font-size: 0.95rem; font-weight: 500; padding: 10px 5px; }
-
-    /* LAYOUT A 3 COLONNE */
-    .layout-grid { display: grid; grid-template-columns: 1fr 800px 1fr; width: 100%; margin: 0 auto; padding-top: 130px; }
-    .sidebar-left { display: flex; flex-direction: column; align-items: flex-end; padding-right: 50px; padding-top: 40px; }
-
-    /* TASTO GHOST */
-    .btn-side-sticky {
-      position: sticky; top: 130px; display: inline-flex; align-items: center; gap: 8px;
-      color: var(--text-mid); text-decoration: none; font-size: 0.9rem;
-      padding: 10px 22px; border-radius: 50px; border: 1.2px solid transparent;
-      transition: all 0.3s;
+    .article-footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      text-align: center;
     }
-    .btn-side-sticky:hover { border-color: var(--accent); color: var(--accent); background: #fff; }
 
-    /* CONTENUTO ARTICOLO */
-    .article-body { max-width: 800px; width: 100%; padding-bottom: 100px; }
-    .hero-img-box { width: 100%; aspect-ratio: 16/9; background: #F3EEE7; border-radius: 30px; overflow: hidden; margin-bottom: 40px; border: 1px solid rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; }
-    .hero-img-box span { font-family: var(--font-serif); font-style: italic; color: var(--text-mid); opacity: 0.4; }
-    .tag-category { display: inline-block; padding: 6px 16px; background: #F9F5F0; color: var(--accent); border-radius: 50px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; }
-    .article-title { font-family: var(--font-serif); font-size: 3rem; color: var(--text); line-height: 1.2; margin-bottom: 20px; }
-    .article-meta { color: var(--text-light); font-size: 0.95rem; margin-bottom: 40px; font-style: italic; }
-    .page-content-text { line-height: 1.9; }
-    .page-content-text h2 { font-family: var(--font-serif); font-size: 2.22rem; margin: 50px 0 24px; color: var(--text); }
-    .page-content-text p { margin-bottom: 24px; color: var(--text-mid); font-size: 1.15rem; font-weight: 300; }
-    .page-content-text ul { margin-bottom: 32px; padding-left: 20px; color: var(--text-mid); font-weight: 300; }
-    .page-content-text li { margin-bottom: 12px; font-size: 1.1rem; }
-    .image-slot { width: 100%; aspect-ratio: 16/9; background: #F3EEE7; border-radius: 30px; overflow: hidden; margin: 40px 0; border: 1px solid rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; }
-    .image-slot span { font-family: var(--font-serif); font-style: italic; color: var(--text-mid); opacity: 0.4; }
+    .cta-box {
+      background: var(--bg2);
+      padding: 50px;
+      border-radius: 32px;
+      text-align: center;
+    }
 
-    /* SCALE MOBILE */
-    @media (max-width: 1200px) {
-      nav { height: 75px; padding: 0 20px !important; }
-      .nav-logo { font-size: 1.15rem; font-weight: 400; }
-      .back-pill { display: flex; }
-      .layout-grid { grid-template-columns: 1fr; display: block; padding: 0 24px; padding-top: 100px; }
-      .sidebar-left, .sidebar-right { display: none; }
-      .article-body { max-width: 100%; }
-      .article-title { font-size: 1.8rem; }
+    @media (max-width: 768px) {
+      body { padding-top: 80px; }
+      .article-page { padding-top: 20px; }
+      .article-title { font-size: 2rem; }
     }
   </style>
 </head>
+
 <body>
-  <nav id="mainNav">
-    <div class="nav-left">
-      <a href="index.html#home" class="nav-logo">Il<span>Fisioterapista</span></a>
-    </div>
-    <a href="index.html#percorso" class="back-pill">Indietro</a>
+
+  <!-- NAV (Copia esatta di articolo.html) -->
+  <nav style="background: rgba(254, 252, 249, 0.95); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: space-between;">
+    <a href="index.html" class="nav-logo" style="text-decoration: none; color: inherit;">Il <span>Fisioterapista</span></a>
+    
+    <!-- Pulsante Indietro Mobile -->
+    <a href="index.html#percorso" class="nav-back-mobile" style="display: none; font-size: 0.85rem; color: var(--accent); font-weight: 600; text-decoration: none; -webkit-tap-highlight-color: transparent; outline: none;">Indietro</a>
+
+    <ul class="nav-links">
+      <li><a href="index.html#storie">Torna alle Storie</a></li>
+      <li><a href="https://calendar.app.google/roTDcAzyEayNB4Tg6" target="_blank" class="nav-cta">Prenota una chiamata</a></li>
+    </ul>
   </nav>
 
-  <div class="layout-grid">
-    <aside class="sidebar-left">
-      <a href="index.html#percorso" class="btn-side-sticky">← Torna indietro</a>
-    </aside>
+  <style>
+    @media (max-width: 768px) {
+      .nav-back-mobile { display: block !important; }
+      .nav-links { display: none !important; }
+      .btn-back-desktop { display: none !important; }
+      .nav-back-mobile, .nav-logo { -webkit-tap-highlight-color: transparent !important; outline: none !important; }
+      .cta-box { padding: 50px 10px !important; margin: 0 -30px !important; border-radius: 32px !important; width: calc(100% + 60px) !important; }
+    }
+  </style>
 
-    <main class="article-body">
-      <div class="hero-img-box">
-        <span>[ Immagine Metodologia CRAFTA® ]</span>
+  <main class="article-page">
+    <article>
+      <a href="index.html#percorso" class="btn-back btn-back-desktop">← Torna indietro</a>
+
+      <div class="article-ph" style="height:450px; border-radius:32px; display:flex; align-items:center; justify-content:center; background:var(--bg2); margin-bottom:50px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);">
+        <span style="font-family:var(--font-serif); font-style:italic; opacity:0.3; color:var(--text-mid);">[ Immagine Metodologia CRAFTA® ]</span>
       </div>
-      <div class="tag-category">Specializzazione</div>
-      <h1 class="article-title">Perché scegliere la metodologia <em>CRAFTA®</em> per il dolore cranio-facciale.</h1>
-      <div class="article-meta">Di Umberto Allasia · San Marino</div>
-      <div class="page-content-text">
+
+      <header class="article-header">
+        <div>
+          <span class="article-pill">Specializzazione</span>
+          <h1 class="article-title">Perché scegliere la metodologia <em>CRAFTA®</em> per il dolore cranio-facciale.</h1>
+          <div class="article-meta">Di Umberto Allasia · San Marino</div>
+        </div>
+      </header>
+
+      <div class="article-body">
         <p>Nel corso degli anni, fisioterapisti, terapisti manuali, logopedisti e dentisti hanno mostrato un crescente interesse clinico e pratico per la <strong>regione temporomandibolare e cranio-facciale</strong>.</p>
         <p>In questo contesto, è stata fondata la <strong>CRAFTA® (Cranial Facial Therapy Academy)</strong>. È un approccio nato per favorire la cooperazione interdisciplinare tra esperti di varie discipline.</p>
-        <h2>Gruppi Target</h2>
         <p>I corsi e le metodologie CRAFTA sono stati sviluppati per soddisfare gli interessi di fisioterapisti e terapisti manuali, insieme ad altre discipline che trattano questo specifico gruppo di pazienti, tra cui medici generici, dentisti, ortodontisti e logopedisti.</p>
-        <div class="image-slot"><span>Approccio Interdisciplinare (Slot 2)</span></div>
-        <h2>Gli obiettivi della CRAFTA®</h2>
-        <ul>
-          <li>Strutturare l'istruzione internazionale e la formazione professionale continua nel trattamento e nella gestione dei pazienti con <strong>disfunzioni temporomandibolari, cranio-facciali e dolore</strong>.</li>
-          <li>Offrire corsi internazionali basati sulle migliori evidenze scientifiche disponibili.</li>
-          <li>Garantire la qualità dell'istruzione e dell'applicazione della terapia cranio-facciale.</li>
-          <li>Promuovere il lavoro interdisciplinare e la cooperazione con dentisti, ortopedici, otorinolaringoiatri e neurochirurghi.</li>
+        
+        <h2 style="font-family: var(--font-serif); font-size: 2rem; margin: 50px 0 25px; color: var(--text-dark);">Gli obiettivi della CRAFTA®</h2>
+        <ul style="margin-bottom: 30px; padding-left: 20px;">
+          <li style="margin-bottom: 15px;">Strutturare l'istruzione internazionale e la formazione professionale continua nel trattamento e nella gestione dei pazienti con <strong>disfunzioni temporomandibolari, cranio-facciali e dolore</strong>.</li>
+          <li style="margin-bottom: 15px;">Offrire corsi internazionali basati sulle migliori evidenze scientifiche disponibili.</li>
+          <li style="margin-bottom: 15px;">Garantire la qualità dell'istruzione e dell'applicazione della terapia cranio-facciale.</li>
+          <li style="margin-bottom: 15px;">Promuovere il lavoro interdisciplinare e la cooperazione con dentisti, ortopedici, otorinolaringoiatri e neurochirurghi.</li>
         </ul>
-        <h2>Obiettivi clinici</h2>
+        
+        <h2 style="font-family: var(--font-serif); font-size: 2rem; margin: 50px 0 25px; color: var(--text-dark);">Obiettivi clinici</h2>
         <p>L'obiettivo principale per i pazienti è ricevere un'eccellenza nella valutazione e nel trattamento:</p>
-        <ul>
-          <li>Eseguire una <strong>valutazione specialistica</strong> dei pazienti con dolore a testa, collo e viso.</li>
-          <li>Analisi indipendenti delle valutazioni e interpretazione dei risultati utilizzando strategie di ragionamento clinico avanzato.</li>
-          <li>Sviluppo di piani di trattamento e gestione a lungo termine personalizzati.</li>
+        <ul style="margin-bottom: 30px; padding-left: 20px;">
+          <li style="margin-bottom: 15px;">Eseguire una <strong>valutazione specialistica</strong> dei pazienti con dolore a testa, collo e viso.</li>
+          <li style="margin-bottom: 15px;">Analisi indipendenti delle valutazioni e interpretazione dei risultati utilizzando strategie di ragionamento clinico avanzato.</li>
+          <li style="margin-bottom: 15px;">Sviluppo di piani di trattamento e gestione a lungo termine personalizzati.</li>
         </ul>
       </div>
-    </main>
-    <div class="sidebar-right"></div>
-  </div>
 
-  <footer style="background: var(--text); padding: 60px 40px; text-align: center; color: #fff;">
-    <div class="footer-logo" style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--accent);">Il <em>Fisioterapista</em></div>
-    <p style="font-size: 0.85rem; opacity: 0.5; margin-top: 24px;">© 2026 Umberto Allasia — San Marino</p>
-  </footer>
+      <footer class="article-footer" style="background: transparent; border-top: none;">
+        <div class="cta-box" style="background: var(--bg2); border: none; padding: 60px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border-radius: 32px;">
+          <h3 style="font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 15px;">Hai dubbi o domande su questo tema?</h3>
+          <p style="color: var(--text-mid); margin-bottom: 30px;">Ogni storia è diversa. Se senti che questo argomento ti tocca da vicino, possiamo parlarne insieme in una chiamata conoscitiva gratuita.</p>
+          <a href="https://calendar.app.google/roTDcAzyEayNB4Tg6" target="_blank" class="btn-warm">Prenota ora una chiamata</a>
+        </div>
+      </footer>
+    </article>
+  </main>
 
-  <script src="main.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script>
+    // SMOOTH SCROLL (LENIS)
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smooth: true
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  </script>
 </body>
 </html>
