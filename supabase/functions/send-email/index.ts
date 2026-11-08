@@ -1,4 +1,4 @@
-// Edge Function "send-email" — invio email tramite Brevo.
+// Edge Function "send-email" — invio email tramite Resend (se c'è RESEND_API_KEY) oppure Brevo.
 //
 // Azioni supportate:
 //   - subscribe  (pubblica): aggiunge l'email ai contatti Brevo e invia la mail di benvenuto.
@@ -102,6 +102,51 @@ async function brevo(path: string, method: string, body?: unknown) {
   return { ok: res.ok, status: res.status, data }
 }
 
+// --- Resend (alternativa a Brevo) ---
+// Se il secret RESEND_API_KEY è impostato si usa Resend, altrimenti Brevo.
+// Senza dominio verificato su Resend il mittente è onboarding@resend.dev e si può
+// scrivere solo all'email del proprietario dell'account Resend (va bene per i test).
+const RESEND_KEY = Deno.env.get("RESEND_API_KEY") || ""
+const PROVIDER = RESEND_KEY ? "resend" : "brevo"
+const RESEND_FROM = Deno.env.get("RESEND_FROM") || `${SENDER.name} <onboarding@resend.dev>`
+
+async function resend(path: string, method: string, body?: unknown) {
+  const res = await fetch(`https://api.resend.com${path}`, {
+    method,
+    headers: { Authorization: `Bearer ${RESEND_KEY}`, "content-type": "application/json" },
+    body: body ? JSON.stringify(body) : undefined,
+  })
+  const text = await res.text()
+  let data: unknown = null
+  try { data = text ? JSON.parse(text) : null } catch { data = text }
+  return { ok: res.ok, status: res.status, data }
+}
+
+// Invia la stessa email a ciascun destinatario separatamente.
+async function sendToEach(emails: string[], subject: string, html: string) {
+  let sent = 0
+  if (PROVIDER === "resend") {
+    for (let i = 0; i < emails.length; i += 100) {
+      const chunk = emails.slice(i, i + 100)
+      const r = await resend("/emails/batch", "POST",
+        chunk.map((e) => ({ from: RESEND_FROM, to: [e], subject, html })))
+      if (!r.ok) return { ok: false, sent, error: r.data }
+      sent += chunk.length
+    }
+  } else {
+    for (let i = 0; i < emails.length; i += 900) {
+      const chunk = emails.slice(i, i + 900)
+      const r = await brevo("/smtp/email", "POST", {
+        sender: SENDER, subject, htmlContent: html,
+        messageVersions: chunk.map((e) => ({ to: [{ email: e }] })),
+      })
+      if (!r.ok) return { ok: false, sent, error: r.data }
+      sent += chunk.length
+    }
+  }
+  return { ok: true, sent }
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders })
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405)
@@ -118,11 +163,18 @@ Deno.serve(async (req) => {
 
     // --- Verifica configurazione (non invia email) ---
     if (action === "health") {
+      if (PROVIDER === "resend") {
+        const r = await resend("/domains", "GET")
+        // Le chiavi "solo invio" rispondono 401 "restricted": la chiave è comunque valida
+        const restricted = JSON.stringify(r.data ?? "").includes("restricted")
+        return json({ provider: "resend", keyValid: r.ok || restricted, from: RESEND_FROM })
+      }
       const acc = await brevo("/account", "GET")
       const snd = await brevo("/senders", "GET")
       const senders = (snd.data as { senders?: { email: string; active: boolean }[] })?.senders ?? []
       const s = senders.find((x) => x.email?.toLowerCase() === SENDER.email)
       return json({
+        provider: "brevo",
         brevoKeyValid: acc.ok,
         senderFound: !!s,
         senderActive: !!s?.active,
@@ -140,14 +192,11 @@ Deno.serve(async (req) => {
       if (error) throw error
       if (!sub) return json({ error: "Email non iscritta" }, 404)
 
-      await brevo("/contacts", "POST", { email, updateEnabled: true })
-      const sent = await brevo("/smtp/email", "POST", {
-        sender: SENDER,
-        to: [{ email }],
-        subject: "Benvenuto! Grazie per esserti iscritto",
-        htmlContent: welcomeHtml(),
-      })
-      return json({ ok: sent.ok, brevo: sent.ok ? undefined : sent.data }, sent.ok ? 200 : 502)
+      if (PROVIDER === "brevo") {
+        await brevo("/contacts", "POST", { email, updateEnabled: true }).catch(() => null)
+      }
+      const r = await sendToEach([email], "Benvenuto! Grazie per esserti iscritto", welcomeHtml())
+      return json({ ok: r.ok, provider: PROVIDER, error: r.ok ? undefined : r.error }, r.ok ? 200 : 502)
     }
 
     // --- Newsletter: solo amministratori ---
@@ -170,20 +219,9 @@ Deno.serve(async (req) => {
       const emails = (subs ?? []).map((s) => s.email).filter(isEmail)
       if (emails.length === 0) return json({ ok: true, sent: 0 })
 
-      // Una email per destinatario (messageVersions), a blocchi da 900
-      let sent = 0
-      for (let i = 0; i < emails.length; i += 900) {
-        const chunk = emails.slice(i, i + 900)
-        const r = await brevo("/smtp/email", "POST", {
-          sender: SENDER,
-          subject: "Nuova storia pubblicata: " + title,
-          htmlContent: newsletterHtml(title, excerpt, payload?.articleId ?? null),
-          messageVersions: chunk.map((e) => ({ to: [{ email: e }] })),
-        })
-        if (!r.ok) return json({ ok: false, sent, brevo: r.data }, 502)
-        sent += chunk.length
-      }
-      return json({ ok: true, sent })
+      const r = await sendToEach(emails, "Nuova storia pubblicata: " + title,
+        newsletterHtml(title, excerpt, payload?.articleId ?? null))
+      return json({ ok: r.ok, sent: r.sent, provider: PROVIDER, error: r.ok ? undefined : r.error }, r.ok ? 200 : 502)
     }
 
     return json({ error: "Azione non valida" }, 400)
