@@ -279,8 +279,16 @@
     const cookieBanner = document.getElementById('cookie-banner');
     const trustindexContainer = document.getElementById('trustindex-container');
 
+    // Mappa Google: caricata solo con consenso o clic esplicito
+    window.loadMap = function () {
+      const wrap = document.getElementById('map-wrap');
+      if (!wrap || wrap.querySelector('iframe')) return;
+      wrap.innerHTML = '<iframe title="Mappa dello studio" src="https://maps.google.com/maps?q=Str.%20Ca\'%20Vagnetto,%203,%2047890%20San%20Marino&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>';
+    };
+
     // Funzione per caricare script di terze parti (es. Trustindex per le recensioni)
     function loadThirdPartyScripts() {
+      loadMap();
       if (trustindexContainer && !document.getElementById('trustindex-script')) {
         trustindexContainer.innerHTML = ''; // Rimuove il messaggio di avviso
         const script = document.createElement('script');

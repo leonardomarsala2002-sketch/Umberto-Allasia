@@ -20,7 +20,7 @@
     rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <link rel="stylesheet" href="style.css?v=6.2">
+  <link rel="stylesheet" href="style.css?v=6.3">
   <!-- Effetti grafici attivi: A sfumature, B ombre, D luce col mouse, E scorrimento, F card 3D (classi su <html>) -->
   <link rel="stylesheet" href="effetti.css?v=1.0">
   <script src="effetti-motion.js?v=1.0" defer></script>
@@ -277,6 +277,7 @@
           <input type="email" id="story-newsletter-input" placeholder="tua@email.com" style="flex: 1; min-width: 250px; padding: 14px 20px; border-radius: 50px; border: 1px solid var(--line); outline: none;">
           <button onclick="storySubscribe()" class="btn-submit" style="width: auto; padding: 14px 30px; margin-top: 0;">Unisciti →</button>
         </div>
+        <p class="nl-privacy">Iscrivendoti accetti di ricevere email dal Fisioterapista. Puoi cancellarti quando vuoi. <a href="privacy-policy.html" target="_blank">Privacy Policy</a></p>
         <p id="story-nl-msg" style="font-size: 0.85rem; margin-top: 15px; color: var(--green-soft); height: 1.2em;"></p>
       </div>
     </div>
@@ -388,11 +389,13 @@
             </div>
           </div>
 
-          <div class="map-wrap">
-            <iframe
-              src="https://maps.google.com/maps?q=Str.%20Ca'%20Vagnetto,%203,%2047890%20San%20Marino&t=&z=15&ie=UTF8&iwloc=&output=embed"
-              allowfullscreen="" loading="lazy">
-            </iframe>
+          <div class="map-wrap" id="map-wrap">
+            <!-- La mappa Google si carica solo dopo il consenso ai cookie (o con un clic) -->
+            <div class="map-consent" id="map-consent">
+              <p>📍 Str. Ca' Vagnetto, 3 · San Marino</p>
+              <button type="button" class="btn-ghost reviews-consent-btn" onclick="loadMap()">Mostra la mappa</button>
+              <a href="https://www.google.com/maps?daddr=Str.+Ca%27+Vagnetto,+3,+47890" target="_blank" rel="noopener" class="map-consent-link">Apri in Google Maps →</a>
+            </div>
           </div>
         </div>
 
@@ -414,6 +417,7 @@
                 </div>
                 <button onclick="subscribeAndRedirect()" class="btn-submit" style="width: 100%; border: none;">Prenota Chiamata</button>
                 <p style="font-size: 0.72rem; color: var(--text-light); margin-top: 10px; cursor: pointer; text-align: center; opacity: 0.8;" onclick="directRedirect()">O prosegui senza lasciare l'email →</p>
+                <p class="nl-privacy" style="text-align:center;">Lasciando l'email ricevi anche la newsletter (cancellabile in ogni momento). <a href="privacy-policy.html" target="_blank">Privacy</a></p>
               </div>
               <button id="main-book-btn" onclick="handleCallOption(event)" class="btn-submit" style="width: 100%; border: none;">Scegli data e ora</button>
             </div>
@@ -581,6 +585,7 @@
               <input type="email" id="newsletter-input" placeholder="La tua email..." style="flex: 1; background: #fff; border: 1px solid var(--line); border-radius: 50px; padding: 10px 18px; font-size: 0.85rem; outline: none;">
               <button onclick="footerSubscribe()" aria-label="Iscriviti alla newsletter" style="background: var(--accent); color: #fff; border: none; border-radius: 50px; width: 40px; height: 40px; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">→</button>
             </div>
+            <p class="nl-privacy">Niente spam, puoi cancellarti quando vuoi. <a href="privacy-policy.html" target="_blank">Privacy Policy</a></p>
             <p id="nl-msg" style="font-size: 0.75rem; margin-top: 10px; color: var(--green-soft); opacity: 0; transition: opacity 0.3s;"></p>
           </div>
         </div>
@@ -624,7 +629,7 @@
     </div>
   </div>
 
-  <script src="main.js?v=12.0" defer></script>
+  <script src="main.js?v=13.0" defer></script>
   <script src="admin.js?v=12.0" defer></script>
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script>
@@ -652,7 +657,8 @@
         const target = this.getAttribute('href');
         if (target && target !== '#') {
           e.preventDefault();
-          lenis.scrollTo(target);
+          // Margine così l'inizio della sezione non finisce sotto la barra in alto
+          lenis.scrollTo(target, { offset: -40 });
         }
       });
     });

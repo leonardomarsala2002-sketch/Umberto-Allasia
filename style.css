@@ -697,3 +697,12 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
   .admin-box { margin: 0 16px 32px; padding: 18px; }
   #admin-subscribers-list { overflow-x: auto; }
 }
+
+/* ── Mappa: segnaposto prima del consenso ─────────────────── */
+.map-consent { min-height: 220px; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; padding: 24px;
+  background: linear-gradient(135deg, #EEF3EA 0%, #F5EFE6 100%); color: var(--text-mid); font-size: 0.92rem; }
+.map-consent p { margin: 0; }
+.map-consent-link { font-size: 0.82rem; color: var(--accent); font-weight: 600; }
+.nl-privacy { font-size: 0.72rem; color: var(--text-light); margin-top: 8px; line-height: 1.5; }
+.nl-privacy a { text-decoration: underline; }
+footer .nl-privacy { color: rgba(255,255,255,0.45); }
