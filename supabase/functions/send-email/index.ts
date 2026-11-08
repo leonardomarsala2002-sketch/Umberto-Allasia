@@ -12,7 +12,12 @@
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4"
 
-const SENDER = { name: "Il Fisioterapista", email: "info@ilfisioterapista.sm" }
+// Mittente: si può cambiare senza ripubblicare impostando il secret SENDER_EMAIL in Supabase.
+// Deve essere un mittente verificato su Brevo. (Provvisorio: Gmail di test, poi info@ del dominio.)
+const SENDER = {
+  name: "Il Fisioterapista",
+  email: (Deno.env.get("SENDER_EMAIL") || "leonardo.marsala2002@gmail.com").toLowerCase(),
+}
 const SITE_URL = "https://umberto-allasia.vercel.app/"
 
 const corsHeaders = {
