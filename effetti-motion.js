@@ -1,8 +1,14 @@
 // Effetti in movimento: D (luce che segue il mouse), E (scorrimento), F (card 3D).
 // Si attivano solo se su <html> c'è la classe corrispondente (fx-d, fx-e, fx-f).
+// Tutte le card usano lo stesso comportamento (classi .fx-card / .fx-hover, vedi effetti.css).
 (function () {
   const html = document.documentElement;
-  const CARD_SEL = '.step-card, .storia-card, .booking-option-card, .pullquote, .mini-card, .map-wrap';
+  // Tutti i riquadri del sito che devono reagire allo stesso modo
+  const CARD_SEL = [
+    '.step-card', '.storia-card', '.booking-option-card', '.pullquote',
+    '.mini-card', '.hero-float-card', '.hero-float-card2', '.cta-box', '.fx-box'
+  ].join(', ');
+  const MAX_SHIFT_PX = 7;   // di quanto si "alza" un bordo inclinando: uguale per card piccole e grandi
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const on = (c) => html.classList.contains(c);
@@ -11,34 +17,52 @@
   function ensureSpot() {
     if (!spot) { spot = document.createElement('div'); spot.id = 'fx-spot'; document.body.appendChild(spot); }
   }
-  function tagCards() { document.querySelectorAll(CARD_SEL).forEach(c => c.classList.add('fx-card')); }
+  function tagCards() {
+    document.querySelectorAll(CARD_SEL).forEach(c => {
+      if (c.classList.contains('fx-card')) return;
+      if (c.closest('.admin-modal')) return; // niente effetti nel pannello admin
+      c.classList.add('fx-card');
+      if (getComputedStyle(c).position === 'static') c.classList.add('fx-rel');
+    });
+  }
 
-  // --- D: luce che segue il mouse (con inerzia morbida) ---
-  let mx = innerWidth / 2, my = innerHeight / 2, sx = mx, sy = my, spotVisible = false;
+  // --- Card: ingresso, movimento e uscita del mouse ---
+  let current = null;
+  function leave(card) {
+    if (!card) return;
+    card.classList.remove('fx-hover');
+    card.style.removeProperty('--rx'); card.style.removeProperty('--ry');
+  }
   document.addEventListener('mousemove', (e) => {
     mx = e.clientX; my = e.clientY;
-    if (!spotVisible) { spotVisible = true; spot && spot.style.setProperty('--spot-o', 1); }
-    const card = e.target.closest && e.target.closest(CARD_SEL);
-    if (!card) return;
-    card.classList.add('fx-card');
+    const card = e.target.closest ? e.target.closest('.fx-card') : null;
+    if (card !== current) { leave(current); current = card; if (card && canHover) card.classList.add('fx-hover'); }
+    if (!card || !canHover) return;
     const r = card.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-    if (on('fx-d')) { card.style.setProperty('--cx', (px * 100) + '%'); card.style.setProperty('--cy', (py * 100) + '%'); }
-    if (on('fx-f') && canHover && !reduceMotion) {
-      card.classList.add('fx-tilting');
-      card.style.setProperty('--rx', ((0.5 - py) * 4).toFixed(2) + 'deg');
-      card.style.setProperty('--ry', ((px - 0.5) * 5).toFixed(2) + 'deg');
-      card.style.setProperty('--shine', (130 - px * 160) + '%');
+    const px = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+    const py = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
+    card.style.setProperty('--cx', (px * 100).toFixed(1) + '%');
+    card.style.setProperty('--cy', (py * 100).toFixed(1) + '%');
+    if (on('fx-f') && !reduceMotion) {
+      // angolo calcolato sulla misura della card: lo spostamento visibile è lo stesso per tutte
+      const maxY = Math.atan(MAX_SHIFT_PX / (r.width / 2)) * 180 / Math.PI;
+      const maxX = Math.atan(MAX_SHIFT_PX / (r.height / 2)) * 180 / Math.PI;
+      card.style.setProperty('--ry', ((px - 0.5) * 2 * maxY).toFixed(2) + 'deg');
+      card.style.setProperty('--rx', ((0.5 - py) * 2 * maxX).toFixed(2) + 'deg');
+      card.style.setProperty('--shine', (130 - px * 160).toFixed(0) + '%');
     }
   }, { passive: true });
-  document.addEventListener('mouseout', (e) => {
-    if (!e.relatedTarget) { spotVisible = false; spot && spot.style.setProperty('--spot-o', 0); }
-    const card = e.target.closest && e.target.closest(CARD_SEL);
-    if (card && !card.contains(e.relatedTarget)) {
-      card.classList.remove('fx-tilting');
-      card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg');
-    }
-  }, { passive: true });
+  document.addEventListener('mouseleave', () => { leave(current); current = null; });
+
+  // --- D: alone che segue il mouse, solo sulle parti chiare (spento su footer e barra scura) ---
+  let mx = innerWidth / 2, my = innerHeight / 2, sx = mx, sy = my;
+  function updateSpotVisibility(e) {
+    if (!spot) return;
+    const overDark = e && e.target && e.target.closest && e.target.closest('footer, nav.nav-bg-dark, .admin-modal, #cookie-banner');
+    spot.style.setProperty('--spot-o', overDark ? 0 : 1);
+  }
+  document.addEventListener('mouseover', updateSpotVisibility, { passive: true });
+  document.addEventListener('mouseout', (e) => { if (!e.relatedTarget && spot) spot.style.setProperty('--spot-o', 0); }, { passive: true });
 
   // --- E: scorrimento (parallasse + ombre che cambiano con la posizione) ---
   function updateScroll() {
@@ -46,7 +70,6 @@
     document.querySelectorAll('.section, .ponte').forEach(s => {
       const r = s.getBoundingClientRect();
       if (r.bottom < -200 || r.top > vh + 200) return;
-      // -1 quando la sezione entra dal basso, +1 quando esce in alto
       const p = ((vh / 2) - (r.top + r.height / 2)) / (vh / 2 + r.height / 2);
       s.style.setProperty('--p', Math.max(-1, Math.min(1, p)).toFixed(3));
     });
@@ -55,8 +78,7 @@
     document.querySelectorAll('.fx-card').forEach(c => {
       const r = c.getBoundingClientRect();
       if (r.bottom < 0 || r.top > vh) return;
-      // luce dall'alto: più la card scende nello schermo, più l'ombra si allunga
-      const t = Math.max(0, Math.min(1, (r.top + r.height / 2) / vh));
+      const t = Math.max(0, Math.min(1, (r.top + r.height / 2) / vh)); // luce dall'alto
       c.style.setProperty('--sh', t.toFixed(3));
     });
   }
@@ -79,8 +101,11 @@
   function init() {
     tagCards();
     // Le card degli articoli arrivano dal database dopo il caricamento
-    new MutationObserver(() => { tagCards(); ticking = true; })
-      .observe(document.body, { childList: true, subtree: true });
+    let pending = false;
+    new MutationObserver(() => {
+      if (pending) return; pending = true;
+      requestAnimationFrame(() => { pending = false; tagCards(); ticking = true; });
+    }).observe(document.body, { childList: true, subtree: true });
     ticking = true;
     requestAnimationFrame(loop);
   }

@@ -61,12 +61,7 @@ html.fx-b .mini-card {
 html.fx-b .step-card, html.fx-b .storia-card, html.fx-b .booking-option-card {
   background: linear-gradient(160deg, #FFFFFF 0%, #FDF9F4 100%);
 }
-html.fx-b .step-card:hover,
-html.fx-b .storia-card:hover,
-html.fx-b .booking-option-card:not(.locked):hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lift);
-}
+
 html.fx-b .approccio-photo, html.fx-b .hero-photo-wrap {
   box-shadow: 0 30px 60px -20px rgba(120,80,50,0.35), 0 12px 24px -12px rgba(120,80,50,0.18);
 }
@@ -77,8 +72,6 @@ html.fx-b .btn-warm, html.fx-b .btn-submit, html.fx-b .nav-cta {
 html.fx-b .btn-warm:hover, html.fx-b .btn-submit:hover, html.fx-b .nav-cta:hover {
   box-shadow: 0 10px 26px -6px rgba(176,125,85,0.7), inset 0 1px 0 rgba(255,255,255,0.25);
 }
-html.fx-b .tl-item { border-radius: 18px; transition: background 0.3s, box-shadow 0.3s; }
-html.fx-b .tl-item:hover { background: rgba(255,255,255,0.7); box-shadow: var(--shadow-soft); }
 html.fx-b .pill-tag { background: linear-gradient(135deg, #F7EFE4, #EFE3D3); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 6px rgba(92,64,40,0.06); }
 html.fx-b nav { box-shadow: 0 6px 24px -12px rgba(92,64,40,0.18); }
 html.fx-b .section-inner > .fade-up[style*="var(--bg3)"] { box-shadow: var(--shadow-soft); }
@@ -131,30 +124,18 @@ html.fx-c .s-title em, html.fx-c .hero-title em {
    ===================================================================== */
 
 /* ---------------------------------------------------------------------
-   D · "LUCE CHE SEGUE IL MOUSE" (solo computer)
-   Un alone caldo e morbido segue il puntatore su tutta la pagina;
-   sulle card compare un riflesso di luce nel punto dove passi.
+   D · LUCE CHE SEGUE IL MOUSE (solo computer)
+   Alone caldo che segue il puntatore sulle parti chiare della pagina.
    --------------------------------------------------------------------- */
 #fx-spot { display: none; }
 html.fx-d #fx-spot {
   display: block; position: fixed; inset: 0; pointer-events: none; z-index: 9997;
   background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 40%), rgba(214,170,128,0.14), rgba(214,170,128,0.04) 40%, transparent 70%);
-  mix-blend-mode: multiply; transition: opacity 0.6s; opacity: var(--spot-o, 0);
+  mix-blend-mode: multiply; transition: opacity 0.5s; opacity: var(--spot-o, 0);
 }
-html.fx-d .fx-card, html.fx-f .fx-card { position: relative; isolation: isolate; } /* i riflessi stanno sotto il testo */
-html.fx-d .fx-card::after {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1;
-  background: radial-gradient(380px circle at var(--cx, 50%) var(--cy, 50%), rgba(232,200,165,0.35), rgba(255,255,255,0.0) 50%);
-  opacity: 0; transition: opacity 0.4s;
-}
-html.fx-d .fx-card:hover::after { opacity: 1; }
-html.fx-d .fx-card:hover { border-color: rgba(201,160,122,0.55) !important; }
 
 /* ---------------------------------------------------------------------
-   E · "PROFONDITÀ ALLO SCORRIMENTO" (computer e telefono)
-   Aloni di colore che scorrono a velocità diverse dai contenuti
-   (parallasse) e ombre delle card che cambiano lunghezza come se la
-   luce arrivasse dall'alto dello schermo.
+   E · PROFONDITÀ ALLO SCORRIMENTO (computer e telefono)
    --------------------------------------------------------------------- */
 html.fx-e .section, html.fx-e .ponte { position: relative; isolation: isolate; overflow: hidden; }
 html.fx-e .section::after, html.fx-e .ponte::after {
@@ -173,41 +154,59 @@ html.fx-e #percorso::after, html.fx-e #storie::after, html.fx-e #prenota::after 
 html.fx-e .hero-blob { transform: translate3d(0, calc(var(--hero-p, 0) * 140px), 0); }
 html.fx-e .hero-blob2 { transform: translate3d(0, calc(var(--hero-p, 0) * -90px), 0); }
 html.fx-e .hero-img-col { transform: translate3d(0, calc(var(--hero-p, 0) * 50px), 0); }
+
+/* =====================================================================
+   SISTEMA UNICO DELLE CARD (B ombre · D riflesso · E ombra allo scroll · F 3D)
+   Tutte le card (.fx-card, assegnata da effetti-motion.js) si comportano
+   allo stesso modo e con la stessa intensità.
+   ===================================================================== */
+.fx-card { isolation: isolate; }               /* i riflessi stanno SOTTO il testo */
+.fx-card.fx-rel { position: relative; }        /* solo per le card che non erano già posizionate */
+
+/* Ombra a riposo: E la fa variare con lo scorrimento, altrimenti B la tiene fissa */
+html.fx-b .fx-card { box-shadow: var(--shadow-soft); }
 html.fx-e .fx-card {
-  box-shadow: 0 calc(6px + var(--sh, 0) * 22px) calc(18px + var(--sh, 0) * 30px) calc(-10px - var(--sh, 0) * 4px) rgba(92,64,40, calc(0.10 + var(--sh, 0) * 0.10));
+  box-shadow: 0 calc(6px + var(--sh, 0) * 18px) calc(18px + var(--sh, 0) * 26px) calc(-10px - var(--sh, 0) * 4px) rgba(92,64,40, calc(0.10 + var(--sh, 0) * 0.08));
+}
+html.fx-b .fx-card, html.fx-e .fx-card, html.fx-f .fx-card {
+  transition: transform 0.45s cubic-bezier(.2,.7,.2,1), box-shadow 0.45s ease, border-color 0.35s ease;
 }
 
-/* ---------------------------------------------------------------------
-   F · "CARD IN 3D" (solo computer)
-   Le card si inclinano leggermente verso il mouse, l'ombra si sposta
-   dal lato opposto e passa un riflesso, come un oggetto vero.
-   --------------------------------------------------------------------- */
-html.fx-f .fx-card {
-  /* da ferma la card è piatta: il testo resta perfettamente nitido */
-  transition: transform 0.5s cubic-bezier(.2,.7,.2,1), box-shadow 0.5s ease;
+/* Passaggio del mouse: identico per tutte */
+html .fx-card.fx-hover {
+  transform: translateY(-6px);
+  box-shadow: 0 2px 4px rgba(92,64,40,0.05), 0 12px 26px rgba(92,64,40,0.09), 0 30px 56px -18px rgba(176,125,85,0.28) !important;
+  border-color: rgba(201,160,122,0.55) !important;
+  animation: none !important;                   /* ferma la fluttuazione delle card in home */
 }
-html.fx-f .fx-card.fx-tilting {
-  transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+html.fx-f .fx-card.fx-hover {
+  transform: perspective(1000px) translateY(-6px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.15s linear, box-shadow 0.3s ease, border-color 0.35s ease;
   -webkit-font-smoothing: antialiased; backface-visibility: hidden;
 }
-html.fx-f .fx-card.fx-tilting { transition: transform 0.12s linear, box-shadow 0.12s linear; }
-html.fx-f .fx-card.fx-tilting {
-  box-shadow: calc(var(--ry, 0deg) / 1deg * -2.2px) calc(14px + var(--rx, 0deg) / 1deg * 2.2px) 40px -14px rgba(92,64,40,0.30);
+
+/* Riflesso di luce sotto il puntatore (D) */
+html.fx-d .fx-card::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1;
+  background: radial-gradient(360px circle at var(--cx, 50%) var(--cy, 50%), rgba(232,200,165,0.38), transparent 55%);
+  opacity: 0; transition: opacity 0.35s;
 }
+html.fx-d .fx-card.fx-hover::after { opacity: 1; }
+
+/* Striscia lucida che segue l'inclinazione (F) */
 html.fx-f .fx-card::before {
   content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1;
   background: linear-gradient(115deg, transparent 35%, rgba(225,190,150,0.22) 50%, transparent 65%);
   background-size: 250% 100%; background-position: var(--shine, 120%) 0;
-  opacity: 0; transition: opacity 0.4s;
+  opacity: 0; transition: opacity 0.35s;
 }
-html.fx-f .fx-card.fx-tilting::before { opacity: 1; }
-html.fx-f .fx-card { position: relative; }
+html.fx-f .fx-card.fx-hover::before { opacity: 1; }
 
 @media (hover: none) {
   html.fx-d #fx-spot, html.fx-d .fx-card::after, html.fx-f .fx-card::before { display: none; }
-  html.fx-f .fx-card { transform: none !important; }
+  html .fx-card.fx-hover { transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   html.fx-e .section::after, html.fx-e .ponte::after, html.fx-e .hero-blob, html.fx-e .hero-blob2, html.fx-e .hero-img-col { transform: none !important; }
-  html.fx-f .fx-card { transform: none !important; }
+  html .fx-card.fx-hover, html.fx-f .fx-card.fx-hover { transform: none !important; }
 }

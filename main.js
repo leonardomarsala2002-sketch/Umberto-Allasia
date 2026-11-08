@@ -56,30 +56,7 @@
 
     const cards = document.querySelectorAll('.hero-float-card, .hero-float-card2');
     cards.forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -10.5;
-        const rotateY = ((x - centerX) / centerX) * 10.5;
-
-        card.style.transform = `perspective(400px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        card.style.transition = 'transform 0.15s ease-out';
-        card.style.animation = 'none';
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = `perspective(400px) rotateX(0deg) rotateY(0deg)`;
-        card.style.transition = 'transform 0.4s ease';
-
-        // Riattiva l'animazione di fluttuazione dopo il reset
-        setTimeout(() => {
-          card.style.animation = '';
-        }, 400);
-      });
-
+      // L'inclinazione al passaggio del mouse è gestita da effetti-motion.js (uguale per tutte le card)
       card.addEventListener('click', () => {
         if (card.classList.contains('hero-float-card2')) return; // Salta l'animazione per le recensioni
 
