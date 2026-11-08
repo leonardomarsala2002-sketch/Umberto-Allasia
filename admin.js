@@ -104,7 +104,8 @@
 
     // --- SUPABASE & ADMIN LOGIC ---
     const SUPABASE_URL = 'https://yqevubcpaloxwjxvqchc.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxZXZ1YmNwYWxveHdqeHZxY2hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MzczMDYsImV4cCI6MjA4OTMxMzMwNn0.26eD-teceo9UVlXUFycP9DCBO77ZmN92ljnTlWtt4jQ';
+    // Chiave pubblica (publishable): sicura da tenere nel sito, i permessi sono gestiti dal database
+    const SUPABASE_KEY = 'sb_publishable_k1k4T-5GkQphLxlH-OJ2kw_qH2zqBd9';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // Gestione Sessione
@@ -438,44 +439,28 @@
     // --- NEWSLETTER LOGIC ---
     const CALENDAR_URL = "https://calendar.app.google/roTDcAzyEayNB4Tg6";
 
+    // Escape per mostrare testo inserito dagli utenti senza rischi
+    const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const isValidEmail = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
+    // Iscrive l'email alla newsletter. Ritorna 'ok', 'already' oppure 'error'.
+    async function subscribeEmail(rawEmail) {
+      const email = String(rawEmail || '').trim().toLowerCase();
+      if (!isValidEmail(email)) return 'invalid';
+      const { error } = await supabaseClient.from('subscribers').insert({ email });
+      if (error && error.code !== '23505') { console.error(error); return 'error'; }
+      if (error) return 'already';
+      sendWelcomeEmail(email);
+      return 'ok';
+    }
+
+    // Contatto Brevo + email di benvenuto (il contenuto è definito nella Edge Function)
     async function sendWelcomeEmail(targetEmail) {
-      // Sincronizza il contatto con Brevo CRM (via Edge Function)
       try {
-        await supabaseClient.functions.invoke('send-email', {
+        const { error } = await supabaseClient.functions.invoke('send-email', {
           body: { action: 'subscribe', email: targetEmail }
         });
-      } catch(e) { console.error("Brevo sync error", e); }
-
-      // Invia la mail di benvenuto (via Edge Function)
-      try {
-        await supabaseClient.functions.invoke('send-email', {
-          body: {
-            action: 'send',
-            to: [targetEmail],
-            subject: "Benvenuto! Grazie per esserti iscritto",
-            htmlContent: `
-              <div style="background-color: #FEFCF9; padding: 40px 20px; font-family: 'Helvetica', Arial, sans-serif;">
-                <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(176,125,85,0.1); border: 1px solid #E2D8CC;">
-                  <div style="background: #FBF7F2; padding: 40px; text-align: center; border-bottom: 1px solid #E2D8CC;">
-                    <div style="font-size: 24px; color: #2C2420; font-weight: bold; letter-spacing: 1px;">IL <span style="font-style: italic; color: #B07D55;">FISIOTERAPISTA</span></div>
-                  </div>
-                  <div style="padding: 40px;">
-                    <h2 style="color: #2C2420; font-size: 22px; margin-bottom: 20px; font-weight: 500;">Benvenuto nel mio spazio digitale</h2>
-                    <p style="color: #6B5E55; line-height: 1.7; font-size: 16px; margin-bottom: 20px;">Ciao! Ti ringrazio per aver scelto di rimanere in contatto.</p>
-                    <p style="color: #6B5E55; line-height: 1.7; font-size: 16px; margin-bottom: 30px;">Da oggi riceverai direttamente via email i miei consigli sulla salute, le storie di chi ha ritrovato il movimento e le ultime news dallo studio di San Marino.</p>
-                    <div style="padding-top: 20px; border-top: 1px solid #F5EFE6;">
-                      <p style="color: #6B5E55; line-height: 1.7; font-size: 16px; margin-bottom: 5px;">A presto,</p>
-                      <p style="color: #B07D55; font-size: 18px; font-weight: bold; margin: 0;">Umberto Allasia</p>
-                    </div>
-                  </div>
-                  <div style="background: #2C2420; padding: 20px; text-align: center;">
-                    <p style="font-size: 12px; color: #EDE4D8; margin: 0; opacity: 0.8;">San Marino — Str. Ca' Vagnetto, 3</p>
-                  </div>
-                </div>
-              </div>
-            `
-          }
-        });
+        if (error) console.error("Welcome email error:", error);
       } catch (e) {
         console.error("Welcome email error:", e);
       }
@@ -530,15 +515,18 @@
         const date = new Date(sub.created_at).toLocaleDateString('it-IT');
         html += `
           <tr style="border-bottom:1px solid #eee;">
-            <td style="padding:10px; font-weight:600;">${sub.email}</td>
+            <td style="padding:10px; font-weight:600;">${escapeHtml(sub.email)}</td>
             <td style="padding:10px; color:var(--text-mid);">${date}</td>
-            <td style="padding:10px;"><span onclick="deleteSubscriber('${sub.email}')" style="color:#d9534f; cursor:pointer; font-weight:600;">Elimina</span></td>
+            <td style="padding:10px;"><span class="js-del-sub" data-email="${escapeHtml(sub.email)}" style="color:#d9534f; cursor:pointer; font-weight:600;">Elimina</span></td>
           </tr>
         `;
       });
 
       html += '</tbody></table>';
       container.innerHTML = html;
+      container.querySelectorAll('.js-del-sub').forEach(el => {
+        el.addEventListener('click', () => deleteSubscriber(el.dataset.email));
+      });
     }
 
     window.deleteSubscriber = async function(email) {
@@ -591,55 +579,44 @@
 
     window.subscribeAndRedirect = async function() {
       const email = document.getElementById('book-email').value;
-      if (email && email.includes('@')) {
-        const { error } = await supabaseClient.from('subscribers').upsert({ email: email });
-        if (!error) {
-          console.log("Subscribed:", email);
-          sendWelcomeEmail(email);
-          localStorage.setItem('has_contacted', 'true');
-          if (typeof unlockVisitOption === 'function') unlockVisitOption();
-        }
-      } else {
+      if (!isValidEmail(email.trim())) {
         alert("Inserisci un'email valida per proseguire o clicca su 'prosegui senza lasciarla'.");
         return;
       }
+      // Apriamo subito il calendario (evita il blocco dei popup), l'iscrizione prosegue in background
       window.open(CALENDAR_URL, '_blank');
+      localStorage.setItem('has_contacted', 'true');
+      if (typeof unlockVisitOption === 'function') unlockVisitOption();
+      subscribeEmail(email);
     };
 
     window.footerSubscribe = async function() {
       const el = document.getElementById('newsletter-input');
       const msg = document.getElementById('nl-msg');
-      const email = el.value.trim();
-      if (!email || !email.includes('@')) return;
-
-      const { error } = await supabaseClient.from('subscribers').upsert({ email: email });
-      if (!error) {
-        msg.textContent = "Grazie! Iscrizione riuscita.";
-        msg.style.opacity = "1";
-        el.value = "";
-        sendWelcomeEmail(email); // Invia email di benvenuto
-        setTimeout(() => { msg.style.opacity = "0"; }, 3000);
-      } else {
-        msg.textContent = "Errore o già iscritto.";
-        msg.style.opacity = "1";
-      }
+      const res = await subscribeEmail(el.value);
+      msg.textContent = {
+        ok: "Grazie! Iscrizione riuscita.",
+        already: "Sei già iscritto, grazie!",
+        invalid: "Inserisci un'email valida.",
+        error: "Errore, riprova tra poco."
+      }[res];
+      msg.style.opacity = "1";
+      if (res === 'ok' || res === 'already') el.value = "";
+      setTimeout(() => { msg.style.opacity = "0"; }, 3500);
     };
 
     window.storySubscribe = async function() {
       const el = document.getElementById('story-newsletter-input');
       const msg = document.getElementById('story-nl-msg');
-      const email = el.value.trim();
-      if (!email || !email.includes('@')) return;
-
-      const { error } = await supabaseClient.from('subscribers').upsert({ email: email });
-      if (!error) {
-        msg.textContent = "Iscrizione avvenuta con successo! Benvenuto.";
-        el.value = "";
-        sendWelcomeEmail(email);
-        setTimeout(() => { msg.textContent = ""; }, 4000);
-      } else {
-        msg.textContent = "Sei già iscritto o c'è un errore.";
-      }
+      const res = await subscribeEmail(el.value);
+      msg.textContent = {
+        ok: "Iscrizione avvenuta con successo! Benvenuto.",
+        already: "Sei già iscritto, grazie!",
+        invalid: "Inserisci un'email valida.",
+        error: "Errore, riprova tra poco."
+      }[res];
+      if (res === 'ok' || res === 'already') el.value = "";
+      setTimeout(() => { msg.textContent = ""; }, 4000);
     };
 
     window.scrollToNewsletter = function() {
@@ -682,41 +659,15 @@
 
       if (!confirm(`Vuoi inviare una notifica email a ${subs.length} pazienti?`)) return;
 
-      const emails = subs.map(s => s.email);
-      
-      // Invia newsletter (via Edge Function)
+      // Invia newsletter (via Edge Function: una email separata per ogni iscritto)
       try {
+        const articleId = document.getElementById('edit-id').value || null;
         const { data, error: funcError } = await supabaseClient.functions.invoke('send-email', {
-          body: {
-            action: 'send',
-            to: emails,
-            subject: "Nuova storia pubblicata: " + title,
-            htmlContent: `
-              <div style="background-color: #FEFCF9; padding: 40px 20px; font-family: 'Helvetica', Arial, sans-serif;">
-                <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(176,125,85,0.1); border: 1px solid #E2D8CC;">
-                  <div style="background: #FBF7F2; padding: 40px; text-align: center; border-bottom: 1px solid #E2D8CC;">
-                    <div style="font-size: 14px; color: #B07D55; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Nuova Storia</div>
-                    <h1 style="color: #2C2420; font-size: 28px; margin: 0; font-weight: 500;">${title}</h1>
-                  </div>
-                  <div style="padding: 40px;">
-                    <p style="color: #6B5E55; line-height: 1.8; font-size: 17px; margin-bottom: 30px;">${excerpt}</p>
-                    <a href="https://umberto-allasia.vercel.app/" style="display: inline-block; background: #B07D55; color: #ffffff; padding: 16px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 16px; box-shadow: 0 4px 15px rgba(176,125,85,0.3);">Continua a leggere sul sito</a>
-                    <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #F5EFE6;">
-                      <p style="color: #6B5E55; line-height: 1.7; font-size: 15px; margin: 0;">Un caro saluto,</p>
-                      <p style="color: #B07D55; font-size: 17px; font-weight: bold; margin: 5px 0 0 0;">Umberto Allasia</p>
-                    </div>
-                  </div>
-                  <div style="background: #FBF7F2; padding: 20px; text-align: center; border-top: 1px solid #E2D8CC;">
-                    <p style="font-size: 11px; color: #A8998F; margin: 0;">Ricevi questa comunicazione perché sei iscritto alla newsletter di ilfisioterapista.sm</p>
-                  </div>
-                </div>
-              </div>
-            `
-          }
+          body: { action: 'newsletter', title, excerpt, articleId }
         });
 
         if (!funcError) {
-          alert("Email inviate con successo a tutti i pazienti!");
+          alert(`Email inviate con successo a ${data?.sent ?? subs.length} pazienti!`);
         } else {
           alert("Errore nell'invio delle email tramite la funzione Supabase.");
           console.error(funcError);
