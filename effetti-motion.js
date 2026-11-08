@@ -26,8 +26,8 @@
     if (on('fx-d')) { card.style.setProperty('--cx', (px * 100) + '%'); card.style.setProperty('--cy', (py * 100) + '%'); }
     if (on('fx-f') && canHover && !reduceMotion) {
       card.classList.add('fx-tilting');
-      card.style.setProperty('--rx', ((0.5 - py) * 7).toFixed(2) + 'deg');
-      card.style.setProperty('--ry', ((px - 0.5) * 9).toFixed(2) + 'deg');
+      card.style.setProperty('--rx', ((0.5 - py) * 4).toFixed(2) + 'deg');
+      card.style.setProperty('--ry', ((px - 0.5) * 5).toFixed(2) + 'deg');
       card.style.setProperty('--shine', (130 - px * 160) + '%');
     }
   }, { passive: true });

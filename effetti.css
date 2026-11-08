@@ -183,9 +183,12 @@ html.fx-e .fx-card {
    dal lato opposto e passa un riflesso, come un oggetto vero.
    --------------------------------------------------------------------- */
 html.fx-f .fx-card {
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(0);
+  /* da ferma la card è piatta: il testo resta perfettamente nitido */
   transition: transform 0.5s cubic-bezier(.2,.7,.2,1), box-shadow 0.5s ease;
-  transform-style: preserve-3d;
+}
+html.fx-f .fx-card.fx-tilting {
+  transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  -webkit-font-smoothing: antialiased; backface-visibility: hidden;
 }
 html.fx-f .fx-card.fx-tilting { transition: transform 0.12s linear, box-shadow 0.12s linear; }
 html.fx-f .fx-card.fx-tilting {
