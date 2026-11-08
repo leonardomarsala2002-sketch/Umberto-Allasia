@@ -63,7 +63,7 @@
         <div class="storia-body" style="padding:20px;">
           <span class="storia-pill">${art.category}</span>
           <div class="storia-title" style="font-size:1rem;">${art.title}</div>
-          <div class="btn-ghost" style="margin-top:10px; font-size:0.8rem;">Leggi di più ?</div>
+          <div class="btn-ghost" style="margin-top:10px; font-size:0.8rem;">Leggi di più →</div>
         </div>
       `;
         card.onclick = () => { window.location.href = `articolo.html?id=${id}`; };
@@ -299,7 +299,7 @@
             <span class="storia-pill">${art.category}</span>
             <div class="storia-title">${art.title}</div>
             <p class="storia-excerpt">${art.excerpt || (art.content.replace(/<[^>]*>/g, '').substring(0, 100) + '...')}</p>
-            <div class="btn-ghost" style="margin-top:15px;">Leggi di più ?</div>
+            <div class="btn-ghost" style="margin-top:15px;">Leggi di più →</div>
           </div>
         `;
           container.appendChild(card);
