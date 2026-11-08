@@ -20,7 +20,11 @@ html.modal-open, body.modal-open { overflow: hidden !important; height: 100% !im
   --green-soft: #7A9E87;
   --font-serif: 'Lora', Georgia, serif;
   --font-sans: 'Nunito', system-ui, sans-serif;
+  /* Alias usati da alcune pagine (prima non erano definiti) */
+  --bg1: var(--bg); --text-dark: var(--text); --red-soft: #B5523F;
+  color-scheme: light;
 }
+html { background: var(--bg); }
 
 /* BASE */
 html { scroll-behavior: auto; }
