@@ -192,12 +192,11 @@
           let val = s.value;
           dbSettings[s.key] = val;
           const el = document.getElementById('dyn-' + s.key.replace(/_/g, '-'));
-          if (el) {
-            const currentText = el.textContent.trim();
-            const newText = val.replace(/["']/g, '').trim(); // Puliamo virgolette per confronto
-            
-            // Applichiamo sempre la pulizia e il link CraFTA
-            let sanitizedVal = val.replace(/&nbsp;/g, ' ').replace(/["']/g, '').trim();
+          if (el && typeof val === 'string') {
+            // Pulizia: spazi e solo le virgolette che racchiudono l'intero testo.
+            // (Prima venivano tolti TUTTI gli apostrofi: "c'è" diventava "cè".)
+            let sanitizedVal = val.replace(/&nbsp;/g, ' ').trim()
+              .replace(/^"([\s\S]*)"$/, '$1').trim();
             if (sanitizedVal.includes('CraFTA')) {
               sanitizedVal = sanitizedVal.replace(/CraFTA/g, '<a href="crafta.html" class="crafta-link">CraFTA</a>');
             }
@@ -299,7 +298,7 @@
           <div class="storia-body">
             <span class="storia-pill">${art.category}</span>
             <div class="storia-title">${art.title}</div>
-            <p class="storia-excerpt">${art.excerpt || (art.content.replace(/<[^>]*>/g, '').substring(0, 100) + '...')}</p>
+            <p class="storia-excerpt">${art.excerpt || (art.content.replace(/<\/p>|<br\s*\/?>/gi, ' ').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().substring(0, 110) + '…')}</p>
             <div class="btn-ghost" style="margin-top:15px;">Leggi di più →</div>
           </div>
         `;
@@ -480,6 +479,8 @@
         newsTab.style.opacity = "0.6"; newsTab.style.color = "var(--text-mid)";
         pazTab.style.opacity = "1"; pazTab.style.color = "var(--accent)";
         renderSubscribersList();
+        renderCallList();
+        loadVisitUrl();
       }
     };
 
@@ -517,7 +518,10 @@
           <tr style="border-bottom:1px solid #eee;">
             <td style="padding:10px; font-weight:600;">${escapeHtml(sub.email)}</td>
             <td style="padding:10px; color:var(--text-mid);">${date}</td>
-            <td style="padding:10px;"><span class="js-del-sub" data-email="${escapeHtml(sub.email)}" style="color:#d9534f; cursor:pointer; font-weight:600;">Elimina</span></td>
+            <td style="padding:10px; white-space:nowrap;">
+              <span class="js-call-sub" data-email="${escapeHtml(sub.email)}" style="color:var(--green-soft); cursor:pointer; font-weight:600; margin-right:14px;">✓ Chiamata fatta</span>
+              <span class="js-del-sub" data-email="${escapeHtml(sub.email)}" style="color:#d9534f; cursor:pointer; font-weight:600;">Elimina</span>
+            </td>
           </tr>
         `;
       });
@@ -526,6 +530,9 @@
       container.innerHTML = html;
       container.querySelectorAll('.js-del-sub').forEach(el => {
         el.addEventListener('click', () => deleteSubscriber(el.dataset.email));
+      });
+      container.querySelectorAll('.js-call-sub').forEach(el => {
+        el.addEventListener('click', () => markCallDone(el.dataset.email));
       });
     }
 
@@ -557,24 +564,55 @@
     });
 
     window.directRedirect = function() {
-      localStorage.setItem('has_contacted', 'true');
-      if (typeof unlockVisitOption === 'function') unlockVisitOption();
       window.open(CALENDAR_URL, '_blank');
     };
+
+    // --- VISITA IN STUDIO: si sblocca solo dopo che la chiamata è stata segnata come conclusa ---
+    let visitUrl = null;
 
     window.handleVisitOption = function() {
-      window.open(CALENDAR_URL, '_blank');
+      if (visitUrl) window.open(visitUrl, '_blank');
     };
 
-    window.unlockVisitOption = function() {
+    function setVisitMsg(text, ok) {
+      const msg = document.getElementById('visit-gate-msg');
+      if (!msg) return;
+      msg.textContent = text;
+      msg.classList.toggle('ok', !!ok);
+    }
+
+    function unlockVisit(url) {
+      visitUrl = url;
       const card = document.getElementById('option-visit');
+      const gate = document.getElementById('visit-gate');
       const btn = document.getElementById('visit-book-btn');
-      const lock = document.getElementById('visit-lock');
-      if (card && btn) {
-        card.classList.remove('locked');
-        btn.disabled = false;
-        if (lock) lock.style.display = 'none';
+      if (card) card.classList.remove('locked');
+      if (gate) gate.hidden = true;
+      if (btn) btn.hidden = false;
+    }
+
+    window.checkVisitAccess = async function(silentEmail) {
+      const input = document.getElementById('visit-email');
+      const btn = document.getElementById('visit-check-btn');
+      const email = String(silentEmail || input?.value || '').trim().toLowerCase();
+      if (!isValidEmail(email)) { if (!silentEmail) setVisitMsg("Inserisci un'email valida."); return; }
+
+      if (btn && !silentEmail) { btn.disabled = true; btn.textContent = '...'; }
+      const { data, error } = await supabaseClient.rpc('check_visit_access', { p_email: email });
+      if (btn && !silentEmail) { btn.disabled = false; btn.textContent = 'Verifica'; }
+
+      if (error) { if (!silentEmail) setVisitMsg('Errore di connessione, riprova tra poco.'); return; }
+      if (data === null) {
+        try { localStorage.removeItem('visit_email'); } catch (e) {}
+        if (!silentEmail) setVisitMsg("Per questa email non risulta ancora una chiamata conclusa. Prenota prima la chiamata conoscitiva: dopo la chiamata potrai prenotare la visita qui.");
+        return;
       }
+      try { localStorage.setItem('visit_email', email); } catch (e) {}
+      if (data === '') {
+        setVisitMsg("Chiamata confermata! Il calendario delle visite sarà disponibile a breve.", true);
+        return;
+      }
+      unlockVisit(data);
     };
 
     window.subscribeAndRedirect = async function() {
@@ -585,9 +623,10 @@
       }
       // Apriamo subito il calendario (evita il blocco dei popup), l'iscrizione prosegue in background
       window.open(CALENDAR_URL, '_blank');
-      localStorage.setItem('has_contacted', 'true');
-      if (typeof unlockVisitOption === 'function') unlockVisitOption();
       subscribeEmail(email);
+      // Precompiliamo l'email nella card della visita: si sbloccherà dopo la chiamata
+      const visitInput = document.getElementById('visit-email');
+      if (visitInput && !visitInput.value) visitInput.value = email.trim();
     };
 
     window.footerSubscribe = async function() {
@@ -678,8 +717,60 @@
       }
     };
 
+    // --- ADMIN: chiamate concluse e link visita ---
+    async function renderCallList() {
+      const box = document.getElementById('admin-call-list');
+      if (!box) return;
+      const { data, error } = await supabaseClient.from('call_completed').select('*').order('completed_at', { ascending: false });
+      if (error) { box.innerHTML = '<p class="admin-hint">Errore nel caricamento.</p>'; return; }
+      if (!data.length) { box.innerHTML = '<p class="admin-hint">Nessuna chiamata segnata come conclusa.</p>'; return; }
+      box.innerHTML = '<ul class="admin-call-list">' + data.map(c => `
+        <li><span><strong>${escapeHtml(c.email)}</strong> <small>${new Date(c.completed_at).toLocaleDateString('it-IT')}</small></span>
+        <span class="admin-btn-delete js-undo-call" data-email="${escapeHtml(c.email)}">Annulla</span></li>`).join('') + '</ul>';
+      box.querySelectorAll('.js-undo-call').forEach(el => el.addEventListener('click', () => removeCallDone(el.dataset.email)));
+    }
+
+    window.markCallDone = async function(rawEmail) {
+      const email = String(rawEmail || '').trim().toLowerCase();
+      if (!isValidEmail(email)) { alert("Email non valida"); return; }
+      const { error } = await supabaseClient.from('call_completed').upsert({ email, completed_at: new Date().toISOString() });
+      if (error) { alert("Errore nel salvataggio"); console.error(error); return; }
+      const input = document.getElementById('call-done-email');
+      if (input) input.value = '';
+      renderCallList();
+    };
+
+    async function removeCallDone(email) {
+      if (!confirm(`Annullare la chiamata conclusa per ${email}? Non potrà più prenotare la visita dal sito.`)) return;
+      const { error } = await supabaseClient.from('call_completed').delete().eq('email', email);
+      if (error) { alert("Errore"); console.error(error); return; }
+      renderCallList();
+    }
+
+    async function loadVisitUrl() {
+      const input = document.getElementById('visit-url-input');
+      if (!input) return;
+      const { data } = await supabaseClient.from('private_settings').select('value').eq('key', 'visit_booking_url').maybeSingle();
+      input.value = data?.value || '';
+      document.getElementById('visit-url-msg').textContent = input.value ? '' : "⚠️ Link non ancora impostato: chi ha concluso la chiamata vedrà \"calendario disponibile a breve\".";
+    }
+
+    window.saveVisitUrl = async function() {
+      const input = document.getElementById('visit-url-input');
+      const msg = document.getElementById('visit-url-msg');
+      const value = input.value.trim();
+      if (value && !/^https:\/\//.test(value)) { msg.textContent = 'Il link deve iniziare con https://'; return; }
+      const { error } = await supabaseClient.from('private_settings').upsert({ key: 'visit_booking_url', value });
+      msg.textContent = error ? 'Errore nel salvataggio.' : 'Link salvato ✓';
+    };
+
     // Carica tutto all'avvio
     fetchAllData();
-    if (localStorage.getItem('has_contacted') === 'true') {
-      setTimeout(unlockVisitOption, 500);
-    }
+    // Se il visitatore aveva già verificato la sua email, ricontrolla (lo sblocco dipende sempre dal database)
+    try {
+      const savedVisitEmail = localStorage.getItem('visit_email');
+      localStorage.removeItem('has_contacted'); // vecchio sblocco non più usato
+      if (savedVisitEmail) checkVisitAccess(savedVisitEmail);
+    } catch (e) {}
+    // Accesso admin rapido: aggiungi #admin all'indirizzo del sito
+    if (location.hash === '#admin') setTimeout(() => adminLoginTrigger(), 300);

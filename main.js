@@ -12,7 +12,8 @@
       const nav = document.querySelector('nav');
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       
-      nav.style.padding = scrollTop > 40 ? '12px 48px' : '20px 48px';
+      // Su desktop la barra si restringe scorrendo; su mobile resta il padding del CSS
+      nav.style.padding = window.innerWidth > 1100 ? (scrollTop > 40 ? '12px 48px' : '20px 48px') : '';
       
       // Mappatura completa delle sezioni e dei loro colori
       const sections = ['home', 'ponte', 'approccio', 'percorso', 'come-lavoro', 'storie', 'recensioni', 'prenota'];
@@ -203,13 +204,19 @@
       
       [...temp.childNodes].forEach(node => {
         if (node.nodeType === 3) { // Testo
-          const text = node.textContent;
-          [...text].forEach(char => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            span.className = 'char' + (showImmediate ? ' visible' : '');
-            if (char === ' ') span.innerHTML = '&nbsp;';
-            el.appendChild(span);
+          // Ogni parola è un blocco che non si spezza: evita a capo a metà parola su mobile
+          node.textContent.split(/(\s+)/).forEach(part => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { el.appendChild(document.createTextNode(' ')); return; }
+            const word = document.createElement('span');
+            word.className = 'tw-word';
+            [...part].forEach(char => {
+              const span = document.createElement('span');
+              span.textContent = char;
+              span.className = 'char' + (showImmediate ? ' visible' : '');
+              word.appendChild(span);
+            });
+            el.appendChild(word);
           });
         } else if (node.nodeName === 'BR') { // Ritorno a capo
           el.appendChild(document.createElement('br'));
@@ -282,7 +289,31 @@
         script.async = true;
         script.src = 'https://cdn.trustindex.io/loader.js?a6abdf067269292a4c867201a01';
         trustindexContainer.appendChild(script);
+        watchReviewsWidget();
       }
+    }
+
+    // Se il widget Trustindex non è attivo (prova scaduta / errore), mostriamo un link alle recensioni Google
+    // invece del messaggio di errore in inglese.
+    const GOOGLE_REVIEWS_URL = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent("Il Fisioterapista Umberto Allasia, Str. Ca' Vagnetto 3, San Marino");
+    function showReviewsFallback() {
+      if (!trustindexContainer || trustindexContainer.dataset.fallback) return;
+      trustindexContainer.dataset.fallback = '1';
+      trustindexContainer.innerHTML = `
+        <div class="reviews-consent">
+          <p>Leggi cosa dicono i pazienti direttamente su Google.</p>
+          <a class="btn-warm" href="${GOOGLE_REVIEWS_URL}" target="_blank" rel="noopener">Vedi le recensioni su Google →</a>
+        </div>`;
+    }
+    function watchReviewsWidget() {
+      const isBroken = () => /trial period has expired|subscription plans|periodo di prova/i.test(trustindexContainer.innerText || '');
+      const mo = new MutationObserver(() => { if (isBroken()) { mo.disconnect(); showReviewsFallback(); } });
+      mo.observe(trustindexContainer, { childList: true, subtree: true, characterData: true });
+      // Se dopo 8 secondi non è comparsa nessuna recensione, mostriamo comunque il link
+      setTimeout(() => {
+        mo.disconnect();
+        if (isBroken() || !trustindexContainer.querySelector('.ti-review-item, .ti-widget')) showReviewsFallback();
+      }, 8000);
     }
 
     window.addEventListener('click', (e) => {
