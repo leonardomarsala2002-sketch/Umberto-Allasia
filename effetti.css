@@ -33,7 +33,7 @@ html.fx-a .ponte { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 
 html.fx-a .hero-blob { opacity: 1; width: 760px; height: 760px; background: radial-gradient(circle, rgba(201,160,122,0.35) 0%, rgba(237,228,216,0.5) 35%, transparent 70%); }
 html.fx-a .hero-blob2 { opacity: 0.9; width: 520px; height: 520px; }
 html.fx-a .s-title em, html.fx-a .hero-title em {
-  background: linear-gradient(100deg, #9C6A44 0%, #C9A07A 100%);
+  background: linear-gradient(100deg, #85552F 0%, #A8754C 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 html.fx-a footer { background: linear-gradient(180deg, #33291F 0%, #2C2420 40%, #241D19 100%); }
@@ -138,13 +138,13 @@ html.fx-c .s-title em, html.fx-c .hero-title em {
 #fx-spot { display: none; }
 html.fx-d #fx-spot {
   display: block; position: fixed; inset: 0; pointer-events: none; z-index: 9997;
-  background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 40%), rgba(214,170,128,0.20), rgba(214,170,128,0.06) 40%, transparent 70%);
+  background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 40%), rgba(214,170,128,0.14), rgba(214,170,128,0.04) 40%, transparent 70%);
   mix-blend-mode: multiply; transition: opacity 0.6s; opacity: var(--spot-o, 0);
 }
-html.fx-d .fx-card { position: relative; }
+html.fx-d .fx-card, html.fx-f .fx-card { position: relative; isolation: isolate; } /* i riflessi stanno sotto il testo */
 html.fx-d .fx-card::after {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 2;
-  background: radial-gradient(380px circle at var(--cx, 50%) var(--cy, 50%), rgba(255,255,255,0.55), transparent 45%);
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1;
+  background: radial-gradient(380px circle at var(--cx, 50%) var(--cy, 50%), rgba(232,200,165,0.35), rgba(255,255,255,0.0) 50%);
   opacity: 0; transition: opacity 0.4s;
 }
 html.fx-d .fx-card:hover::after { opacity: 1; }
@@ -192,8 +192,8 @@ html.fx-f .fx-card.fx-tilting {
   box-shadow: calc(var(--ry, 0deg) / 1deg * -2.2px) calc(14px + var(--rx, 0deg) / 1deg * 2.2px) 40px -14px rgba(92,64,40,0.30);
 }
 html.fx-f .fx-card::before {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 3;
-  background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.45) 50%, transparent 65%);
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1;
+  background: linear-gradient(115deg, transparent 35%, rgba(225,190,150,0.22) 50%, transparent 65%);
   background-size: 250% 100%; background-position: var(--shine, 120%) 0;
   opacity: 0; transition: opacity 0.4s;
 }
