@@ -596,7 +596,7 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
 .booking-option-card.locked h4,
 .booking-option-card.locked > p { opacity: 0.6; }
 
-.booking-option-card.locked .btn-submit {
+.booking-option-card.locked #visit-book-btn {
   background: #ccc !important;
   cursor: not-allowed;
   transform: none;
