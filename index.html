@@ -20,7 +20,7 @@
     rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <link rel="stylesheet" href="style.css?v=6.4">
+  <link rel="stylesheet" href="style.css?v=6.5">
   <!-- Effetti grafici attivi: A sfumature, B ombre leggere, E scorrimento, F card 3D (classi su <html>) -->
   <link rel="stylesheet" href="effetti.css?v=2.1">
   <script src="effetti-motion.js?v=2.0" defer></script>
@@ -539,6 +539,11 @@
             <input type="text" id="edit-category" placeholder="es. Riflessione, Postura...">
           </div>
           <div class="admin-form-group">
+            <label>Data di pubblicazione</label>
+            <input type="date" id="edit-date">
+            <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 4px;">Gli articoli sono mostrati in ordine di data, dal più recente. Salvando un <strong>nuovo</strong> articolo parte in automatico l'email di avviso a tutti gli iscritti.</p>
+          </div>
+          <div class="admin-form-group">
             <label>Estratto (breve riassunto)</label>
             <textarea id="edit-excerpt" rows="2"></textarea>
           </div>
@@ -630,7 +635,7 @@
   </div>
 
   <script src="main.js?v=14.0" defer></script>
-  <script src="admin.js?v=13.0" defer></script>
+  <script src="admin.js?v=14.0" defer></script>
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script>
     // SMOOTH CONTROL (Lenis)

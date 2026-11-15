@@ -126,13 +126,21 @@ async function resend(path: string, method: string, body?: unknown) {
 async function sendToEach(emails: string[], subject: string, html: string) {
   let sent = 0
   if (PROVIDER === "resend") {
+    let failed = 0
+    let lastError: unknown = null
     for (let i = 0; i < emails.length; i += 100) {
       const chunk = emails.slice(i, i + 100)
       const r = await resend("/emails/batch", "POST",
         chunk.map((e) => ({ from: RESEND_FROM, to: [e], subject, html })))
-      if (!r.ok) return { ok: false, sent, error: r.data }
-      sent += chunk.length
+      if (r.ok) { sent += chunk.length; continue }
+      // Se il blocco viene rifiutato (es. dominio non ancora verificato: si può scrivere solo
+      // al proprietario dell'account), riprova una email alla volta e conta quelle riuscite.
+      for (const e of chunk) {
+        const one = await resend("/emails", "POST", { from: RESEND_FROM, to: [e], subject, html })
+        if (one.ok) sent++; else { failed++; lastError = one.data }
+      }
     }
+    return { ok: sent > 0 || emails.length === 0, sent, failed, error: failed ? lastError : undefined }
   } else {
     for (let i = 0; i < emails.length; i += 900) {
       const chunk = emails.slice(i, i + 900)
@@ -210,18 +218,30 @@ Deno.serve(async (req) => {
         .from("admins").select("email").ilike("email", userEmail).maybeSingle()
       if (!isAdmin) return json({ error: "Non autorizzato" }, 403)
 
-      const title = String(payload?.title ?? "").slice(0, 300)
-      const excerpt = String(payload?.excerpt ?? "").slice(0, 2000)
-      if (!title) return json({ error: "Titolo mancante" }, 400)
+      // L'articolo si legge dal database (titolo e anteprima non arrivano dal browser)
+      const articleId = Number(payload?.articleId)
+      if (!Number.isInteger(articleId) || articleId <= 0) return json({ error: "Articolo mancante" }, 400)
+      const { data: art, error: artErr } = await admin
+        .from("articles").select("id, title, excerpt, content, notified_at").eq("id", articleId).maybeSingle()
+      if (artErr) throw artErr
+      if (!art) return json({ error: "Articolo non trovato" }, 404)
+      // Niente doppi invii, a meno che l'admin non chieda esplicitamente di reinviare
+      if (art.notified_at && !payload?.force) return json({ ok: true, alreadyNotified: true, sent: 0 })
+
+      const title = String(art.title ?? "").slice(0, 300)
+      const plain = String(art.content ?? "").replace(/<\/p>|<br\s*\/?>/gi, " ").replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim()
+      const excerpt = String(art.excerpt || (plain.length > 220 ? plain.slice(0, 220) + "…" : plain)).slice(0, 2000)
 
       const { data: subs, error } = await admin.from("subscribers").select("email")
       if (error) throw error
-      const emails = (subs ?? []).map((s) => s.email).filter(isEmail)
-      if (emails.length === 0) return json({ ok: true, sent: 0 })
+      const emails = [...new Set((subs ?? []).map((s) => String(s.email).toLowerCase()).filter(isEmail))]
+      if (emails.length === 0) return json({ ok: true, sent: 0, failed: 0 })
 
-      const r = await sendToEach(emails, "Nuova storia pubblicata: " + title,
-        newsletterHtml(title, excerpt, payload?.articleId ?? null))
-      return json({ ok: r.ok, sent: r.sent, provider: PROVIDER, error: r.ok ? undefined : r.error }, r.ok ? 200 : 502)
+      const r = await sendToEach(emails, "Nuovo articolo: " + title, newsletterHtml(title, excerpt, art.id))
+      if (r.sent > 0) {
+        await admin.from("articles").update({ notified_at: new Date().toISOString() }).eq("id", art.id)
+      }
+      return json({ ok: r.ok, sent: r.sent, failed: (r as { failed?: number }).failed ?? 0, provider: PROVIDER, error: r.ok ? undefined : r.error }, r.ok ? 200 : 502)
     }
 
     return json({ error: "Azione non valida" }, 400)

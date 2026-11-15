@@ -1,16 +1,27 @@
     // Articoli Content
+    // Data leggibile in italiano, es. "15 novembre 2026"
+    const formatDate = (d) => {
+      if (!d) return '';
+      const date = new Date(d);
+      return isNaN(date) ? '' : date.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+    };
+    window.formatArticleDate = formatDate;
+
     const articles = {
       1: {
+        published_at: '2026-05-26T09:00:00+02:00',
         category: 'Riflessione',
         title: 'Perché il dolore cronico non è "tutto nella testa", ma a volte ci passa anche da lì.',
         content: `<p>Molti pazienti arrivano in studio stanchi di sentirsi dire che il loro dolore "non ha una causa medica evidente". Questo finisce per farli sentire non ascoltati, o peggio, pazzi.</p><p>Il dolore cronico è reale quanto una frattura, ma risponde a logiche diverse. Il sistema nervoso diventa ipersensibile. È come un sistema d'allarme che continua a suonare anche dopo che l'incendio è stato spento da tempo.</p><p>Nel mio studio non cerchiamo di "spegnere" il dolore con la bacchetta magica, ma lavoriamo per ricalibrare quel sistema d'allarme, unendo tecniche manuali all'educazione sul dolore e all'esercizio.</p>`
       },
       2: {
+        published_at: '2026-04-21T09:00:00+02:00',
         category: 'Domande frequenti',
         title: 'Ha senso prendere appuntamento? Rispondo onestamente.',
         content: `<p>Molte persone arrivano dopo aver aspettato a lungo.</p><p>Spesso mi dicono di aver provato a gestire il problema da sole, oppure di aver rimandato, sperando che passasse.</p><p>Durante la seduta, una parte importante del mio lavoro è spiegarti cosa sta succedendo. Dare un senso al sintomo, collegarlo alla tua storia, ai tuoi gesti quotidiani, a quello che stai vivendo.</p><p>E questo, molto spesso, cambia già qualcosa. Riduce la preoccupazione, alleggerisce quella sensazione di incertezza, aiuta a capire che il problema può essere affrontato.</p><p>Capita frequentemente che chi arriva mi dica: “forse avrei dovuto muovermi prima”, più per la frustrazione di non aver trovato soluzioni che per la gravità del dolore in sé.</p><p>Non si tratta di arrivare prima o dopo. Si tratta di iniziare a capire.</p>`
       },
       3: {
+        published_at: '2026-03-24T09:00:00+01:00',
         category: 'Approccio',
         title: 'Cosa succede davvero nel primo appuntamento',
         content: `<p>La prima cosa che faremo è sederci e conoscerci.</p><p>Fin da subito sarai parte attiva della seduta. Non mi interessa solo capire che dolore hai, ma soprattutto come quel dolore entra nella tua vita.</p><p>Ti chiederò quando si presenta durante la giornata, in quali momenti è più intenso e quanto interferisce con ciò che fai ogni giorno: lavoro, studio, tempo libero.</p><p>Voglio comprendere cosa ti limita davvero, cosa hai dovuto modificare o evitare a causa del sintomo.</p><p>Allo stesso tempo, daremo spazio anche a un aspetto spesso trascurato: come ti fa sentire questo problema.</p><p>Portarsi dietro un dolore non è solo una questione fisica, ma anche emotiva. Spesso è un percorso bidirezionale.</p><p>Solo dopo passeremo alla valutazione fisica.</p><p>Perché un dolore non nasce mai per caso: può essere legato a posture scorrette, a vecchi infortuni o a periodi di particolare stress.</p><p>Il primo appuntamento serve a tracciare una mappa.</p><p>Il percorso che faremo insieme è il viaggio.</p>`
@@ -61,7 +72,7 @@
         card.innerHTML = `
         <div class="storia-img">${imageHtml}</div>
         <div class="storia-body" style="padding:20px;">
-          <span class="storia-pill">${art.category}</span>
+          <div class="storia-meta"><span class="storia-pill">${art.category}</span><time class="storia-date">${formatDate(art.published_at || art.created_at)}</time></div>
           <div class="storia-title" style="font-size:1rem;">${art.title}</div>
           <div class="btn-ghost" style="margin-top:10px; font-size:0.8rem;">Leggi di più →</div>
         </div>
@@ -168,16 +179,16 @@
       const { data, error } = await supabaseClient
         .from('articles')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('published_at', { ascending: false });
 
       const dbEntries = (!error && data) ? data : [];
-      // Gli articoli di riserva hanno id "f1", "f2"... per non confondersi con quelli del database (1, 2, 3...)
+      // Articoli di riserva (id "f1", "f2"...): usati solo se il database non risponde o è vuoto
       const fallbackEntries = Object.keys(articles).map(id => ({ id: 'f' + id, ...articles[id] }));
-      
-      const dbTitles = dbEntries.map(a => a.title);
-      const filteredFallbacks = fallbackEntries.filter(f => !dbTitles.includes(f.title));
-      
-      dbArticles = [...dbEntries, ...filteredFallbacks];
+      const filteredFallbacks = dbEntries.length ? [] : fallbackEntries;
+
+      // Sempre in ordine di data, dal più recente
+      dbArticles = [...dbEntries, ...filteredFallbacks]
+        .sort((a, b) => new Date(b.published_at || b.created_at || 0) - new Date(a.published_at || a.created_at || 0));
       
       renderArticles();
       if (typeof renderAdminList === 'function') renderAdminList();
@@ -297,7 +308,7 @@
           card.innerHTML = `
           <div class="storia-img">${imageHtml}</div>
           <div class="storia-body">
-            <span class="storia-pill">${art.category}</span>
+            <div class="storia-meta"><span class="storia-pill">${art.category}</span><time class="storia-date" datetime="${art.published_at || art.created_at || ''}">${formatDate(art.published_at || art.created_at)}</time></div>
             <div class="storia-title">${art.title}</div>
             <p class="storia-excerpt">${art.excerpt || (art.content.replace(/<\/p>|<br\s*\/?>/gi, ' ').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().substring(0, 110) + '…')}</p>
             <div class="btn-ghost" style="margin-top:15px;">Leggi di più →</div>
@@ -355,13 +366,16 @@
 
     function renderAdminList() {
       const list = document.getElementById('admin-article-list');
-      list.innerHTML = '<h3>Articoli Esistenti (Database + Backup)</h3>';
+      list.innerHTML = '<h3>Articoli pubblicati (dal più recente)</h3>';
       dbArticles.forEach(art => {
         const isFallback = String(art.id).startsWith('f'); // articolo di riserva scritto nel codice
+        const status = isFallback ? '<small style="opacity:0.5;">(Backup: salvandolo diventa modificabile)</small>'
+          : art.notified_at ? `<small style="color:var(--green-soft);">✉️ iscritti avvisati il ${formatDate(art.notified_at)}</small>`
+          : '<small style="color:var(--accent);">✉️ iscritti non ancora avvisati</small>';
         const item = document.createElement('div');
         item.className = 'admin-list-item';
         item.innerHTML = `
-        <span>${escapeHtml(art.title)} ${isFallback ? '<small style="opacity:0.5; margin-left:10px;">(Backup: salvandolo diventa modificabile)</small>' : ''}</span>
+        <span><strong>${escapeHtml(art.title)}</strong><br><small style="opacity:0.7;">${formatDate(art.published_at || art.created_at)}</small> · ${status}</span>
         <div>
           <span class="admin-btn-edit" onclick="editArticle('${art.id}')">Modifica</span>
           ${!isFallback ? `<span class="admin-btn-delete" onclick="deleteArticle(${Number(art.id)})">Elimina</span>` : ''}
@@ -371,14 +385,22 @@
       });
     }
 
+    const toDateInput = (d) => {
+      const date = d ? new Date(d) : new Date();
+      if (isNaN(date)) return '';
+      const pad = n => String(n).padStart(2, '0');
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+    };
+
     window.addNewArticle = function () {
       document.getElementById('edit-id').value = '';
       document.getElementById('edit-title').value = '';
       document.getElementById('edit-category').value = '';
+      document.getElementById('edit-date').value = toDateInput(null); // oggi
       document.getElementById('edit-excerpt').value = '';
       document.getElementById('edit-content').value = '';
       document.getElementById('edit-image').value = '';
-      document.getElementById('btn-notify-email').style.display = 'none'; // Nascondi il tasto notifica per nuovo articolo
+      document.getElementById('btn-notify-email').style.display = 'none'; // per un nuovo articolo l'avviso parte da solo
       const editor = document.getElementById('editor-view');
       editor.style.display = 'block';
       setTimeout(() => {
@@ -392,10 +414,12 @@
       document.getElementById('edit-id').value = art.id;
       document.getElementById('edit-title').value = art.title;
       document.getElementById('edit-category').value = art.category;
+      document.getElementById('edit-date').value = toDateInput(art.published_at || art.created_at);
       document.getElementById('edit-excerpt').value = art.excerpt || '';
       document.getElementById('edit-content').value = art.content;
       document.getElementById('edit-image').value = art.image_url || '';
-      document.getElementById('btn-notify-email').style.display = 'block'; // Mostra il tasto notifica solo in modifica
+      const isFallback = String(art.id).startsWith('f');
+      document.getElementById('btn-notify-email').style.display = isFallback ? 'none' : 'block';
       const editor = document.getElementById('editor-view');
       editor.style.display = 'block';
       setTimeout(() => {
@@ -403,28 +427,58 @@
       }, 50);
     };
 
+    // Data scelta nel campo (alle 9:00 ora locale); se è oggi usa l'ora attuale
+    function publishedAtFromInput() {
+      const v = document.getElementById('edit-date').value;
+      if (!v) return new Date().toISOString();
+      if (v === toDateInput(null)) return new Date().toISOString();
+      return new Date(v + 'T09:00:00').toISOString();
+    }
+
+    // Avvisa gli iscritti di un articolo (l'email la prepara la funzione sul server, leggendo l'articolo dal database)
+    async function notifySubscribers(articleId, force) {
+      const { data, error } = await supabaseClient.functions.invoke('send-email', {
+        body: { action: 'newsletter', articleId, force: !!force }
+      });
+      if (error) {
+        let detail = '';
+        try { detail = (await error.context?.json?.())?.error || ''; } catch (e) {}
+        return { ok: false, message: "Errore nell'invio delle email" + (detail ? ': ' + detail : '.') };
+      }
+      if (data?.alreadyNotified) return { ok: true, message: 'Gli iscritti erano già stati avvisati per questo articolo.' };
+      if (data?.sent === 0 && !data?.failed) return { ok: true, message: 'Nessun iscritto da avvisare.' };
+      let msg = `Email di avviso inviata a ${data?.sent ?? 0} iscritti.`;
+      if (data?.failed) msg += `\n${data.failed} non inviate: finché il dominio non è verificato sul servizio email, le email arrivano solo all'indirizzo di prova.`;
+      return { ok: true, message: msg };
+    }
+
     window.saveArticle = async function () {
       const id = document.getElementById('edit-id').value;
       const articleData = {
-        title: document.getElementById('edit-title').value,
-        category: document.getElementById('edit-category').value,
-        excerpt: document.getElementById('edit-excerpt').value,
+        title: document.getElementById('edit-title').value.trim(),
+        category: document.getElementById('edit-category').value.trim(),
+        published_at: publishedAtFromInput(),
+        excerpt: document.getElementById('edit-excerpt').value.trim(),
         content: document.getElementById('edit-content').value,
-        image_url: document.getElementById('edit-image').value
+        image_url: document.getElementById('edit-image').value.trim() || null
       };
+      if (!articleData.title || !articleData.content) { alert('Titolo e contenuto sono obbligatori.'); return; }
 
-      if (id && !isNaN(id)) {
+      if (id && /^\d+$/.test(id)) {
+        // Modifica di un articolo esistente: nessuna email automatica
         const { error } = await supabaseClient.from('articles').update(articleData).eq('id', id);
-        if (error) alert("Errore nel salvataggio");
+        if (error) { alert("Errore nel salvataggio"); console.error(error); return; }
       } else {
-        const { error } = await supabaseClient.from('articles').insert([articleData]);
-        if (error) alert("Errore nell'inserimento");
+        // Nuovo articolo: si salva e parte l'avviso automatico agli iscritti
+        const { data, error } = await supabaseClient.from('articles').insert([articleData]).select('id').single();
+        if (error) { alert("Errore nell'inserimento"); console.error(error); return; }
+        const res = await notifySubscribers(data.id, false);
+        alert('Articolo pubblicato!\n\n' + res.message);
       }
 
       document.getElementById('editor-view').style.display = 'none';
       fetchArticles();
     };
-
     window.deleteArticle = async function (id) {
       if (confirm("Sei sicuro di voler eliminare questo articolo?")) {
         const { error } = await supabaseClient.from('articles').delete().eq('id', id);
@@ -687,37 +741,18 @@
     };
 
     window.sendNewsletterToAll = async function() {
-      const title = document.getElementById('edit-title').value;
-      const excerpt = document.getElementById('edit-excerpt').value;
-      
-      // Recupera iscritti dal DB
-      const { data: subs, error } = await supabaseClient.from('subscribers').select('email');
-      if (error || !subs || subs.length === 0) {
-        alert("Nessun iscritto trovato a cui inviare l'email.");
-        return;
-      }
-
-      if (!confirm(`Vuoi inviare una notifica email a ${subs.length} pazienti?`)) return;
-
-      // Invia newsletter (via Edge Function: una email separata per ogni iscritto)
-      try {
-        const articleId = document.getElementById('edit-id').value || null;
-        const { data, error: funcError } = await supabaseClient.functions.invoke('send-email', {
-          body: { action: 'newsletter', title, excerpt, articleId }
-        });
-
-        if (!funcError) {
-          alert(`Email inviate con successo a ${data?.sent ?? subs.length} pazienti!`);
-        } else {
-          alert("Errore nell'invio delle email tramite la funzione Supabase.");
-          console.error(funcError);
-        }
-      } catch (e) {
-        alert("Errore tecnico durante l'invio.");
-        console.error(e);
-      }
+      const id = document.getElementById('edit-id').value;
+      if (!/^\d+$/.test(id)) { alert("Salva prima l'articolo."); return; }
+      const art = dbArticles.find(a => a.id == id);
+      const already = art && art.notified_at;
+      const question = already
+        ? `Gli iscritti sono già stati avvisati il ${formatDate(art.notified_at)}. Vuoi inviare di nuovo l'email?`
+        : "Vuoi inviare l'email di avviso di questo articolo a tutti gli iscritti?";
+      if (!confirm(question)) return;
+      const res = await notifySubscribers(Number(id), true);
+      alert(res.message);
+      fetchArticles();
     };
-
     // --- ADMIN: chiamate concluse e link visita ---
     async function renderCallList() {
       const box = document.getElementById('admin-call-list');

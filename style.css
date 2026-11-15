@@ -707,3 +707,9 @@ header, nav, .navbar { max-width: 1200px !important; margin: 0 auto !important; 
 .nl-privacy { font-size: 0.72rem; color: var(--text-light); margin-top: 8px; line-height: 1.5; }
 .nl-privacy a { text-decoration: underline; }
 footer .nl-privacy { color: rgba(255,255,255,0.45); }
+
+/* ── Data di pubblicazione degli articoli ─────────────────── */
+.storia-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; margin-bottom: 12px; }
+.storia-meta .storia-pill { margin-bottom: 0; }
+.storia-date { font-size: 0.75rem; color: var(--text-light); letter-spacing: 0.02em; }
+.article-date { display: block; margin-top: 14px; font-size: 0.85rem; color: var(--text-light); }
