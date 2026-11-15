@@ -44,8 +44,8 @@ html.fx-a footer { background: linear-gradient(180deg, #33291F 0%, #2C2420 40%, 
    gradiente sulle superfici, pulsanti con alone, foto con rilievo.
    --------------------------------------------------------------------- */
 html.fx-b {
-  --shadow-soft: 0 1px 2px rgba(92,64,40,0.04), 0 4px 12px rgba(92,64,40,0.05), 0 18px 40px -12px rgba(92,64,40,0.12);
-  --shadow-lift: 0 2px 4px rgba(92,64,40,0.05), 0 10px 24px rgba(92,64,40,0.08), 0 32px 60px -16px rgba(176,125,85,0.25);
+  --shadow-soft: 0 1px 3px rgba(92,64,40,0.06);
+  --shadow-lift: 0 8px 20px -8px rgba(92,64,40,0.14);
 }
 html.fx-b .step-card,
 html.fx-b .storia-card,
@@ -63,17 +63,17 @@ html.fx-b .step-card, html.fx-b .storia-card, html.fx-b .booking-option-card {
 }
 
 html.fx-b .approccio-photo, html.fx-b .hero-photo-wrap {
-  box-shadow: 0 30px 60px -20px rgba(120,80,50,0.35), 0 12px 24px -12px rgba(120,80,50,0.18);
+  box-shadow: 0 10px 24px -14px rgba(120,80,50,0.18);
 }
 html.fx-b .btn-warm, html.fx-b .btn-submit, html.fx-b .nav-cta {
   background: linear-gradient(135deg, #BC8A61 0%, #A0704A 100%) !important;
-  box-shadow: 0 6px 18px -6px rgba(176,125,85,0.6), inset 0 1px 0 rgba(255,255,255,0.25);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
 }
 html.fx-b .btn-warm:hover, html.fx-b .btn-submit:hover, html.fx-b .nav-cta:hover {
-  box-shadow: 0 10px 26px -6px rgba(176,125,85,0.7), inset 0 1px 0 rgba(255,255,255,0.25);
+  box-shadow: 0 4px 10px -4px rgba(176,125,85,0.35), inset 0 1px 0 rgba(255,255,255,0.2);
 }
-html.fx-b .pill-tag { background: linear-gradient(135deg, #F7EFE4, #EFE3D3); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 6px rgba(92,64,40,0.06); }
-html.fx-b nav { box-shadow: 0 6px 24px -12px rgba(92,64,40,0.18); }
+html.fx-b .pill-tag { background: linear-gradient(135deg, #F7EFE4, #EFE3D3); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); }
+
 html.fx-b .section-inner > .fade-up[style*="var(--bg3)"] { box-shadow: var(--shadow-soft); }
 
 /* ---------------------------------------------------------------------
@@ -166,7 +166,7 @@ html.fx-e .hero-img-col { transform: translate3d(0, calc(var(--hero-p, 0) * 50px
 /* Ombra a riposo: E la fa variare con lo scorrimento, altrimenti B la tiene fissa */
 html.fx-b .fx-card { box-shadow: var(--shadow-soft); }
 html.fx-e .fx-card {
-  box-shadow: 0 calc(6px + var(--sh, 0) * 18px) calc(18px + var(--sh, 0) * 26px) calc(-10px - var(--sh, 0) * 4px) rgba(92,64,40, calc(0.10 + var(--sh, 0) * 0.08));
+  box-shadow: var(--shadow-soft, 0 1px 3px rgba(92,64,40,0.06));
 }
 html.fx-b .fx-card, html.fx-e .fx-card, html.fx-f .fx-card {
   transition: transform 0.45s cubic-bezier(.2,.7,.2,1), box-shadow 0.45s ease, border-color 0.35s ease;
@@ -175,7 +175,7 @@ html.fx-b .fx-card, html.fx-e .fx-card, html.fx-f .fx-card {
 /* Passaggio del mouse: identico per tutte */
 html .fx-card.fx-hover {
   transform: translateY(-6px);
-  box-shadow: 0 2px 4px rgba(92,64,40,0.05), 0 12px 26px rgba(92,64,40,0.09), 0 30px 56px -18px rgba(176,125,85,0.28) !important;
+  box-shadow: 0 8px 20px -8px rgba(92,64,40,0.14) !important;
   border-color: rgba(201,160,122,0.55) !important;
   animation: none !important;                   /* ferma la fluttuazione delle card in home */
 }
