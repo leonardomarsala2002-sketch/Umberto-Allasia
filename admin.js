@@ -171,7 +171,8 @@
         .order('created_at', { ascending: false });
 
       const dbEntries = (!error && data) ? data : [];
-      const fallbackEntries = Object.keys(articles).map(id => ({ id, ...articles[id] }));
+      // Gli articoli di riserva hanno id "f1", "f2"... per non confondersi con quelli del database (1, 2, 3...)
+      const fallbackEntries = Object.keys(articles).map(id => ({ id: 'f' + id, ...articles[id] }));
       
       const dbTitles = dbEntries.map(a => a.title);
       const filteredFallbacks = fallbackEntries.filter(f => !dbTitles.includes(f.title));
@@ -356,14 +357,14 @@
       const list = document.getElementById('admin-article-list');
       list.innerHTML = '<h3>Articoli Esistenti (Database + Backup)</h3>';
       dbArticles.forEach(art => {
-        const isFallback = typeof art.id === 'string' || art.id < 100; // Esempio logico per backup
+        const isFallback = String(art.id).startsWith('f'); // articolo di riserva scritto nel codice
         const item = document.createElement('div');
         item.className = 'admin-list-item';
         item.innerHTML = `
-        <span>${art.title} ${isFallback ? '<small style="opacity:0.5; margin-left:10px;">(Backup)</small>' : ''}</span>
+        <span>${escapeHtml(art.title)} ${isFallback ? '<small style="opacity:0.5; margin-left:10px;">(Backup: salvandolo diventa modificabile)</small>' : ''}</span>
         <div>
-          <span class="admin-btn-edit" onclick="editArticle(${art.id})">Modifica</span>
-          ${!isFallback ? `<span class="admin-btn-delete" onclick="deleteArticle(${art.id})">Elimina</span>` : ''}
+          <span class="admin-btn-edit" onclick="editArticle('${art.id}')">Modifica</span>
+          ${!isFallback ? `<span class="admin-btn-delete" onclick="deleteArticle(${Number(art.id)})">Elimina</span>` : ''}
         </div>
       `;
         list.appendChild(item);

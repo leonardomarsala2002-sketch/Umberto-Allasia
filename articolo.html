@@ -281,24 +281,21 @@
 
       let articleData = null;
 
-      // 1. Tenta di caricare da Supabase
-      try {
-        const { data, error } = await supabaseClient
-          .from('articles')
-          .select('*')
-          .eq('id', id)
-          .maybeSingle();
-
-        if (!error && data) {
-          articleData = data;
+      // Articoli di riserva: id "f1", "f2", "f3" (non vanno cercati nel database)
+      if (/^f\d+$/.test(id)) {
+        articleData = fallbackArticles[id.slice(1)];
+      } else if (/^\d+$/.test(id)) {
+        // 1. Articolo del database
+        try {
+          const { data, error } = await supabaseClient
+            .from('articles')
+            .select('*')
+            .eq('id', id)
+            .maybeSingle();
+          if (!error && data) articleData = data;
+        } catch (e) {
+          console.warn("Database fetch failed.");
         }
-      } catch (e) {
-        console.warn("Database fetch failed, using fallback.");
-      }
-
-      // 2. Se fallisce o non trova l'articolo nel DB, usa fallback
-      if (!articleData) {
-        articleData = fallbackArticles[id];
       }
 
       // 3. Se proprio non c'è, torna alla home
