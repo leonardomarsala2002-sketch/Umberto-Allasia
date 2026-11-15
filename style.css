@@ -8,7 +8,8 @@
 /* RESET */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: default; }
 a, button, [onclick], .storia-card, .close-modal, .archive-close { cursor: pointer !important; }
-.s-body, .modal-body, .admin-inner, .tl-text, p, input, textarea { cursor: text; }
+/* Sui testi resta la freccia; la "I" solo nei campi dove si scrive */
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]), textarea { cursor: text; }
 html.modal-open, body.modal-open { overflow: hidden !important; height: 100% !important; width: 100% !important; position: fixed !important; }
 
 /* VARIABILI */
